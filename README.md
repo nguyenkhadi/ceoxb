@@ -48,4 +48,4 @@ http://localhost:8000
 
 ## Notes
 
-This is a frontend prototype. It uses localStorage, so it does not have real backend security yet. For production, connect it to Supabase/Firebase, Stripe, and a secure messaging service.**
+This is a frontend prototype. It uses localStorage, so it does not have real backend security yet.**
