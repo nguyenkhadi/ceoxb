@@ -1,1 +1,126 @@
 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #292e35;
+    background-color: white;
+}
+
+/* Navigation */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background-color: white;
+}
+
+.logo img {
+    width: 150px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #292e35;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.nav-links a:hover {
+    color: #28618c;
+}
+
+.signup-btn {
+    background-color: #082c50;
+    color: white !important;
+    padding: 12px 22px;
+    border-radius: 25px;
+}
+
+/* Home */
+.hero {
+    background-color: #082c50;
+    color: white;
+    padding: 120px 8%;
+    min-height: 440px;
+}
+
+.hero-content {
+    max-width: 650px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 19px;
+    line-height: 1.7;
+    margin-bottom: 35px;
+}
+
+.main-btn {
+    display: inline-block;
+    background-color: white;
+    color: #082c50;
+    padding: 14px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* About */
+.about {
+    padding: 80px 8%;
+    text-align: center;
+}
+
+.about h2 {
+    font-size: 32px;
+}
+
+.about p {
+    max-width: 700px;
+    margin: 20px auto;
+    line-height: 1.8;
+    color: #606873;
+}
+
+footer {
+    background-color: #082c50;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+@media (max-width: 700px) {
+    .navbar {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .hero {
+        padding: 80px 6%;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+}
+
