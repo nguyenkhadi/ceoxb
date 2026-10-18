@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO XB - Request Access</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.svg" alt="CEO XB">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#about">About</a>
+                <a href="signin.html">Sign In</a>
+                <a href="request-access.html" class="signup-btn">Request Access</a>
+            </div>
+        </nav>
+    </header>
+    <main class="signin-page">
+        <section class="signin-box">
+            <h1>Request access</h1>
+            <p>CEO XB is a private community for CEOs. Tell us a little about yourself.</p>
+            <form id="request-form">
+                <label for="full-name">Full name</label>
+                <input id="full-name" name="full-name" type="text" required>
 
+                <label for="work-email">Work email</label>
+                <input id="work-email" name="work-email" type="email" placeholder="name@company.com" required>
+
+                <label for="company">Company</label>
+                <input id="company" name="company" type="text" required>
+
+                <label for="role">Your role</label>
+                <input id="role" name="role" type="text" placeholder="CEO / Founder" required>
+
+                <label for="reason">Why would you like to join?</label>
+                <textarea id="reason" name="reason" rows="4" required></textarea>
+
+                <button type="submit" class="signin-button">Request Access</button>
+                <p id="request-message" class="signin-message" role="status"></p>
+            </form>
+            <p class="signin-note">Already invited? <a href="signup.html">Create an account</a></p>
+        </section>
+    </main>
+    <footer><p>CEO XB</p></footer>
+    <script src="script.js"></script>
+</body>
+</html>
