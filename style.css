@@ -228,3 +228,141 @@ footer {
 }
 
 
+/* Dashboard */
+.dashboard {
+    background-color: #f3f6fa;
+    padding: 50px 8%;
+    min-height: 100vh;
+}
+
+.dashboard-header {
+    margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+    color: #082c50;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.dashboard-header p {
+    color: #606873;
+    font-size: 17px;
+}
+
+.dashboard-banner {
+    background-color: #082c50;
+    color: white;
+    padding: 45px;
+    border-radius: 14px;
+    margin-bottom: 45px;
+}
+
+.dashboard-banner h2 {
+    font-size: 30px;
+    margin-top: 0;
+}
+
+.dashboard-banner p {
+    line-height: 1.7;
+    max-width: 600px;
+    margin-bottom: 25px;
+}
+
+.dashboard-section {
+    margin-bottom: 45px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-heading h2 {
+    color: #082c50;
+    font-size: 26px;
+}
+
+.section-heading a {
+    color: #28618c;
+    text-decoration: none;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.dashboard-card {
+    background-color: white;
+    border: 1px solid #e2e7ee;
+    border-radius: 12px;
+    padding: 28px;
+}
+
+.dashboard-card h3 {
+    color: #082c50;
+    font-size: 20px;
+    margin: 15px 0;
+}
+
+.dashboard-card p {
+    color: #606873;
+    line-height: 1.6;
+}
+
+.card-label {
+    color: #28618c;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.card-link {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 11px 20px;
+    border-radius: 25px;
+    background-color: #082c50;
+    color: white;
+    text-decoration: none;
+}
+
+.card-link:hover {
+    background-color: #28618c;
+}
+
+.progress-bar {
+    height: 10px;
+    background-color: #e2e7ee;
+    border-radius: 10px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 100%;
+    background-color: #28618c;
+}
+
+@media (max-width: 700px) {
+    .dashboard {
+        padding: 30px 6%;
+    }
+
+    .dashboard-header h1 {
+        font-size: 28px;
+    }
+
+    .dashboard-banner {
+        padding: 25px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
