@@ -1,5 +1,5 @@
 //demo 
-
+const signinForm = document.getElementById("signin-form");
 if (signinForm) {
     signinForm.addEventListener("submit", function(event) {
         event.preventDefault();
