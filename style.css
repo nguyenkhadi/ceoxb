@@ -124,3 +124,107 @@ footer {
     }
 }
 
+/* Sign In */
+.signin-page {
+    min-height: 650px;
+    padding: 75px 20px;
+    background-color: #f3f6fa;
+}
+
+.signin-box {
+    background-color: white;
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 40px;
+    border: 1px solid #e2e7ee;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(8, 44, 80, 0.06);
+}
+
+.signin-box h1 {
+    color: #082c50;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.signin-box p {
+    color: #606873;
+    line-height: 1.5;
+}
+
+.signin-box form {
+    margin-top: 30px;
+}
+
+.signin-box label {
+    display: block;
+    margin: 18px 0 8px;
+    font-weight: bold;
+}
+
+.signin-box input {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #bfc9d4;
+    border-radius: 7px;
+    font: inherit;
+}
+
+.signin-box input:focus {
+    outline: 2px solid #28618c;
+    outline-offset: 1px;
+}
+
+.signin-button {
+    width: 100%;
+    margin-top: 26px;
+    padding: 14px;
+    border: none;
+    border-radius: 25px;
+    background: #082c50;
+    color: white;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.signin-button:hover {
+    background-color: #28618c;
+}
+
+.signin-box .signin-message {
+    color: #28618c;
+    font-size: 14px;
+}
+
+.signin-box .signin-note {
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+.signin-box > a {
+    color: #28618c;
+}
+
+
+/* Account forms */
+.signin-box textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #bfc9d4;
+    border-radius: 7px;
+    font: inherit;
+    resize: vertical;
+}
+
+.signin-box textarea:focus {
+    outline: 2px solid #28618c;
+    outline-offset: 1px;
+}
+
+.signin-box p a {
+    color: #28618c;
+}
+
+
