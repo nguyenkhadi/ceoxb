@@ -1,10 +1,11 @@
-//demo 
+// Demo 
 const signinForm = document.getElementById("signin-form");
+
 if (signinForm) {
     signinForm.addEventListener("submit", function(event) {
         event.preventDefault();
-        document.getElementById("signin-message").textContent =
-            "Demo only: sign-in will be connected in a later step.";
+        sessionStorage.setItem("signedIn", "yes");
+        window.location.href = "dashboard.html";
     });
 }
 
@@ -34,5 +35,24 @@ if (signupForm) {
             message.textContent =
                 "Design demo only. No account has been created.";
         }
+    });
+}
+
+// Dashboard access
+if (window.location.pathname.endsWith("/dashboard.html")) {
+    if (sessionStorage.getItem("signedIn") !== "yes") {
+        window.location.replace("signin.html");
+    }
+}
+
+// Sign out
+const signout = document.getElementById("signout");
+
+if (signout) {
+    signout.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        sessionStorage.removeItem("signedIn");
+        window.location.href = "index.html";
     });
 }
