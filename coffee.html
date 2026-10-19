@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO XB - Coffee Chats</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="dashboard.html" class="logo">
+                <img src="assets/logo.svg" alt="CEO XB">
+            </a>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="learn.html">Learn</a>
+                <a href="connect.html">Connect</a>
+                <a href="coffee.html" aria-current="page">Coffee Chats</a>
+                <a href="#">Discuss</a>
+                <a href="#" id="signout">Sign Out</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard">
+        <section class="dashboard-header">
+            <h1>Coffee Chats</h1>
+            <p>Meet other CEOs and share ideas over a one-on-one chat.</p>
+        </section>
+
+        <div class="coffee-layout">
+            <section class="dashboard-card">
+                <h2>Request a Coffee Chat</h2>
+                <p>Choose a member and suggest a time to meet.</p>
+                <form id="coffee-form" class="coffee-form">
+                    <label for="coffee-member">Member</label>
+                    <select id="coffee-member" required>
+                        <option value="">Select a member</option>
+                        <option>Julie Chen</option>
+                        <option>Sid Mayer</option>
+                        <option>Joachim Becker</option>
+                        <option>Alex Rivera</option>
+                    </select>
+
+                    <label for="coffee-date">Date</label>
+                    <input type="date" id="coffee-date" required>
+
+                    <label for="coffee-time">Time</label>
+                    <input type="time" id="coffee-time" required>
+
+                    <label for="coffee-message">Message (optional)</label>
+                    <textarea id="coffee-message" rows="4"
+                              placeholder="What would you like to talk about?"></textarea>
+
+                    <button type="submit" class="signin-button">Request Coffee Chat</button>
+                    <p id="coffee-result" role="status" class="learn-note"></p>
+                </form>
+            </section>
+
+            <section class="dashboard-card">
+                <h2>Why Coffee Chats?</h2>
+                <p>Connect with other members of your CEO XB community.</p>
+                <p>Share business experiences, discuss challenges, and learn from peers.</p>
+                <a class="card-link" href="connect.html">Browse Members</a>
+                <p class="learn-note">This is a design demo. Requests are not sent or saved.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer><p>CEO XB</p></footer>
+    <script src="script.js"></script>
+</body>
+</html>
