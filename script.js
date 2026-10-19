@@ -41,7 +41,7 @@ if (signupForm) {
 // Member page access
 const pageName = window.location.pathname.split("/").pop();
 
-if (pageName === "dashboard.html" || pageName === "learn.html") {
+if (pageName === "dashboard.html" || pageName === "learn.html" || pageName === "connect.html") {
     if (sessionStorage.getItem("signedIn") !== "yes") {
         window.location.replace("signin.html");
     }
@@ -58,3 +58,30 @@ if (signout) {
         window.location.href = "index.html";
     });
 }
+
+// Filter members
+const memberSearch = document.getElementById("member-search");
+
+if (memberSearch) {
+    memberSearch.addEventListener("input", function() {
+        const searchText = memberSearch.value.toLowerCase().trim();
+        const members = document.querySelectorAll(".member-card");
+        let visibleCount = 0;
+
+        members.forEach(function(member) {
+            const matches = member.dataset.search.includes(searchText);
+
+            member.hidden = !matches;
+
+            if (matches) {
+                visibleCount++;
+            }
+        });
+
+        document.getElementById("member-count").textContent =
+            visibleCount + (visibleCount === 1 ? " member" : " members");
+
+        document.getElementById("no-members").hidden = visibleCount > 0;
+    });
+}
+
