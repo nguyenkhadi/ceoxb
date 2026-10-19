@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO XB - Connect</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="dashboard.html" class="logo">
+                <img src="assets/logo.svg" alt="CEO XB">
+            </a>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="learn.html">Learn</a>
+                <a href="connect.html" aria-current="page">Connect</a>
+                <a href="#">Coffee Chats</a>
+                <a href="#">Discuss</a>
+                <a href="#" id="signout">Sign Out</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard">
+        <section class="dashboard-header">
+            <h1>Connect with Members</h1>
+            <p>Get to know other CEOs in the community.</p>
+        </section>
+
+        <section class="connect-search">
+            <label for="member-search">Find a member</label>
+            <input type="search" id="member-search"
+                   placeholder="Search by name, company, or location">
+        </section>
+
+        <section class="dashboard-section">
+            <div class="section-heading">
+                <h2>Member Directory</h2>
+                <span id="member-count">4 members</span>
+            </div>
+            <div class="dashboard-grid" id="member-list">
+                <article class="dashboard-card member-card" data-search="julie chen nova health san francisco">
+                    <div class="member-avatar">JC</div>
+                    <h3>Julie Chen</h3>
+                    <p class="member-role">CEO at Nova Health</p>
+                    <p>San Francisco, CA</p>
+                    <p>Interested in healthcare innovation and partnerships.</p>
+                    <span class="member-tag">Healthcare</span>
+                    <p class="member-note">Coffee chat requests coming soon</p>
+                </article>
+
+                <article class="dashboard-card member-card" data-search="sid mayer peak biomedical vienna">
+                    <div class="member-avatar">SM</div>
+                    <h3>Sid Mayer</h3>
+                    <p class="member-role">CEO at Peak Biomedical</p>
+                    <p>Vienna, Austria</p>
+                    <p>Working on growth and U.S. market entry.</p>
+                    <span class="member-tag">Biotech</span>
+                    <p class="member-note">Coffee chat requests coming soon</p>
+                </article>
+
+                <article class="dashboard-card member-card" data-search="joachim becker xeras bonus berlin">
+                    <div class="member-avatar">JB</div>
+                    <h3>Joachim Becker</h3>
+                    <p class="member-role">CEO at Xeras Bonus</p>
+                    <p>Berlin, Germany</p>
+                    <p>Interested in fundraising and business strategy.</p>
+                    <span class="member-tag">Life Sciences</span>
+                    <p class="member-note">Coffee chat requests coming soon</p>
+                </article>
+
+                <article class="dashboard-card member-card" data-search="alex rivera medbridge boston">
+                    <div class="member-avatar">AR</div>
+                    <h3>Alex Rivera</h3>
+                    <p class="member-role">Founder at MedBridge</p>
+                    <p>Boston, MA</p>
+                    <p>Building connections with other founders.</p>
+                    <span class="member-tag">MedTech</span>
+                    <p class="member-note">Coffee chat requests coming soon</p>
+                </article>
+            </div>
+            <p id="no-members" class="learn-note" hidden>No members found.</p>
+            <p class="learn-note">Sample profiles for UI/UX testing only.</p>
+        </section>
+    </main>
+
+    <footer><p>CEO XB</p></footer>
+    <script src="script.js"></script>
+</body>
+</html>
