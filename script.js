@@ -1,4 +1,3 @@
-// Demo 
 const signinForm = document.getElementById("signin-form");
 
 if (signinForm) {
@@ -41,7 +40,8 @@ if (signupForm) {
 // Member page access
 const pageName = window.location.pathname.split("/").pop();
 
-if (pageName === "dashboard.html" || pageName === "learn.html" || pageName === "connect.html") {
+if (pageName === "dashboard.html" || pageName === "learn.html" ||
+        pageName === "connect.html" || pageName === "coffee.html") {
     if (sessionStorage.getItem("signedIn") !== "yes") {
         window.location.replace("signin.html");
     }
@@ -85,3 +85,13 @@ if (memberSearch) {
     });
 }
 
+// Coffee chat form demo
+const coffeeForm = document.getElementById("coffee-form");
+
+if (coffeeForm) {
+    coffeeForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        document.getElementById("coffee-result").textContent =
+            "Demo only. Your coffee chat request has not been sent.";
+    });
+}
