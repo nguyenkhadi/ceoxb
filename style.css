@@ -497,3 +497,37 @@ footer {
     display: none;
 }
 
+/* Coffee Chats */
+.coffee-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.coffee-form label {
+    display: block;
+    margin: 20px 0 8px;
+    font-weight: bold;
+}
+
+.coffee-form input,
+.coffee-form select,
+.coffee-form textarea {
+    width: 100%;
+    padding: 12px;
+    font: inherit;
+    border: 1px solid #bfc9d4;
+    border-radius: 7px;
+}
+
+.coffee-form input:focus,
+.coffee-form select:focus,
+.coffee-form textarea:focus {
+    outline: 2px solid #28618c;
+}
+
+@media (max-width: 700px) {
+    .coffee-layout {
+        grid-template-columns: 1fr;
+    }
+}
