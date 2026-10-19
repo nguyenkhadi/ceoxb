@@ -38,8 +38,10 @@ if (signupForm) {
     });
 }
 
-// Dashboard access
-if (window.location.pathname.endsWith("/dashboard.html")) {
+// Member page access
+const pageName = window.location.pathname.split("/").pop();
+
+if (pageName === "dashboard.html" || pageName === "learn.html") {
     if (sessionStorage.getItem("signedIn") !== "yes") {
         window.location.replace("signin.html");
     }
