@@ -433,3 +433,67 @@ footer {
         text-align: left;
     }
 }
+
+
+/* Connect page */
+.connect-search {
+    background-color: white;
+    border: 1px solid #e2e7ee;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 35px;
+}
+
+.connect-search label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #082c50;
+}
+
+.connect-search input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #bfc9d4;
+    border-radius: 7px;
+    font: inherit;
+}
+
+.connect-search input:focus {
+    outline: 2px solid #28618c;
+}
+
+.member-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #e7f1f8;
+    color: #082c50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.member-role {
+    font-weight: bold;
+}
+
+.member-tag {
+    display: inline-block;
+    border-radius: 16px;
+    background-color: #e7f1f8;
+    color: #082c50;
+    padding: 7px 12px;
+    font-size: 13px;
+}
+
+.member-note {
+    font-size: 13px;
+}
+
+.member-card[hidden] {
+    display: none;
+}
+
