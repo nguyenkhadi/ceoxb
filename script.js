@@ -41,7 +41,8 @@ if (signupForm) {
 const pageName = window.location.pathname.split("/").pop();
 
 if (pageName === "dashboard.html" || pageName === "learn.html" ||
-        pageName === "connect.html" || pageName === "coffee.html" || pageName === "discuss.html") {
+        pageName === "connect.html" || pageName === "coffee.html" || 
+        pageName === "discuss.html"|| pageName === "profile.html") {
     if (sessionStorage.getItem("signedIn") !== "yes") {
         window.location.replace("signin.html");
     }
@@ -130,3 +131,51 @@ if (discussionForm) {
         discussionForm.reset();
     });
 }
+
+
+// Profile demo
+const profileForm = document.getElementById("profile-form");
+
+if (profileForm) {
+    const fields = ["name", "role", "company", "location", "about", "interests"];
+
+    function showProfile() {
+        const name = document.getElementById("edit-name").value.trim();
+        const role = document.getElementById("edit-role").value.trim();
+        const company = document.getElementById("edit-company").value.trim();
+        const location = document.getElementById("edit-location").value.trim();
+        const about = document.getElementById("edit-about").value.trim();
+        const interests = document.getElementById("edit-interests").value.trim();
+
+        document.getElementById("profile-name").textContent = name || "Your name";
+        document.getElementById("profile-role").textContent =
+            [role, company].filter(Boolean).join(" at ") || "Role and company not added";
+        document.getElementById("profile-location").textContent = location || "Location not added";
+        document.getElementById("profile-about").textContent = about || "No bio added yet.";
+        document.getElementById("profile-interests").textContent = interests || "No interests added yet.";
+    }
+
+    fields.forEach(function(field) {
+        const saved = sessionStorage.getItem("profile-" + field);
+        if (saved) {
+            document.getElementById("edit-" + field).value = saved;
+        }
+    });
+
+    showProfile();
+
+    profileForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        fields.forEach(function(field) {
+            sessionStorage.setItem("profile-" + field,
+                document.getElementById("edit-" + field).value);
+        });
+
+        showProfile();
+
+        document.getElementById("profile-result").textContent =
+            "Demo profile saved in this browser tab only.";
+    });
+}
+
