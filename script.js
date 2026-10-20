@@ -41,7 +41,7 @@ if (signupForm) {
 const pageName = window.location.pathname.split("/").pop();
 
 if (pageName === "dashboard.html" || pageName === "learn.html" ||
-        pageName === "connect.html" || pageName === "coffee.html") {
+        pageName === "connect.html" || pageName === "coffee.html" || pageName === "discuss.html") {
     if (sessionStorage.getItem("signedIn") !== "yes") {
         window.location.replace("signin.html");
     }
