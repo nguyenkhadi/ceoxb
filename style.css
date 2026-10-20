@@ -531,3 +531,33 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* Discuss page */
+.discussion-form label {
+    display: block;
+    margin: 20px 0 8px;
+    font-weight: bold;
+}
+
+.discussion-form input,
+.discussion-form select,
+.discussion-form textarea {
+    width: 100%;
+    padding: 12px;
+    font: inherit;
+    border: 1px solid #bfc9d4;
+    border-radius: 7px;
+}
+
+.discussion-form input:focus,
+.discussion-form select:focus,
+.discussion-form textarea:focus {
+    outline: 2px solid #28618c;
+}
+
+.discussion-list {
+    display: grid;
+    gap: 20px;
+}
+
