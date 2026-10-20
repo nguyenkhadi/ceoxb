@@ -561,3 +561,32 @@ footer {
     gap: 20px;
 }
 
+
+/* Profile page */
+.profile-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-form label {
+    display: block;
+    margin: 18px 0 8px;
+    font-weight: bold;
+}
+
+.profile-form input,
+.profile-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #bfc9d4;
+    border-radius: 7px;
+    font: inherit;
+}
+
+@media (max-width: 700px) {
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
+}
