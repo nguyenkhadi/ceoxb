@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO XB - Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="dashboard.html" class="logo"><img src="assets/logo.svg" alt="CEO XB"></a>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="learn.html">Learn</a>
+                <a href="connect.html">Connect</a>
+                <a href="coffee.html">Coffee Chats</a>
+                <a href="discuss.html">Discuss</a>
+                <a href="profile.html" aria-current="page">Profile</a>
+                <a href="#" id="signout">Sign Out</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard">
+        <section class="dashboard-header">
+            <h1>My Profile</h1>
+            <p>Add details about yourself and your business.</p>
+        </section>
+
+        <div class="profile-layout">
+            <section class="dashboard-card">
+                <h2>Profile Preview</h2>
+                <h3 id="profile-name">Your name</h3>
+                <p id="profile-role">Role and company not added</p>
+                <p id="profile-location">Location not added</p>
+                <h3>About</h3>
+                <p id="profile-about">No bio added yet.</p>
+                <h3>Interests</h3>
+                <p id="profile-interests">No interests added yet.</p>
+            </section>
+
+            <section class="dashboard-card">
+                <h2>Edit Profile</h2>
+                <form id="profile-form" class="profile-form">
+                    <label for="edit-name">Full Name</label>
+                    <input type="text" id="edit-name" maxlength="80" required>
+
+                    <label for="edit-role">Role</label>
+                    <input type="text" id="edit-role" placeholder="CEO / Founder" maxlength="80">
+
+                    <label for="edit-company">Company</label>
+                    <input type="text" id="edit-company" maxlength="100">
+
+                    <label for="edit-location">Location</label>
+                    <input type="text" id="edit-location" maxlength="100">
+
+                    <label for="edit-about">About Me</label>
+                    <textarea id="edit-about" rows="4" maxlength="500"></textarea>
+
+                    <label for="edit-interests">Interests</label>
+                    <input type="text" id="edit-interests" placeholder="Topics you'd like to connect about" maxlength="200">
+
+                    <button type="submit" class="signin-button">Save Profile</button>
+                    <p id="profile-result" class="learn-note" role="status"></p>
+                </form>
+            </section>
+        </div>
+        <p class="learn-note">Frontend demo only. Changes are saved in this browser tab, not to a server or member directory.</p>
+    </main>
+
+    <footer><p>CEO XB</p></footer>
+    <script src="script.js"></script>
+</body>
+</html>
