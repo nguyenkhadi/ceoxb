@@ -122,6 +122,7 @@ if (discussionForm) {
         post.append(heading, topicText, messageText);
 
         document.getElementById("discussion-list").prepend(post);
+        document.getElementById("no-discussions").hidden = true;
 
         document.getElementById("discussion-result").textContent =
             "Demo post added. It has not been saved or shared.";
