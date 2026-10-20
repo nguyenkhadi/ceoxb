@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO XB - Discuss</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="dashboard.html" class="logo">
+                <img src="assets/logo.svg" alt="CEO XB">
+            </a>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="learn.html">Learn</a>
+                <a href="connect.html">Connect</a>
+                <a href="coffee.html">Coffee Chats</a>
+                <a href="discuss.html" aria-current="page">Discuss</a>
+                <a href="#" id="signout">Sign Out</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard">
+        <section class="dashboard-header">
+            <h1>Community Discussions</h1>
+            <p>Share ideas, ask questions, and learn from other CEOs.</p>
+        </section>
+
+        <section class="dashboard-section">
+            <div class="dashboard-card">
+                <h2>Start a Discussion</h2>
+                <form id="discussion-form" class="discussion-form">
+                    <label for="discussion-title">Title</label>
+                    <input id="discussion-title" type="text" placeholder="What would you like to discuss?" maxlength="100" required>
+                    <label for="discussion-topic">Topic</label>
+                    <select id="discussion-topic" required>
+                        <option value="">Select a topic</option>
+                        <option>Business Strategy</option>
+                        <option>Leadership</option>
+                        <option>Funding</option>
+                        <option>Networking</option>
+                    </select>
+                    <label for="discussion-message">Message</label>
+                    <textarea id="discussion-message" rows="4" placeholder="Share your question or idea" required></textarea>
+                    <button type="submit" class="signin-button">Post Discussion</button>
+                    <p id="discussion-result" class="learn-note" role="status"></p>
+                </form>
+            </div>
+        </section>
+
+        <section class="dashboard-section">
+            <div class="section-heading"><h2>Recent Discussions</h2></div>
+            <div id="discussion-list" class="discussion-list">
+                <article class="dashboard-card">
+                    <span class="card-label">Business Strategy</span>
+                    <h3>What helped you expand into a new market?</h3>
+                    <p>Julie Chen · Nova Health</p>
+                    <p>I'd love to hear how others approached their first partnerships.</p>
+                </article>
+                <article class="dashboard-card">
+                    <span class="card-label">Leadership</span>
+                    <h3>Building a team while growing quickly</h3>
+                    <p>Sid Mayer · Peak Biomedical</p>
+                    <p>What has worked best for keeping a small team aligned?</p>
+                </article>
+                <article class="dashboard-card">
+                    <span class="card-label">Funding</span>
+                    <h3>Preparing for investor conversations</h3>
+                    <p>Joachim Becker · Xeras Bonus</p>
+                    <p>Which questions do you prepare for before a first meeting?</p>
+                </article>
+            </div>
+            <p class="learn-note">Sample discussions. New posts appear only in this browser view and are not saved or shared.</p>
+        </section>
+    </main>
+    <footer><p>CEO XB</p></footer>
+    <script src="script.js"></script>
+</body>
+</html>
