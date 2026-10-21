@@ -37,7 +37,7 @@
                 <form id="coffee-form" class="coffee-form">
                     <label for="coffee-member">Member</label>
                     <select id="coffee-member" required disabled>
-                        <option value="">No members available</option>
+                        <option value="">Select a member</option>
                     </select>
 
                     <label for="coffee-date">Date</label>
@@ -50,7 +50,9 @@
                     <textarea id="coffee-message" rows="4"
                               placeholder="What would you like to talk about?"></textarea>
 
-                    <button type="submit" class="signin-button" disabled>Request Coffee Chat</button>
+                    <button type="submit" id="coffee-submit" class="signin-button" disabled>
+                        Request Coffee Chat
+                    </button>
                     <p id="coffee-result" role="status" class="learn-note"></p>
                 </form>
             </section>
