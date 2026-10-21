@@ -635,3 +635,45 @@ footer {
 .profile-preview-card [hidden] {
     display: none !important;
 }
+
+/* Member directory cards */
+.member-card {
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.member-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(8, 44, 80, 0.1);
+}
+
+.member-picture {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #e7f1f8;
+    display: block;
+    margin: 0 auto 15px;
+}
+
+.member-card h3 {
+    color: #082c50;
+    margin-bottom: 8px;
+}
+
+.member-card .member-role {
+    font-weight: bold;
+    color: #28618c;
+}
+
+.member-card p {
+    margin: 8px 0;
+}
+
+/* Hide filtered members */
+.member-card[hidden],
+#no-search-results[hidden],
+#no-members[hidden] {
+    display: none !important;
+}
