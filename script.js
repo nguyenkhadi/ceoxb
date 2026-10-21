@@ -86,7 +86,6 @@ if (memberSearch) {
             return;
         }
 
-        // Create member card
         const card = document.createElement("div");
         card.className = "dashboard-card member-card";
 
@@ -95,19 +94,16 @@ if (memberSearch) {
                 .join(" ")
                 .toLowerCase();
 
-        // Profile picture
         const image = document.createElement("img");
         image.src = picture;
         image.alt = name + "'s profile picture";
         image.className = "member-picture";
         card.appendChild(image);
 
-        // Member name
         const heading = document.createElement("h3");
         heading.textContent = name;
         card.appendChild(heading);
 
-        // Role and company
         if (role || company) {
             const roleText = document.createElement("p");
             roleText.className = "member-role";
@@ -115,15 +111,13 @@ if (memberSearch) {
                 [role, company].filter(Boolean).join(" at ");
             card.appendChild(roleText);
         }
-
-        // Location
+        
         if (location) {
             const locationText = document.createElement("p");
             locationText.textContent = location;
             card.appendChild(locationText);
         }
 
-        // Interests
         if (interests) {
             const interestText = document.createElement("p");
             interestText.textContent = "Interests: " + interests;
@@ -133,10 +127,8 @@ if (memberSearch) {
         memberList.appendChild(card);
     }
 
-    // Display saved member
     addMember();
 
-    // Filter displayed members
     function filterMembers() {
         const searchText = memberSearch.value.toLowerCase().trim();
         const members = document.querySelectorAll(".member-card");
@@ -169,14 +161,56 @@ if (memberSearch) {
     memberSearch.addEventListener("input", filterMembers);
 }
 
-// Coffee chat form demo
+// Coffee chat
 const coffeeForm = document.getElementById("coffee-form");
 
 if (coffeeForm) {
+    const memberSelect = document.getElementById("coffee-member");
+    const submitButton = document.getElementById("coffee-submit");
+    const coffeeResult = document.getElementById("coffee-result");
+    const dateInput = document.getElementById("coffee-date");
+    const memberName = sessionStorage.getItem("profile-name");
+    const memberPicture = sessionStorage.getItem("profile-picture");
+
+    if (memberName && memberPicture) {
+        const option = document.createElement("option");
+        option.value = memberName;
+        option.textContent = memberName;
+
+        memberSelect.appendChild(option);
+        memberSelect.disabled = false;
+    }
+
+    // Enable the button when a member is selected
+    memberSelect.addEventListener("change", function() {
+        submitButton.disabled = !memberSelect.value;
+    });
+
+    // Prevent selecting dates in the past
+    const today = new Date();
+    const localToday = [
+        today.getFullYear(),
+        String(today.getMonth() + 1).padStart(2, "0"),
+        String(today.getDate()).padStart(2, "0")
+    ].join("-");
+
+    dateInput.min = localToday;
+    
     coffeeForm.addEventListener("submit", function(event) {
         event.preventDefault();
-        document.getElementById("coffee-result").textContent =
-            "Demo only. Your coffee chat request has not been sent.";
+
+        if (!memberSelect.value) {
+            coffeeResult.textContent = "Please select a member.";
+            return;
+        }
+
+        coffeeResult.textContent =
+            "Coffee chat request prepared for " +
+            memberSelect.value +
+            ". No invitation has been sent.";
+
+        coffeeForm.reset();
+        submitButton.disabled = true;
     });
 }
 
@@ -229,7 +263,6 @@ if (profileForm) {
     const picturePreview = document.getElementById("profile-picture-preview");
     const profileResult = document.getElementById("profile-result");
 
-    // Show text only when the user has entered something
     function updateText(id, value) {
         const element = document.getElementById(id);
 
@@ -261,7 +294,6 @@ if (profileForm) {
         document.getElementById("profile-interests-section").hidden = !interests;
     }
 
-    // Load previously saved profile information
     fields.forEach(function(field) {
         const saved = sessionStorage.getItem("profile-" + field);
 
@@ -270,7 +302,6 @@ if (profileForm) {
         }
     });
 
-    // Load previously saved profile picture
     const savedPicture = sessionStorage.getItem("profile-picture");
 
     if (savedPicture) {
@@ -281,7 +312,6 @@ if (profileForm) {
 
     showProfile();
 
-    // Preview selected picture before saving
     pictureInput.addEventListener("change", function() {
         const file = pictureInput.files[0];
 
