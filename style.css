@@ -590,3 +590,48 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* Profile picture */
+.profile-preview-card {
+    text-align: center;
+}
+
+.profile-picture-preview {
+    margin: 20px auto;
+}
+
+#profile-picture-preview {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #e7f1f8;
+    margin: 0 auto;
+}
+
+#profile-name {
+    color: #082c50;
+    font-size: 24px;
+    margin-top: 15px;
+}
+
+.profile-preview-card p {
+    text-align: center;
+}
+
+.profile-hint {
+    font-size: 13px;
+    color: #606873;
+    margin-top: 5px;
+}
+
+#edit-picture {
+    padding: 12px;
+    background-color: #f3f6fa;
+    cursor: pointer;
+}
+
+/* Hide empty profile information */
+.profile-preview-card [hidden] {
+    display: none !important;
+}
