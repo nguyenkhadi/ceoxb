@@ -60,13 +60,87 @@ if (signout) {
     });
 }
 
-// Filter members
+// Member directory
 const memberSearch = document.getElementById("member-search");
 
 if (memberSearch) {
-    memberSearch.addEventListener("input", function() {
+    const memberList = document.getElementById("member-list");
+    const memberCount = document.getElementById("member-count");
+    const noMembers = document.getElementById("no-members");
+    const noResults = document.getElementById("no-search-results");
+
+    // Get saved profile information
+    function getProfile(field) {
+        return sessionStorage.getItem("profile-" + field) || "";
+    }
+
+    function addMember() {
+        const name = getProfile("name").trim();
+        const role = getProfile("role").trim();
+        const company = getProfile("company").trim();
+        const location = getProfile("location").trim();
+        const interests = getProfile("interests").trim();
+        const picture = sessionStorage.getItem("profile-picture");
+
+        if (!name || !picture) {
+            return;
+        }
+
+        // Create member card
+        const card = document.createElement("div");
+        card.className = "dashboard-card member-card";
+
+        card.dataset.search =
+            [name, role, company, location, interests]
+                .join(" ")
+                .toLowerCase();
+
+        // Profile picture
+        const image = document.createElement("img");
+        image.src = picture;
+        image.alt = name + "'s profile picture";
+        image.className = "member-picture";
+        card.appendChild(image);
+
+        // Member name
+        const heading = document.createElement("h3");
+        heading.textContent = name;
+        card.appendChild(heading);
+
+        // Role and company
+        if (role || company) {
+            const roleText = document.createElement("p");
+            roleText.className = "member-role";
+            roleText.textContent =
+                [role, company].filter(Boolean).join(" at ");
+            card.appendChild(roleText);
+        }
+
+        // Location
+        if (location) {
+            const locationText = document.createElement("p");
+            locationText.textContent = location;
+            card.appendChild(locationText);
+        }
+
+        // Interests
+        if (interests) {
+            const interestText = document.createElement("p");
+            interestText.textContent = "Interests: " + interests;
+            card.appendChild(interestText);
+        }
+
+        memberList.appendChild(card);
+    }
+
+    // Display saved member
+    addMember();
+
+    // Filter displayed members
+    function filterMembers() {
         const searchText = memberSearch.value.toLowerCase().trim();
         const members = document.querySelectorAll(".member-card");
+
         let visibleCount = 0;
 
         members.forEach(function(member) {
@@ -79,11 +153,20 @@ if (memberSearch) {
             }
         });
 
-        document.getElementById("member-count").textContent =
+        memberCount.textContent =
             visibleCount + (visibleCount === 1 ? " member" : " members");
 
-        document.getElementById("no-members").hidden = visibleCount > 0;
-    });
+        noMembers.hidden = true;
+
+        if (noResults) {
+            noResults.hidden =
+                visibleCount > 0 || members.length === 0 || !searchText;
+        }
+    }
+
+    filterMembers();
+
+    memberSearch.addEventListener("input", filterMembers);
 }
 
 // Coffee chat form demo
