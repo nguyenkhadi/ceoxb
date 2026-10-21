@@ -30,21 +30,44 @@
             <p>Add details about yourself and your business.</p>
         </section>
 
-        <div class="profile-layout">
-            <section class="dashboard-card">
+            <section class="dashboard-card profile-preview-card">
                 <h2>Profile Preview</h2>
-                <h3 id="profile-name">Your name</h3>
-                <p id="profile-role">Role and company not added</p>
-                <p id="profile-location">Location not added</p>
-                <h3>About</h3>
-                <p id="profile-about">No bio added yet.</p>
-                <h3>Interests</h3>
-                <p id="profile-interests">No interests added yet.</p>
+            
+                <div class="profile-picture-preview">
+                    <img id="profile-picture-preview"
+                         alt="Profile picture"
+                         hidden>
+                </div>
+            
+                <h3 id="profile-name">Your Name</h3>
+            
+                <p id="profile-role" hidden></p>
+                <p id="profile-location" hidden></p>
+            
+                <div id="profile-about-section" hidden>
+                    <h3>About</h3>
+                    <p id="profile-about"></p>
+                </div>
+            
+                <div id="profile-interests-section" hidden>
+                    <h3>Interests</h3>
+                    <p id="profile-interests"></p>
+                </div>
             </section>
 
             <section class="dashboard-card">
                 <h2>Edit Profile</h2>
                 <form id="profile-form" class="profile-form">
+                    <label for="edit-picture">Profile Picture *</label>
+                    <input type="file"
+                           id="edit-picture"
+                           accept="image/png, image/jpeg, image/webp"
+                           required>
+                
+                    <p class="profile-hint">
+                        Upload a JPG, PNG, or WebP image (max 2 MB).
+                    </p>
+                    
                     <label for="edit-name">Full Name</label>
                     <input type="text" id="edit-name" maxlength="80" required>
 
