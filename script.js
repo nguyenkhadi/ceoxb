@@ -133,11 +133,26 @@ if (discussionForm) {
 }
 
 
-// Profile demo
+// Profile functionality
 const profileForm = document.getElementById("profile-form");
 
 if (profileForm) {
-    const fields = ["name", "role", "company", "location", "about", "interests"];
+    const fields = [
+        "name", "role", "company",
+        "location", "about", "interests"
+    ];
+
+    const pictureInput = document.getElementById("edit-picture");
+    const picturePreview = document.getElementById("profile-picture-preview");
+    const profileResult = document.getElementById("profile-result");
+
+    // Show text only when the user has entered something
+    function updateText(id, value) {
+        const element = document.getElementById(id);
+
+        element.textContent = value;
+        element.hidden = !value;
+    }
 
     function showProfile() {
         const name = document.getElementById("edit-name").value.trim();
@@ -147,35 +162,118 @@ if (profileForm) {
         const about = document.getElementById("edit-about").value.trim();
         const interests = document.getElementById("edit-interests").value.trim();
 
-        document.getElementById("profile-name").textContent = name || "Your name";
-        document.getElementById("profile-role").textContent =
-            [role, company].filter(Boolean).join(" at ") || "Role and company not added";
-        document.getElementById("profile-location").textContent = location || "Location not added";
-        document.getElementById("profile-about").textContent = about || "No bio added yet.";
-        document.getElementById("profile-interests").textContent = interests || "No interests added yet.";
+        document.getElementById("profile-name").textContent =
+            name || "Your name";
+
+        updateText(
+            "profile-role",
+            [role, company].filter(Boolean).join(" at ")
+        );
+
+        updateText("profile-location", location);
+        updateText("profile-about", about);
+        updateText("profile-interests", interests);
+
+        document.getElementById("profile-about-section").hidden = !about;
+        document.getElementById("profile-interests-section").hidden = !interests;
     }
 
+    // Load previously saved profile information
     fields.forEach(function(field) {
         const saved = sessionStorage.getItem("profile-" + field);
+
         if (saved) {
             document.getElementById("edit-" + field).value = saved;
         }
     });
 
+    // Load previously saved profile picture
+    const savedPicture = sessionStorage.getItem("profile-picture");
+
+    if (savedPicture) {
+        picturePreview.src = savedPicture;
+        picturePreview.hidden = false;
+        pictureInput.required = false;
+    }
+
     showProfile();
 
+    // Preview selected picture before saving
+    pictureInput.addEventListener("change", function() {
+        const file = pictureInput.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+            profileResult.textContent = "Please select a JPG, PNG, or WebP image.";
+            pictureInput.value = "";
+            return;
+        }
+
+        if (file.size > 2 * 1024 * 1024) {
+            profileResult.textContent = "Please select an image smaller than 2 MB.";
+            pictureInput.value = "";
+            return;
+        }
+
+        profileResult.textContent = "";
+
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            picturePreview.src = reader.result;
+            picturePreview.hidden = false;
+        };
+
+        reader.readAsDataURL(file);
+    });
+
+    // Save profile
     profileForm.addEventListener("submit", function(event) {
         event.preventDefault();
 
-        fields.forEach(function(field) {
-            sessionStorage.setItem("profile-" + field,
-                document.getElementById("edit-" + field).value);
-        });
+        const file = pictureInput.files[0];
+        const existingPicture = sessionStorage.getItem("profile-picture");
 
-        showProfile();
+        if (!file && !existingPicture) {
+            profileResult.textContent = "Please upload a profile picture.";
+            return;
+        }
 
-        document.getElementById("profile-result").textContent =
-            "Demo profile saved in this browser tab only.";
+        function saveDetails() {
+            fields.forEach(function(field) {
+                sessionStorage.setItem(
+                    "profile-" + field,
+                    document.getElementById("edit-" + field).value
+                );
+            });
+
+            showProfile();
+
+            pictureInput.required = false;
+            profileResult.textContent = "Profile saved successfully!";
+        }
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function() {
+                try {
+                    sessionStorage.setItem("profile-picture", reader.result);
+                    picturePreview.src = reader.result;
+                    picturePreview.hidden = false;
+                    saveDetails();
+                } catch (error) {
+                    profileResult.textContent =
+                        "Unable to save the picture. Try a smaller image.";
+                }
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            saveDetails();
+        }
     });
 }
-
