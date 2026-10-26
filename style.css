@@ -591,8 +591,7 @@ footer {
 
 /* Hide filtered members */
 .member-card[hidden],
-#no-search-results[hidden],
-#no-members[hidden] {
+#no-search-results[hidden] {
     display: none !important;
 }
 
