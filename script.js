@@ -1,3 +1,12 @@
+// SUPABASE INITIALIZATION
+const SUPABASE_URL = 'https://tbvscjpaqbyshqoieqvu.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_-hkHAjdrka8bJy8GSqbR_g_hPVQuTy5';
+
+const { createClient } = supabase;
+const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+console.log("Supabase initialized successfully!");
+
 const signinForm = document.getElementById("signin-form");
 
 if (signinForm) {
