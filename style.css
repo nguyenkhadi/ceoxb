@@ -608,3 +608,202 @@ footer {
     color: #606873;
     cursor: not-allowed;
 }
+
+/* Homepage buttons */
+.entry-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 35px;
+}
+
+.entry-secondary {
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 12px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 25px;
+}
+
+.entry-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Application page */
+.application-page {
+    min-height: 100vh;
+    background-color: #f3f6fa;
+    padding: 60px 20px;
+}
+
+.application-container {
+    max-width: 850px;
+    margin: 0 auto;
+    background: white;
+    padding: 45px;
+    border: 1px solid #e2e7ee;
+    border-radius: 14px;
+}
+
+.application-head {
+    margin-bottom: 30px;
+}
+
+.application-head h1 {
+    font-size: 36px;
+    color: #082c50;
+    margin: 0 0 12px;
+}
+
+.application-head p,
+.application-subtitle {
+    color: #606873;
+    line-height: 1.6;
+}
+
+.application-progress {
+    margin-bottom: 35px;
+    font-weight: bold;
+    color: #28618c;
+}
+
+.application-track {
+    height: 8px;
+    margin-top: 12px;
+    background-color: #e2e7ee;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#application-progress-fill {
+    height: 100%;
+    background-color: #28618c;
+    width: 33.33%;
+}
+
+.application-step h2 {
+    color: #082c50;
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.application-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-top: 25px;
+}
+
+.application-grid label,
+.application-field label,
+.invitation-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.application-grid input,
+.application-grid select,
+.application-field input,
+.application-field textarea,
+.invitation-section input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #bfc9d4;
+    border-radius: 7px;
+    font: inherit;
+    background-color: white;
+}
+
+.application-grid input:focus,
+.application-grid select:focus,
+.application-field input:focus,
+.application-field textarea:focus,
+.invitation-section input:focus {
+    outline: 2px solid #28618c;
+    outline-offset: 1px;
+}
+
+.invitation-section,
+.application-field {
+    margin-top: 28px;
+}
+
+.funding-section {
+    margin-top: 30px;
+    padding: 25px;
+    border: 1px solid #e2e7ee;
+    border-radius: 12px;
+}
+
+.funding-section h3 {
+    margin-top: 0;
+    color: #082c50;
+}
+
+.application-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 35px;
+}
+
+.application-next,
+.application-back {
+    border-radius: 25px;
+    padding: 13px 28px;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.application-next {
+    background-color: #082c50;
+    color: white;
+    border: none;
+}
+
+.application-back {
+    background-color: white;
+    color: #082c50;
+    border: 1px solid #bfc9d4;
+}
+
+.application-step[hidden],
+.application-actions [hidden],
+.application-complete[hidden] {
+    display: none !important;
+}
+
+.application-complete h2 {
+    color: #082c50;
+}
+
+.application-complete p {
+    line-height: 1.7;
+}
+
+.application-help,
+.prototype-note {
+    font-size: 13px;
+    color: #606873;
+    line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+    .application-container {
+        padding: 25px;
+    }
+
+    .application-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .application-head h1 {
+        font-size: 28px;
+    }
+}
