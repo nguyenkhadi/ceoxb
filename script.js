@@ -17,16 +17,6 @@ if (signinForm) {
     });
 }
 
-const requestForm = document.getElementById("request-form");
-
-if (requestForm) {
-    requestForm.addEventListener("submit", function(event) {
-        event.preventDefault();
-        document.getElementById("request-message").textContent =
-            "Design demo only. Your request has not been sent.";
-    });
-}
-
 const signupForm = document.getElementById("signup-form");
 
 if (signupForm) {
@@ -69,13 +59,23 @@ if (signout) {
     });
 }
 
+// Dashboard greeting
+const dashboardWelcome = document.getElementById("dashboard-welcome");
+
+if (dashboardWelcome) {
+    const name = (sessionStorage.getItem("profile-name") || "").trim();
+
+    dashboardWelcome.textContent = name
+        ? "Welcome back, " + name + "!"
+        : "Welcome back!";
+}
+
 // Member directory
 const memberSearch = document.getElementById("member-search");
 
 if (memberSearch) {
     const memberList = document.getElementById("member-list");
     const memberCount = document.getElementById("member-count");
-    const noMembers = document.getElementById("no-members");
     const noResults = document.getElementById("no-search-results");
 
     // Get saved profile information
@@ -157,8 +157,6 @@ if (memberSearch) {
         memberCount.textContent =
             visibleCount + (visibleCount === 1 ? " member" : " members");
 
-        noMembers.hidden = true;
-
         if (noResults) {
             noResults.hidden =
                 visibleCount > 0 || members.length === 0 || !searchText;
@@ -178,17 +176,6 @@ if (coffeeForm) {
     const submitButton = document.getElementById("coffee-submit");
     const coffeeResult = document.getElementById("coffee-result");
     const dateInput = document.getElementById("coffee-date");
-    const memberName = sessionStorage.getItem("profile-name");
-    const memberPicture = sessionStorage.getItem("profile-picture");
-
-    if (memberName && memberPicture) {
-        const option = document.createElement("option");
-        option.value = memberName;
-        option.textContent = memberName;
-
-        memberSelect.appendChild(option);
-        memberSelect.disabled = false;
-    }
 
     // Enable the button when a member is selected
     memberSelect.addEventListener("change", function() {
@@ -252,7 +239,7 @@ if (discussionForm) {
         document.getElementById("no-discussions").hidden = true;
 
         document.getElementById("discussion-result").textContent =
-            "Demo post added. It has not been saved or shared.";
+            "Discussion added to this page temporarily. It is not shared.";
 
         discussionForm.reset();
     });
