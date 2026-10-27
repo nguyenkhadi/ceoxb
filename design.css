@@ -1560,3 +1560,33 @@ html[data-theme="dark"] .signin-apply-link {
 html[data-theme="dark"] .signin-back-link {
     color: #9ed8ff;
 }
+
+.profile-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+    padding: 11px 18px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--soft-blue);
+    color: #174c72;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.profile-social-link:hover {
+    border-color: var(--blue);
+    text-decoration: underline;
+}
+
+.profile-social-link[hidden] {
+    display: none;
+}
+
+html[data-theme="dark"] .profile-social-link {
+    background: #25435c;
+    border-color: #41637d;
+    color: #c5e9ff;
+}
