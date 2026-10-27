@@ -1,6 +1,3 @@
-// _supabase is created in supabase.js
-
-// Get the signed-in user, or null
 async function getCurrentUser() {
     const { data } = await _supabase.auth.getSession();
     return data.session ? data.session.user : null;
@@ -394,42 +391,16 @@ if (profileForm) {
     showProfile();
     loadProfile();
 
-    pictureInput.addEventListener("change", function() {
-        const file = pictureInput.files[0];
-
-        if (!file) {
-            return;
-        }
-
-        if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
-            profileResult.textContent = "Please select a JPG, PNG, or WebP image.";
-            pictureInput.value = "";
-            return;
-        }
-
-        if (file.size > 2 * 1024 * 1024) {
-            profileResult.textContent = "Please select an image smaller than 2 MB.";
-            pictureInput.value = "";
-            return;
-        }
-
-        profileResult.textContent = "";
-
-        const reader = new FileReader();
-
-        reader.onload = function() {
-            picturePreview.src = reader.result;
-            picturePreview.hidden = false;
-        };
-
-        reader.readAsDataURL(file);
-    });
-
     // Save profile
     profileForm.addEventListener("submit", async function(event) {
         event.preventDefault();
 
-        const file = pictureInput.files[0];
+        if (window.profileCropPending) {
+            profileResult.textContent = "Finish editing your picture first.";
+            return;
+        }
+        
+        const file = window.profileCroppedFile;
 
         if (!file && !savedPicture) {
             profileResult.textContent = "Please upload a profile picture.";
@@ -455,7 +426,7 @@ if (profileForm) {
         // Upload the new picture to the "avatars" bucket,
         // in a folder named after the user's id
         if (file) {
-            const path = user.id + "/avatar";
+            const path = user.id + "/avatar.jpg";
 
             const { error: uploadError } = await _supabase.storage
                 .from("avatars")
