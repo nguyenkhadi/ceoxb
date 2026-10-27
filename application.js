@@ -73,13 +73,50 @@ if (applicationForm) {
         showStep(current - 1);
     });
 
-    applicationForm.addEventListener("submit", function(event) {
+    // Get a field's value even if it is on a hidden (disabled) step
+    function fieldValue(name) {
+        return applicationForm.elements.namedItem(name).value.trim();
+    }
+
+    applicationForm.addEventListener("submit", async function(event) {
         event.preventDefault();
 
         if (!validCurrentStep()) {
             return;
         }
 
+        const message = document.getElementById("application-message");
+
+        submit.disabled = true;
+        message.textContent = "Submitting...";
+
+        const { error } = await _supabase.from("applications").insert({
+            first_name: fieldValue("firstName"),
+            last_name: fieldValue("lastName"),
+            title: fieldValue("title"),
+            email: fieldValue("email"),
+            phone: fieldValue("phone"),
+            city: fieldValue("city"),
+            country: fieldValue("country"),
+            invitation_code: fieldValue("invitationCode") || null,
+            company_name: fieldValue("companyName"),
+            company_website: fieldValue("companyWebsite"),
+            company_country: fieldValue("companyCountry"),
+            industry: fieldValue("industry"),
+            full_time_employees: fieldValue("fullTimeEmployees"),
+            funding_raised: fieldValue("fundingRaised"),
+            funding_stage: fieldValue("fundingStage")
+        });
+
+        submit.disabled = false;
+
+        if (error) {
+            message.textContent =
+                "Unable to submit your application: " + error.message;
+            return;
+        }
+
+        message.textContent = "";
         applicationForm.hidden = true;
         document.querySelector(".application-progress").hidden = true;
         document.getElementById("application-complete").hidden = false;

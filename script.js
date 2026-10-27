@@ -1,38 +1,78 @@
 // _supabase is created in supabase.js
 
+// Get the signed-in user, or null
+async function getCurrentUser() {
+    const { data } = await _supabase.auth.getSession();
+    return data.session ? data.session.user : null;
+}
+
 const signinForm = document.getElementById("signin-form");
 
 if (signinForm) {
-    signinForm.addEventListener("submit", function(event) {
+    signinForm.addEventListener("submit", async function(event) {
         event.preventDefault();
 
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value;
         const message = document.getElementById("signin-message");
 
-        if (email === "demo@ceoxb.com" && password === "Test1234!") {
-            sessionStorage.setItem("signedIn", "yes");
-            window.location.href = "dashboard.html";
-        } else {
-            message.textContent = "Incorrect email or password.";
+        message.textContent = "Signing in...";
+
+        const { error } = await _supabase.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+
+        if (error) {
+            message.textContent = error.message;
+            return;
         }
+
+        window.location.href = "dashboard.html";
     });
 }
+
 const signupForm = document.getElementById("signup-form");
 
 if (signupForm) {
-    signupForm.addEventListener("submit", function(event) {
+    signupForm.addEventListener("submit", async function(event) {
         event.preventDefault();
 
+        const name = document.getElementById("signup-name").value.trim();
+        const email = document.getElementById("signup-email").value.trim();
+        const inviteCode = document.getElementById("invite-code").value.trim();
         const password = document.getElementById("signup-password").value;
         const confirm = document.getElementById("confirm-password").value;
         const message = document.getElementById("signup-message");
 
         if (password !== confirm) {
             message.textContent = "Passwords do not match.";
+            return;
+        }
+
+        message.textContent = "Creating your account...";
+
+        // name and invite_code are saved on the user; a database
+        // trigger copies the name into their profile
+        const { data, error } = await _supabase.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                data: { name: name, invite_code: inviteCode }
+            }
+        });
+
+        if (error) {
+            message.textContent = error.message;
+            return;
+        }
+
+        if (data.session) {
+            window.location.href = "profile.html";
         } else {
             message.textContent =
-                "Design demo only. No account has been created.";
+                "Account created! Check your email to confirm it, then sign in.";
+            signupForm.reset();
         }
     });
 }
@@ -41,21 +81,23 @@ if (signupForm) {
 const pageName = window.location.pathname.split("/").pop();
 
 if (pageName === "dashboard.html" || pageName === "learn.html" ||
-        pageName === "connect.html" || pageName === "coffee.html" || 
+        pageName === "connect.html" || pageName === "coffee.html" ||
         pageName === "discuss.html"|| pageName === "profile.html") {
-    if (sessionStorage.getItem("signedIn") !== "yes") {
-        window.location.replace("signin.html");
-    }
+    getCurrentUser().then(function(user) {
+        if (!user) {
+            window.location.replace("signin.html");
+        }
+    });
 }
 
 // Sign out
 const signout = document.getElementById("signout");
 
 if (signout) {
-    signout.addEventListener("click", function(event) {
+    signout.addEventListener("click", async function(event) {
         event.preventDefault();
 
-        sessionStorage.removeItem("signedIn");
+        await _supabase.auth.signOut();
         window.location.href = "index.html";
     });
 }
@@ -64,11 +106,25 @@ if (signout) {
 const dashboardWelcome = document.getElementById("dashboard-welcome");
 
 if (dashboardWelcome) {
-    const name = (sessionStorage.getItem("profile-name") || "").trim();
+    (async function() {
+        const user = await getCurrentUser();
 
-    dashboardWelcome.textContent = name
-        ? "Welcome back, " + name + "!"
-        : "Welcome back!";
+        if (!user) {
+            return;
+        }
+
+        const { data } = await _supabase
+            .from("profiles")
+            .select("name")
+            .eq("id", user.id)
+            .maybeSingle();
+
+        const name = ((data && data.name) || "").trim();
+
+        dashboardWelcome.textContent = name
+            ? "Welcome back, " + name + "!"
+            : "Welcome back!";
+    })();
 }
 
 // Member directory
@@ -79,19 +135,15 @@ if (memberSearch) {
     const memberCount = document.getElementById("member-count");
     const noResults = document.getElementById("no-search-results");
 
-    // Get saved profile information
-    function getProfile(field) {
-        return sessionStorage.getItem("profile-" + field) || "";
-    }
+    function addMember(profile) {
+        const name = (profile.name || "").trim();
+        const role = (profile.role || "").trim();
+        const company = (profile.company || "").trim();
+        const location = (profile.location || "").trim();
+        const interests = (profile.interests || "").trim();
+        const picture = profile.avatar_url;
 
-    function addMember() {
-        const name = getProfile("name").trim();
-        const role = getProfile("role").trim();
-        const company = getProfile("company").trim();
-        const location = getProfile("location").trim();
-        const interests = getProfile("interests").trim();
-        const picture = sessionStorage.getItem("profile-picture");
-
+        // Only list members who have finished their profile
         if (!name || !picture) {
             return;
         }
@@ -137,7 +189,20 @@ if (memberSearch) {
         memberList.appendChild(card);
     }
 
-    addMember();
+    async function loadMembers() {
+        const { data, error } = await _supabase
+            .from("profiles")
+            .select("name, role, company, location, interests, avatar_url")
+            .order("name");
+
+        if (error) {
+            memberCount.textContent = "Unable to load members";
+            return;
+        }
+
+        data.forEach(addMember);
+        filterMembers();
+    }
 
     function filterMembers() {
         const searchText = memberSearch.value.toLowerCase().trim();
@@ -164,7 +229,7 @@ if (memberSearch) {
         }
     }
 
-    filterMembers();
+    loadMembers();
 
     memberSearch.addEventListener("input", filterMembers);
 }
@@ -291,23 +356,42 @@ if (profileForm) {
         document.getElementById("profile-interests-section").hidden = !interests;
     }
 
-    fields.forEach(function(field) {
-        const saved = sessionStorage.getItem("profile-" + field);
+    // URL of the picture already saved in Supabase, if any
+    let savedPicture = "";
 
-        if (saved) {
-            document.getElementById("edit-" + field).value = saved;
+    async function loadProfile() {
+        const user = await getCurrentUser();
+
+        if (!user) {
+            return;
         }
-    });
 
-    const savedPicture = sessionStorage.getItem("profile-picture");
+        const { data } = await _supabase
+            .from("profiles")
+            .select("*")
+            .eq("id", user.id)
+            .maybeSingle();
 
-    if (savedPicture) {
-        picturePreview.src = savedPicture;
-        picturePreview.hidden = false;
-        pictureInput.required = false;
+        if (data) {
+            fields.forEach(function(field) {
+                if (data[field]) {
+                    document.getElementById("edit-" + field).value = data[field];
+                }
+            });
+
+            if (data.avatar_url) {
+                savedPicture = data.avatar_url;
+                picturePreview.src = savedPicture;
+                picturePreview.hidden = false;
+                pictureInput.required = false;
+            }
+        }
+
+        showProfile();
     }
 
     showProfile();
+    loadProfile();
 
     pictureInput.addEventListener("change", function() {
         const file = pictureInput.files[0];
@@ -341,49 +425,73 @@ if (profileForm) {
     });
 
     // Save profile
-    profileForm.addEventListener("submit", function(event) {
+    profileForm.addEventListener("submit", async function(event) {
         event.preventDefault();
 
         const file = pictureInput.files[0];
-        const existingPicture = sessionStorage.getItem("profile-picture");
 
-        if (!file && !existingPicture) {
+        if (!file && !savedPicture) {
             profileResult.textContent = "Please upload a profile picture.";
             return;
         }
 
-        function saveDetails() {
-            fields.forEach(function(field) {
-                sessionStorage.setItem(
-                    "profile-" + field,
-                    document.getElementById("edit-" + field).value
-                );
-            });
+        const user = await getCurrentUser();
 
-            showProfile();
-
-            pictureInput.required = false;
-            profileResult.textContent = "Profile saved successfully!";
+        if (!user) {
+            window.location.replace("signin.html");
+            return;
         }
 
+        profileResult.textContent = "Saving...";
+
+        const profile = { id: user.id };
+
+        fields.forEach(function(field) {
+            profile[field] =
+                document.getElementById("edit-" + field).value.trim();
+        });
+
+        // Upload the new picture to the "avatars" bucket,
+        // in a folder named after the user's id
         if (file) {
-            const reader = new FileReader();
+            const path = user.id + "/avatar";
 
-            reader.onload = function() {
-                try {
-                    sessionStorage.setItem("profile-picture", reader.result);
-                    picturePreview.src = reader.result;
-                    picturePreview.hidden = false;
-                    saveDetails();
-                } catch (error) {
-                    profileResult.textContent =
-                        "Unable to save the picture. Try a smaller image.";
-                }
-            };
+            const { error: uploadError } = await _supabase.storage
+                .from("avatars")
+                .upload(path, file, { upsert: true, contentType: file.type });
 
-            reader.readAsDataURL(file);
-        } else {
-            saveDetails();
+            if (uploadError) {
+                profileResult.textContent =
+                    "Unable to upload the picture: " + uploadError.message;
+                return;
+            }
+
+            const { data } = _supabase.storage
+                .from("avatars")
+                .getPublicUrl(path);
+
+            // The ?v= part makes browsers load the new picture
+            // instead of a cached copy of the old one
+            profile.avatar_url = data.publicUrl + "?v=" + Date.now();
         }
+
+        const { error } = await _supabase.from("profiles").upsert(profile);
+
+        if (error) {
+            profileResult.textContent =
+                "Unable to save your profile: " + error.message;
+            return;
+        }
+
+        if (profile.avatar_url) {
+            savedPicture = profile.avatar_url;
+            picturePreview.src = savedPicture;
+            picturePreview.hidden = false;
+        }
+
+        pictureInput.value = "";
+        pictureInput.required = false;
+        showProfile();
+        profileResult.textContent = "Profile saved successfully!";
     });
 }
