@@ -1877,3 +1877,32 @@ html[data-theme="dark"] .tour-celebration-card p {
     }
 }
 
+#badge-tutorial.earned .reward-icon {
+    background: #dff4ff;
+    color: #28618c;
+}
+
+html[data-theme="dark"] #badge-tutorial.earned .reward-icon {
+    background: #254b66;
+    color: #9ed8ff;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    #badge-tutorial.earned .reward-icon {
+        animation: badge-unlock 0.6s ease-out;
+    }
+}
+
+@keyframes badge-unlock {
+    0% {
+        transform: scale(0.7);
+    }
+
+    60% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
