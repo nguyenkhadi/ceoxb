@@ -87,7 +87,6 @@ if (dropZone) {
         }
 
         window.profileCropPending = true;
-        window.profileCroppedFile = null;
         message.textContent = "";
 
         imageUrl = URL.createObjectURL(file);
