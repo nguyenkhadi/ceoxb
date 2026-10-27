@@ -82,7 +82,8 @@ const pageName = window.location.pathname.split("/").pop();
 
 if (pageName === "dashboard.html" || pageName === "learn.html" ||
         pageName === "connect.html" || pageName === "coffee.html" ||
-        pageName === "discuss.html"|| pageName === "profile.html") {
+        pageName === "discuss.html"|| pageName === "profile.html" ||
+        pageName === "calendar.html") {
     getCurrentUser().then(function(user) {
         if (!user) {
             window.location.replace("signin.html");
