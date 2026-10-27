@@ -50,7 +50,15 @@
                     <h3>About</h3>
                     <p id="profile-about"></p>
                 </div>
-            
+
+                <a id="profile-github-link"
+                   class="profile-social-link"
+                   href="#"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   hidden>
+                    View GitHub Profile →
+                </a>
                 <div id="profile-interests-section" hidden>
                     <h3>Interests</h3>
                     <p id="profile-interests"></p>
@@ -87,8 +95,15 @@
                     <label for="edit-about">About Me</label>
                     <textarea id="edit-about" rows="4" maxlength="500"></textarea>
 
+                    <label for="edit-github">GitHub Profile</label>
+                    <input type="url" id="edit-github"
+                           placeholder="https://github.com/username">
+                    
+                    <p id="github-save-status" class="learn-note" role="status"></p>
+
                     <label for="edit-interests">Interests</label>
                     <input type="text" id="edit-interests" placeholder="Topics you'd like to connect about" maxlength="200">
+                    
 
                     <button type="submit" class="signin-button">Save Profile</button>
                     <p id="profile-result" class="learn-note" role="status"></p>
@@ -132,6 +147,7 @@
     <script src="supabase.js"></script>
     <script src="profile-crop.js"></script>
     <script src="script.js"></script>
+    <script src="profile-github.js"></script>
     <script src="theme.js"></script>
 </body>
 </html>
