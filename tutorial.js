@@ -1,170 +1,308 @@
-// CEO XB welcome tutorial
 
-const tourDialog = document.getElementById("welcome-tour");
-
-if (tourDialog) {
+document.addEventListener("DOMContentLoaded", function () {
     const steps = [
         {
-            title: "Welcome to CEO XB",
-            icon: "✦",
-            description:
-                "A private space to connect with fellow CEOs, " +
-                "share ideas, and support each other's growth."
+            href: "dashboard.html",
+            icon: "🏠",
+            title: "Your CEO XB Dashboard",
+            text: "Your home base for updates, achievements, and community activity."
         },
         {
-            title: "Dashboard",
-            icon: "⌂",
-            description:
-                "Your starting point. Find quick actions, " +
-                "community activity, and your calendar."
+            href: "calendar.html",
+            icon: "📅",
+            title: "Stay on Schedule",
+            text: "Check your calendar and discover upcoming opportunities."
         },
         {
-            title: "Calendar",
-            icon: "▦",
-            description:
-                "Browse dates and plan upcoming meetings " +
-                "and community activities."
+            href: "learn.html",
+            icon: "🎓",
+            title: "Level Up with Learn",
+            text: "Explore Mini MBA lessons and practical resources for growth."
         },
         {
-            title: "Learn",
-            icon: "▤",
-            description:
-                "Find Mini MBA learning resources " +
-                "and course modules as they become available."
+            href: "connect.html",
+            icon: "🤝",
+            title: "Meet Your Community",
+            text: "Discover fellow CEOs, build relationships, and find shared interests."
         },
         {
-            title: "Connect",
-            icon: "♧",
-            description:
-                "Browse member profiles and find other " +
-                "CEOs by name, company, or location."
-        },
-        {
-            title: "Coffee Chats",
+            href: "coffee.html",
             icon: "☕",
-            description:
-                "Build relationships through one-on-one " +
-                "conversations with fellow members."
+            title: "Make Time to Connect",
+            text: "Explore coffee chats and opportunities for one-on-one conversations."
         },
         {
-            title: "Discuss",
-            icon: "✎",
-            description:
-                "Share questions, business challenges, " +
-                "and ideas with your community."
+            href: "discuss.html",
+            icon: "💬",
+            title: "Join the Discussion",
+            text: "Ask questions, share wins, and exchange ideas with your peers."
         },
         {
-            title: "Your Profile",
-            icon: "◎",
-            description:
-                "Add your photo, company details, " +
-                "background, and interests so other members " +
-                "can get to know you."
+            href: "profile.html",
+            icon: "✨",
+            title: "Make Your Profile Shine",
+            text: "Complete your profile so other CEOs can get to know you."
         }
     ];
 
-    let currentStep = 0;
-    let storageKey = "";
+    const storageKey = "ceoxb-guided-tour-v2";
+    const replayButton = document.getElementById("replay-tour");
+    const oldDialog = document.getElementById("welcome-tour");
 
-    const title = document.getElementById("tour-title");
-    const description = document.getElementById("tour-description");
-    const icon = document.getElementById("tour-icon");
-    const count = document.getElementById("tour-step-count");
-    const dots = document.getElementById("tour-progress-dots");
-
-    const back = document.getElementById("tour-back");
-    const next = document.getElementById("tour-next");
-    const skip = document.getElementById("tour-skip");
-    const close = document.getElementById("tour-close");
-    const replay = document.getElementById("replay-tour");
-
-    function showStep() {
-        const step = steps[currentStep];
-
-        title.textContent = step.title;
-        description.textContent = step.description;
-        icon.textContent = step.icon;
-
-        count.textContent =
-            (currentStep + 1) + " of " + steps.length;
-
-        dots.innerHTML = "";
-
-        steps.forEach(function(step, index) {
-            const dot = document.createElement("span");
-            dot.className = "tour-dot";
-
-            if (index <= currentStep) {
-                dot.classList.add("active");
-            }
-
-            dots.appendChild(dot);
-        });
-
-        back.disabled = currentStep === 0;
-
-        next.textContent =
-            currentStep === steps.length - 1
-                ? "Finish"
-                : "Next";
+    if (oldDialog) {
+        oldDialog.remove();
     }
 
-    function openTour() {
-        if (tourDialog.open) {
+    const overlay = document.createElement("div");
+    overlay.className = "guided-tour-overlay";
+    overlay.hidden = true;
+
+    const tooltip = document.createElement("div");
+    tooltip.className = "guided-tour-tooltip";
+    tooltip.hidden = true;
+    tooltip.setAttribute("role", "dialog");
+    tooltip.setAttribute("aria-modal", "true");
+    tooltip.setAttribute("aria-labelledby", "guided-tour-title");
+
+    tooltip.innerHTML = `
+        <div class="guided-tour-top">
+            <span>CEO XB GUIDE</span>
+            <button type="button" id="guided-tour-skip">Skip ×</button>
+        </div>
+
+        <div class="guided-tour-progress"></div>
+
+        <div class="guided-tour-icon" id="guided-tour-icon"></div>
+        <h2 id="guided-tour-title"></h2>
+        <p id="guided-tour-description"></p>
+
+        <div class="guided-tour-bottom">
+            <button type="button" id="guided-tour-back">← Back</button>
+            <span id="guided-tour-count"></span>
+            <button type="button" id="guided-tour-next">Next →</button>
+        </div>
+    `;
+
+    document.body.append(overlay, tooltip);
+
+    const backButton = tooltip.querySelector("#guided-tour-back");
+    const nextButton = tooltip.querySelector("#guided-tour-next");
+    const skipButton = tooltip.querySelector("#guided-tour-skip");
+
+    let currentStep = 0;
+    let activeTarget = null;
+    let tourOpen = false;
+
+    function findTarget() {
+        return document.querySelector(
+            `.nav-links a[href="${steps[currentStep].href}"]`
+        );
+    }
+
+    function positionTooltip() {
+        if (!tourOpen || tooltip.hidden) return;
+
+        const target = findTarget();
+
+        if (!target) return;
+
+        const rect = target.getBoundingClientRect();
+        const tooltipWidth = tooltip.offsetWidth;
+        const tooltipHeight = tooltip.offsetHeight;
+
+        let left = rect.left + rect.width / 2 - tooltipWidth / 2;
+
+        left = Math.max(
+            12,
+            Math.min(left, window.innerWidth - tooltipWidth - 12)
+        );
+
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const showAbove =
+            spaceBelow < tooltipHeight + 30 &&
+            rect.top > tooltipHeight + 30;
+
+        let top = showAbove
+            ? rect.top - tooltipHeight - 22
+            : rect.bottom + 22;
+
+        top = Math.max(
+            12,
+            Math.min(top, window.innerHeight - tooltipHeight - 12)
+        );
+
+        tooltip.style.left = left + "px";
+        tooltip.style.top = top + "px";
+        tooltip.classList.toggle("tour-above", showAbove);
+
+        const arrowX =
+            rect.left + rect.width / 2 - left;
+
+        tooltip.style.setProperty("--tour-arrow-x", arrowX + "px");
+    }
+
+    function showStep() {
+        if (activeTarget) {
+            activeTarget.classList.remove("guided-tour-highlight");
+        }
+
+        const step = steps[currentStep];
+        activeTarget = findTarget();
+
+        if (!activeTarget) {
+            finishTour(false);
             return;
         }
 
-        currentStep = 0;
-        showStep();
-        tourDialog.showModal();
+        activeTarget.classList.add("guided-tour-highlight");
+
+        tooltip.querySelector("#guided-tour-icon").textContent = step.icon;
+        tooltip.querySelector("#guided-tour-title").textContent = step.title;
+        tooltip.querySelector("#guided-tour-description").textContent =
+            step.text;
+
+        tooltip.querySelector("#guided-tour-count").textContent =
+            `${currentStep + 1} of ${steps.length}`;
+
+        backButton.disabled = currentStep === 0;
+
+        nextButton.textContent =
+            currentStep === steps.length - 1
+                ? "Finish ✨"
+                : "Next →";
+
+        const progress = tooltip.querySelector(".guided-tour-progress");
+        progress.replaceChildren();
+
+        steps.forEach(function (_, index) {
+            const bar = document.createElement("span");
+
+            if (index <= currentStep) {
+                bar.classList.add("completed");
+            }
+
+            progress.appendChild(bar);
+        });
+
+        positionTooltip();
     }
 
-    function finishTour() {
-        if (storageKey) {
-            localStorage.setItem(storageKey, "done");
+    function startTour() {
+        currentStep = 0;
+        tourOpen = true;
+
+        overlay.hidden = false;
+        tooltip.hidden = false;
+
+        document.body.classList.add("guided-tour-active");
+
+        showStep();
+        nextButton.focus();
+    }
+
+    function closeTour() {
+        tourOpen = false;
+
+        overlay.hidden = true;
+        tooltip.hidden = true;
+
+        document.body.classList.remove("guided-tour-active");
+
+        if (activeTarget) {
+            activeTarget.classList.remove("guided-tour-highlight");
+            activeTarget = null;
         }
 
-        tourDialog.close();
+        localStorage.setItem(storageKey, "done");
+        replayButton?.focus();
     }
 
-    back.addEventListener("click", function() {
+    function celebrate() {
+        const celebration = document.createElement("div");
+        celebration.className = "tour-celebration";
+        celebration.setAttribute("role", "status");
+
+        celebration.innerHTML = `
+            <div class="tour-celebration-card">
+                <div class="tour-celebration-icon">🎉</div>
+                <h2>Tour Complete!</h2>
+                <p>You're ready to explore CEO XB and connect with your community.</p>
+                <button type="button">Explore CEO XB →</button>
+            </div>
+        `;
+
+        document.body.appendChild(celebration);
+
+        const symbols = ["✦", "★", "●", "✧"];
+
+        for (let i = 0; i < 36; i++) {
+            const piece = document.createElement("span");
+            piece.className = "tour-confetti";
+            piece.textContent = symbols[i % symbols.length];
+
+            piece.style.left = Math.random() * 100 + "%";
+            piece.style.animationDelay = Math.random() * 0.7 + "s";
+            piece.style.setProperty(
+                "--confetti-color",
+                ["#56b9dc", "#e8a83d", "#80cba6", "#ffffff"][i % 4]
+            );
+
+            celebration.appendChild(piece);
+        }
+
+        celebration.querySelector("button").addEventListener(
+            "click",
+            function () {
+                celebration.remove();
+                replayButton?.focus();
+            }
+        );
+
+        celebration.querySelector("button").focus();
+    }
+
+    function finishTour(completed) {
+        closeTour();
+
+        if (completed) {
+            celebrate();
+        }
+    }
+
+    nextButton.addEventListener("click", function () {
+        if (currentStep === steps.length - 1) {
+            finishTour(true);
+        } else {
+            currentStep++;
+            showStep();
+        }
+    });
+
+    backButton.addEventListener("click", function () {
         if (currentStep > 0) {
             currentStep--;
             showStep();
         }
     });
 
-    next.addEventListener("click", function() {
-        if (currentStep === steps.length - 1) {
-            finishTour();
-            return;
-        }
-
-        currentStep++;
-        showStep();
+    skipButton.addEventListener("click", function () {
+        finishTour(false);
     });
 
-    skip.addEventListener("click", finishTour);
-    close.addEventListener("click", finishTour);
-
-    tourDialog.addEventListener("cancel", function(event) {
-        event.preventDefault();
-        finishTour();
+    document.addEventListener("keydown", function (event) {
+        if (tourOpen && event.key === "Escape") {
+            finishTour(false);
+        }
     });
 
-    replay.addEventListener("click", openTour);
+    window.addEventListener("resize", positionTooltip);
+    window.addEventListener("scroll", positionTooltip, true);
 
-    getCurrentUser().then(function(user) {
-        if (!user) {
-            return;
-        }
+    if (replayButton) {
+        replayButton.addEventListener("click", startTour);
+    }
 
-        storageKey = "ceoxb-tour-" + user.id;
-
-        if (localStorage.getItem(storageKey) !== "done") {
-            openTour();
-        }
-    }).catch(function(error) {
-        console.error("Unable to start the welcome tour:", error);
-    });
-}
+    if (!localStorage.getItem(storageKey) && findTarget()) {
+        startTour();
+    }
+});
