@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>CEO XB - Calendar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="dashboard.html" class="logo">
+                <img src="imgs/logo.png" alt="CEO XB">
+            </a>
+
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="calendar.html" aria-current="page">Calendar</a>
+                <a href="learn.html">Learn</a>
+                <a href="connect.html">Connect</a>
+                <a href="coffee.html">Coffee Chats</a>
+                <a href="discuss.html">Discuss</a>
+                <a href="profile.html">Profile</a>
+                <a href="#" id="signout">Sign Out</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard">
+        <section class="dashboard-header">
+            <h1>My Calendar</h1>
+            <p>
+                Keep track of your events,
+                meetings, and coffee chats.
+            </p>
+        </section>
+
+        <div class="full-calendar-layout">
+            <section class="calendar-dashboard-card">
+                <div class="full-calendar-header">
+                    <h2 id="full-calendar-month"></h2>
+
+                    <div class="calendar-controls">
+                        <button type="button" id="calendar-prev"
+                                aria-label="Previous month">
+                            &lt;
+                        </button>
+
+                        <button type="button" id="calendar-today">
+                            Today
+                        </button>
+
+                        <button type="button" id="calendar-next"
+                                aria-label="Next month">
+                            &gt;
+                        </button>
+                    </div>
+                </div>
+
+                <div class="calendar-weekdays">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+
+                <div id="full-calendar-days"
+                     class="calendar-days"></div>
+            </section>
+
+            <aside class="dashboard-card calendar-details">
+                <h2 id="selected-date">Select a date</h2>
+
+                <p id="selected-date-info">
+                    Choose a day to view its events.
+                </p>
+
+                <div class="calendar-detail-actions">
+                    <a href="coffee.html" class="card-link">
+                        Schedule Coffee
+                    </a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <p>CEO XB</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+    <script src="supabase.js"></script>
+    <script src="script.js"></script>
+    <script src="calendar.js"></script>
+</body>
+</html>
