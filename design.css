@@ -1593,3 +1593,287 @@ html[data-theme="dark"] .profile-social-link {
     border-color: #41637d;
     color: #c5e9ff;
 }
+
+
+/* Interactive CEO XB guided tour */
+
+.guided-tour-overlay[hidden],
+.guided-tour-tooltip[hidden] {
+    display: none;
+}
+
+.guided-tour-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    background: rgba(5, 17, 32, 0.68);
+    backdrop-filter: blur(2px);
+}
+
+.guided-tour-active > header {
+    position: relative;
+    z-index: 3001;
+}
+
+.guided-tour-active .navbar {
+    background: transparent;
+}
+
+.guided-tour-active .nav-links a {
+    pointer-events: none;
+}
+
+.guided-tour-active .nav-links a.guided-tour-highlight {
+    position: relative;
+    z-index: 3002;
+    pointer-events: auto;
+    background: #347ca8;
+    color: white;
+    border-radius: 9px;
+    outline: 3px solid #83d0fb;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 7px rgba(86, 185, 220, 0.2);
+    animation: tour-pulse 1.8s ease-in-out infinite;
+}
+
+.guided-tour-tooltip {
+    position: fixed;
+    z-index: 3003;
+    width: min(360px, calc(100vw - 24px));
+    padding: 24px;
+    border-radius: 17px;
+    background: #ffffff;
+    color: #293542;
+    box-shadow: 0 20px 65px rgba(0, 0, 0, 0.3);
+}
+
+.guided-tour-tooltip::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: var(--tour-arrow-x);
+    transform: translateX(-50%);
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-bottom: 11px solid #ffffff;
+}
+
+.guided-tour-tooltip.tour-above::before {
+    top: auto;
+    bottom: -10px;
+    border-bottom: 0;
+    border-top: 11px solid #ffffff;
+}
+
+.guided-tour-top,
+.guided-tour-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.guided-tour-top span {
+    color: #28618c;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+#guided-tour-skip,
+#guided-tour-back {
+    background: transparent;
+    border: none;
+    color: #606e7d;
+    cursor: pointer;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.guided-tour-progress {
+    display: flex;
+    gap: 5px;
+    margin: 18px 0;
+}
+
+.guided-tour-progress span {
+    flex: 1;
+    height: 5px;
+    border-radius: 10px;
+    background: #e0e7ef;
+}
+
+.guided-tour-progress span.completed {
+    background: #347ca8;
+}
+
+.guided-tour-icon {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.guided-tour-tooltip h2 {
+    color: #082c50 !important;
+    font-size: 22px;
+    margin: 0 0 10px;
+}
+
+.guided-tour-tooltip p {
+    color: #606e7d !important;
+    line-height: 1.6;
+    font-size: 14px;
+    margin: 0 0 22px;
+}
+
+#guided-tour-count {
+    color: #718096;
+    font-size: 12px;
+}
+
+#guided-tour-next {
+    background: #347ca8;
+    border: none;
+    border-radius: 9px;
+    padding: 11px 17px;
+    color: white;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#guided-tour-next:hover {
+    background: #28618c;
+}
+
+#guided-tour-back:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Completion celebration */
+
+.tour-celebration {
+    position: fixed;
+    inset: 0;
+    z-index: 4000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(5, 17, 32, 0.78);
+    overflow: hidden;
+}
+
+.tour-celebration-card {
+    position: relative;
+    z-index: 2;
+    width: min(420px, 100%);
+    padding: 40px 30px;
+    border-radius: 20px;
+    background: white;
+    text-align: center;
+    box-shadow: 0 20px 65px rgba(0, 0, 0, 0.3);
+    animation: tour-pop 0.5s ease-out both;
+}
+
+.tour-celebration-icon {
+    font-size: 58px;
+    margin-bottom: 16px;
+}
+
+.tour-celebration-card h2 {
+    color: #082c50 !important;
+    margin: 0 0 12px;
+}
+
+.tour-celebration-card p {
+    color: #606e7d !important;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.tour-celebration-card button {
+    border: none;
+    border-radius: 10px;
+    background: #347ca8;
+    color: white;
+    padding: 14px 22px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.tour-confetti {
+    position: absolute;
+    top: -30px;
+    color: var(--confetti-color);
+    font-size: 20px;
+    animation: tour-fall 3s linear forwards;
+    pointer-events: none;
+}
+
+@keyframes tour-pulse {
+    50% {
+        box-shadow: 0 0 0 11px rgba(86, 185, 220, 0.1);
+    }
+}
+
+@keyframes tour-pop {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes tour-fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Dark theme support */
+
+html[data-theme="dark"] .guided-tour-tooltip,
+html[data-theme="dark"] .tour-celebration-card {
+    background: #192a3b;
+    color: #edf4fa;
+}
+
+html[data-theme="dark"] .guided-tour-tooltip::before {
+    border-bottom-color: #192a3b;
+}
+
+html[data-theme="dark"] .guided-tour-tooltip.tour-above::before {
+    border-top-color: #192a3b;
+    border-bottom-color: transparent;
+}
+
+html[data-theme="dark"] .guided-tour-tooltip h2,
+html[data-theme="dark"] .tour-celebration-card h2 {
+    color: #f1f6fc !important;
+}
+
+html[data-theme="dark"] .guided-tour-tooltip p,
+html[data-theme="dark"] .tour-celebration-card p {
+    color: #b0c0ce !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .guided-tour-active .nav-links a.guided-tour-highlight,
+    .tour-celebration-card,
+    .tour-confetti {
+        animation: none;
+    }
+
+    .tour-confetti {
+        display: none;
+    }
+}
+
