@@ -232,48 +232,6 @@ if (memberSearch) {
     memberSearch.addEventListener("input", filterMembers);
 }
 
-// Coffee chat
-const coffeeForm = document.getElementById("coffee-form");
-
-if (coffeeForm) {
-    const memberSelect = document.getElementById("coffee-member");
-    const submitButton = document.getElementById("coffee-submit");
-    const coffeeResult = document.getElementById("coffee-result");
-    const dateInput = document.getElementById("coffee-date");
-
-    // Enable the button when a member is selected
-    memberSelect.addEventListener("change", function() {
-        submitButton.disabled = !memberSelect.value;
-    });
-
-    // Prevent selecting dates in the past
-    const today = new Date();
-    const localToday = [
-        today.getFullYear(),
-        String(today.getMonth() + 1).padStart(2, "0"),
-        String(today.getDate()).padStart(2, "0")
-    ].join("-");
-
-    dateInput.min = localToday;
-    
-    coffeeForm.addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        if (!memberSelect.value) {
-            coffeeResult.textContent = "Please select a member.";
-            return;
-        }
-
-        coffeeResult.textContent =
-            "Coffee chat request prepared for " +
-            memberSelect.value +
-            ". No invitation has been sent.";
-
-        coffeeForm.reset();
-        submitButton.disabled = true;
-    });
-}
-
 // Profile functionality
 const profileForm = document.getElementById("profile-form");
 
