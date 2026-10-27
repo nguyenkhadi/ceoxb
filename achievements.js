@@ -107,3 +107,42 @@ if (profileProgress) {
 
     loadAchievements();
 }
+
+function updateTutorialAchievement() {
+    const badge = document.getElementById("badge-tutorial");
+
+    if (!badge) return;
+
+    const unlocked =
+        localStorage.getItem("ceoxb-tutorial-achievement") === "unlocked";
+
+    const status = badge.querySelector(".reward-status");
+
+    badge.classList.toggle("earned", unlocked);
+    badge.classList.toggle("locked", !unlocked);
+
+    if (status) {
+        status.textContent = unlocked ? "Unlocked!" : "Locked";
+    }
+
+    const count = document.getElementById("earned-badge-count");
+
+    if (count) {
+        const earnedBadges = document.querySelectorAll(
+            ".badge-collection .reward-badge.earned"
+        ).length;
+
+        const totalBadges = document.querySelectorAll(
+            ".badge-collection .reward-badge"
+        ).length;
+
+        count.textContent = `${earnedBadges} / ${totalBadges} earned`;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", updateTutorialAchievement);
+
+window.addEventListener(
+    "ceoxb-achievement-updated",
+    updateTutorialAchievement
+);
