@@ -1252,8 +1252,6 @@ body > header {
     outline-offset: 3px;
 }
 
-/* Dark mode */
-
 html[data-theme="dark"] {
     color-scheme: dark;
 
@@ -1752,8 +1750,6 @@ html[data-theme="dark"] .profile-social-link {
     cursor: not-allowed;
 }
 
-/* Completion celebration */
-
 .tour-celebration {
     position: fixed;
     inset: 0;
@@ -1838,8 +1834,6 @@ html[data-theme="dark"] .profile-social-link {
     }
 }
 
-/* Dark theme support */
-
 html[data-theme="dark"] .guided-tour-tooltip,
 html[data-theme="dark"] .tour-celebration-card {
     background: #192a3b;
@@ -1904,5 +1898,372 @@ html[data-theme="dark"] #badge-tutorial.earned .reward-icon {
 
     100% {
         transform: scale(1);
+    }
+}
+
+.achievement-tier.bronze {
+    --tier-color: #b47b53;
+    --tier-bg: #f3e3d7;
+}
+
+.achievement-tier.silver {
+    --tier-color: #70869a;
+    --tier-bg: #e6edf3;
+}
+
+.achievement-tier.gold {
+    --tier-color: #b98520;
+    --tier-bg: #fff0c6;
+}
+
+.achievement-tier.platinum {
+    --tier-color: #168ba5;
+    --tier-bg: #d9f5fa;
+}
+
+.achievement-tier.diamond {
+    --tier-color: #8262d6;
+    --tier-bg: #eee6ff;
+}
+
+.achievement-tier.celestial {
+    --tier-color: #c4458e;
+    --tier-bg: #ffe0f1;
+}
+
+.milestones-open {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 13px 18px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--soft-blue);
+    color: var(--blue);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.milestones-open:hover {
+    border-color: var(--blue);
+}
+
+.milestones-dialog {
+    width: min(800px, calc(100% - 24px));
+    max-height: 85vh;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--white);
+    color: var(--text);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+}
+
+.milestones-dialog::backdrop {
+    background: rgba(5, 17, 32, 0.75);
+}
+
+.milestones-dialog-inner {
+    padding: 28px;
+}
+
+.milestones-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.milestones-header h2 {
+    margin: 0;
+    color: var(--text);
+}
+
+.milestones-close {
+    padding: 9px 13px;
+    border: none;
+    border-radius: 8px;
+    background: var(--soft-blue);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.milestones-intro {
+    color: var(--muted);
+    margin: 12px 0 24px;
+}
+
+.milestones-content {
+    display: grid;
+    gap: 20px;
+}
+
+.milestones-activity {
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--background);
+}
+
+.milestones-activity h3 {
+    margin: 0 0 8px;
+    color: var(--text);
+}
+
+.milestones-activity p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.milestones-progress {
+    height: 10px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--border);
+    margin-top: 16px;
+}
+
+.milestones-progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #347ca8, #56b9dc);
+    transition: width 0.4s ease;
+}
+
+.milestones-next {
+    margin: 10px 0 18px;
+}
+
+.milestones-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.milestones-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 18px 10px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    text-align: center;
+    background: var(--white);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.milestones-tile.is-earned {
+    border-color: var(--tier-color);
+    background: var(--tier-bg);
+}
+
+.milestones-tile.is-earned:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.milestones-tile.is-locked {
+    opacity: 0.55;
+}
+
+.milestone-tier-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--tier-bg, var(--soft-blue));
+    color: var(--tier-color, var(--muted));
+    font-size: 30px;
+}
+
+.milestones-tile strong {
+    font-size: 19px;
+    color: var(--text);
+}
+
+.milestones-tile small {
+    color: var(--tier-color, var(--muted));
+    font-weight: 700;
+}
+
+.milestone-status {
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.milestones-tile.platinum.is-earned .milestone-tier-icon {
+    box-shadow: 0 0 16px rgba(22, 139, 165, 0.45);
+}
+
+.milestones-tile.diamond.is-earned .milestone-tier-icon {
+    box-shadow: 0 0 24px rgba(130, 98, 214, 0.55);
+}
+
+.milestones-tile.celestial.is-earned .milestone-tier-icon {
+    box-shadow: 0 0 30px rgba(196, 69, 142, 0.6);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .milestones-tile.diamond.is-earned .milestone-tier-icon,
+    .milestones-tile.celestial.is-earned .milestone-tier-icon {
+        animation: milestone-glow 2.5s ease-in-out infinite;
+    }
+}
+
+@keyframes milestone-glow {
+    50% {
+        transform: scale(1.1);
+        filter: brightness(1.2);
+    }
+}
+
+.achievement-celebration {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(5, 17, 32, 0.8);
+    overflow: hidden;
+}
+
+.achievement-celebration-card {
+    position: relative;
+    z-index: 2;
+    width: min(420px, 100%);
+    padding: 40px 30px;
+    border-radius: 20px;
+    background: var(--white);
+    color: var(--text);
+    text-align: center;
+    border: 2px solid var(--tier-color);
+    box-shadow: 0 0 45px var(--tier-color);
+    animation: achievement-pop 0.5s ease-out;
+}
+
+.achievement-celebration-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: var(--tier-bg);
+    color: var(--tier-color);
+    font-size: 60px;
+}
+
+.achievement-celebration-card h2 {
+    color: var(--text);
+    margin: 0 0 12px;
+}
+
+.achievement-celebration-card strong {
+    color: var(--tier-color);
+    font-size: 20px;
+}
+
+.achievement-celebration-card p {
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 16px 0 25px;
+}
+
+.achievement-celebration-card button {
+    padding: 13px 24px;
+    background: #347ca8;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.achievement-particle {
+    position: absolute;
+    top: -30px;
+    color: var(--tier-color);
+    font-size: 22px;
+    animation: achievement-fall 3s linear forwards;
+    pointer-events: none;
+}
+
+@keyframes achievement-pop {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes achievement-fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+html[data-theme="dark"] .milestones-tile.is-earned {
+    background: #24394d;
+    border-color: var(--tier-color);
+}
+
+html[data-theme="dark"] .milestones-tile.is-earned strong,
+html[data-theme="dark"] .milestones-tile.is-earned .milestone-status {
+    color: #edf4fa;
+}
+
+html[data-theme="dark"] .achievement-celebration-card {
+    background: #192a3b;
+    color: #edf4fa;
+}
+
+html[data-theme="dark"] .achievement-celebration-card h2 {
+    color: #edf4fa;
+}
+
+html[data-theme="dark"] .achievement-celebration-card p {
+    color: #b0c0ce;
+}
+
+@media (max-width: 600px) {
+    .milestones-dialog-inner {
+        padding: 18px;
+    }
+
+    .milestones-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .milestones-progress-fill,
+    .milestones-tile {
+        transition: none;
+    }
+
+    .achievement-celebration-card,
+    .achievement-particle,
+    .milestone-tier-icon {
+        animation: none !important;
+    }
+
+    .achievement-particle {
+        display: none;
     }
 }
