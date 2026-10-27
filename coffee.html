@@ -54,7 +54,7 @@
                               placeholder="What would you like to talk about?"></textarea>
 
                     <button type="submit" id="coffee-submit" class="signin-button" disabled>
-                        Request Coffee Chat
+                        Save Coffee Draft
                     </button>
                     <p id="coffee-result" role="status" class="learn-note"></p>
                 </form>
@@ -67,12 +67,29 @@
                 <a class="card-link" href="connect.html">Browse Members</a>
             </section>
         </div>
+                <section class="dashboard-section coffee-requests-section">
+            <div class="section-heading">
+                <div>
+                    <h2>My Coffee Chats</h2>
+                    <p>Manage your proposed conversations.</p>
+                </div>
+            </div>
+
+            <div class="coffee-status-tabs">
+                <button type="button" class="active" data-coffee-filter="all">All</button>
+                <button type="button" data-coffee-filter="draft">Drafts</button>
+                <button type="button" data-coffee-filter="cancelled">Cancelled</button>
+            </div>
+
+            <div id="coffee-requests-list" class="coffee-requests-list"></div>
+        </section>
     </main>
 
     <footer><p>CEO XB</p></footer>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
     <script src="supabase.js"></script>
     <script src="script.js"></script>
+    <script src="coffee-ui.js"></script>
     <script src="theme.js"></script>
 </body>
 </html>
