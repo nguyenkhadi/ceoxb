@@ -495,3 +495,40 @@ if (profileForm) {
         profileResult.textContent = "Profile saved successfully!";
     });
 }
+
+// Dashboard calendar
+const dashboardCalendar = document.getElementById("calendar-days");
+
+if (dashboardCalendar) {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+
+    const monthLabel = document.getElementById("calendar-month");
+
+    monthLabel.textContent = today.toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric"
+    });
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement("div");
+        empty.className = "calendar-day empty";
+        dashboardCalendar.appendChild(empty);
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+        const cell = document.createElement("div");
+        cell.className = "calendar-day";
+        cell.textContent = day;
+
+        if (day === today.getDate()) {
+            cell.classList.add("today");
+        }
+
+        dashboardCalendar.appendChild(cell);
+    }
+}
