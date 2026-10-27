@@ -1162,3 +1162,127 @@ footer {
     }
 }
 
+/* Profile picture upload */
+
+.picture-drop-zone {
+    border: 2px dashed #b5c8d8;
+    border-radius: 12px;
+    padding: 30px 20px;
+    background-color: #f5f9fc;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.picture-drop-zone:hover,
+.picture-drop-zone.drag-over {
+    border-color: #28618c;
+    background-color: #e8f2f9;
+}
+
+.picture-upload-icon {
+    font-size: 36px;
+    font-weight: bold;
+    color: #28618c;
+    margin-bottom: 10px;
+}
+
+.picture-drop-zone strong {
+    display: block;
+    color: #082c50;
+}
+
+.picture-drop-zone p {
+    margin: 10px 0;
+    color: #606873;
+}
+
+.picture-drop-zone small {
+    color: #606873;
+}
+
+.picture-drop-zone input {
+    margin-top: 18px;
+    max-width: 100%;
+}
+
+/* Crop editor */
+
+.picture-editor {
+    width: min(430px, 95vw);
+    max-height: 90vh;
+    overflow-y: auto;
+    border: none;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.picture-editor::backdrop {
+    background: rgba(0, 20, 40, 0.65);
+}
+
+.picture-editor h2 {
+    color: #082c50;
+    margin-top: 0;
+}
+
+.picture-editor p {
+    color: #606873;
+    line-height: 1.5;
+}
+
+.crop-area {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+#crop-canvas {
+    width: min(320px, 100%);
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    cursor: grab;
+    touch-action: none;
+    background-color: #e8edf2;
+}
+
+#crop-canvas:active {
+    cursor: grabbing;
+}
+
+#crop-zoom {
+    display: block;
+    width: 100%;
+    margin: 15px 0 25px;
+    accent-color: #28618c;
+}
+
+.crop-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.crop-actions button {
+    flex: 1;
+    border: none;
+    border-radius: 8px;
+    padding: 13px;
+    font: inherit;
+    cursor: pointer;
+}
+
+#crop-cancel {
+    background: #e8edf2;
+    color: #082c50;
+}
+
+#crop-apply {
+    background: #082c50;
+    color: white;
+}
+
+#crop-apply:hover {
+    background: #28618c;
+}
