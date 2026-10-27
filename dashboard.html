@@ -37,7 +37,7 @@
                     <p>Here's what's happening in your CEO XB community.</p>
                 </div>
                 <button type="button" id="replay-tour" class="tour-replay">
-                    ? Help & Tour
+                    Tutorial
                 </button>
             </div>
         </section>
@@ -85,6 +85,65 @@
             </a>
         </section>
 
+        <section class="dashboard-section cohort-update-section">
+            <div class="section-heading">
+                <div>
+                    <h2>My Monthly Update</h2>
+                    <p>Reflect on your progress and prepare to connect.</p>
+                </div>
+                <span id="cohort-update-month"></span>
+            </div>
+        
+            <div class="dashboard-card cohort-update-card">
+                <form id="cohort-update-form">
+                    <div class="cohort-update-fields">
+                        <div>
+                            <label for="cohort-win">Your Win</label>
+                            <p>What moved your business forward?</p>
+                            <textarea id="cohort-win" rows="3"
+                                maxlength="500" required
+                                placeholder="Share a recent achievement..."></textarea>
+                        </div>
+        
+                        <div>
+                            <label for="cohort-focus">Your Focus</label>
+                            <p>What's your top priority?</p>
+                            <textarea id="cohort-focus" rows="3"
+                                maxlength="500" required
+                                placeholder="Describe what you're working on..."></textarea>
+                        </div>
+        
+                        <div>
+                            <label for="cohort-ask">Your Ask</label>
+                            <p>Where could you use peer support?</p>
+                            <textarea id="cohort-ask" rows="3"
+                                maxlength="500" required
+                                placeholder="What advice or connection would help?"></textarea>
+                        </div>
+                    </div>
+        
+                    <button type="submit" class="cohort-save-btn">
+                        Save My Update
+                    </button>
+                </form>
+        
+                <div id="cohort-update-summary" hidden>
+                    <h3>Your update is saved</h3>
+                    <div id="cohort-update-saved-text"></div>
+                    <button type="button" id="cohort-update-edit"
+                            class="cohort-edit-btn">
+                        Edit Update
+                    </button>
+                    <a href="coffee.html" class="cohort-coffee-link">
+                        Explore Coffee Chats →
+                    </a>
+                </div>
+        
+                <p id="cohort-update-status" role="status"
+                   class="learn-note"></p>
+            </div>
+        </section>
+        
         <section class="dashboard-section">
             <div class="section-heading">
                 <h2>My Calendar</h2>
@@ -228,6 +287,7 @@
     <script src="script.js"></script>
     <script src="tutorial.js"></script>
     <script src="achievements.js"></script>
+    <script src="cohort-update.js"></script>
     
 </body>
 </html>
