@@ -1314,14 +1314,7 @@ html[data-theme="dark"] .reward-badge {
 html[data-theme="dark"] h1,
 html[data-theme="dark"] h2,
 html[data-theme="dark"] h3,
-html[data-theme="dark"] h4,
-html[data-theme="dark"] .quick-action-card h3,
-html[data-theme="dark"] .dashboard-header h1,
-html[data-theme="dark"] .section-heading h2,
-html[data-theme="dark"] .dashboard-card h3,
-html[data-theme="dark"] .discussion-card-title,
-html[data-theme="dark"] .completion-card h3,
-html[data-theme="dark"] .achievement-heading h3 {
+html[data-theme="dark"] h4 {
     color: #f1f6fc;
 }
 
@@ -1362,8 +1355,7 @@ html[data-theme="dark"] .discussion-topic-badge {
 
 html[data-theme="dark"] .reward-icon,
 html[data-theme="dark"] .discussion-reply,
-html[data-theme="dark"] #cohort-update-saved-text,
-html[data-theme="dark"] .picture-drop-zone {
+html[data-theme="dark"] #cohort-update-saved-text {
     background: #24394d;
     color: #eaf2f9;
 }
@@ -1445,4 +1437,126 @@ html[data-theme="dark"] .dashboard-secondary-btn {
 html[data-theme="dark"] footer {
     background: #081524;
     color: #d9e6f2;
+}
+
+html[data-theme="dark"] .navbar .logo {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 14px;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+html[data-theme="dark"] .picture-drop-zone {
+    background: #24394d;
+    border: 2px dashed #91b7cf;
+}
+
+html[data-theme="dark"] .picture-drop-zone strong,
+html[data-theme="dark"] .picture-drop-zone p,
+html[data-theme="dark"] .picture-drop-zone small,
+html[data-theme="dark"] .picture-upload-icon {
+    color: #eaf3fa;
+}
+
+html[data-theme="dark"] .picture-drop-zone input[type="file"] {
+    width: 100%;
+    background: #152638;
+    color: #eaf3fa;
+    border: 1px solid #51718d;
+    border-radius: 9px;
+    padding: 10px;
+}
+
+html[data-theme="dark"] .picture-drop-zone input[type="file"]::file-selector-button {
+    background: #347ca8;
+    color: #ffffff;
+    border: none;
+    border-radius: 7px;
+    padding: 9px 13px;
+    margin-right: 14px;
+    cursor: pointer;
+    font: inherit;
+}
+
+html[data-theme="dark"] .picture-drop-zone input[type="file"]::file-selector-button:hover {
+    background: #4596c4;
+}
+
+html[data-theme="dark"] .picture-drop-zone:hover,
+html[data-theme="dark"] .picture-drop-zone.drag-over {
+    background: #2c455c;
+    border-color: #79c8f0;
+}
+
+html[data-theme="dark"] #profile-name {
+    color: #f1f6fc;
+}
+
+html[data-theme="dark"] .profile-preview-card #profile-name,
+html[data-theme="dark"] .tour-content h2,
+html[data-theme="dark"] .signin-box h1,
+html[data-theme="dark"] .application-head h1,
+html[data-theme="dark"] .application-step h2,
+html[data-theme="dark"] .discussion-toolbar label,
+html[data-theme="dark"] .discussion-reply strong,
+html[data-theme="dark"] .quick-action-link,
+html[data-theme="dark"] #cohort-update-summary h3 {
+    color: #f1f6fc;
+}
+
+.signin-footer-actions {
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+}
+
+.signin-footer-actions p {
+    margin: 0 0 16px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.signin-apply-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border-radius: 10px;
+    background: #082c50;
+    color: white !important;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.signin-apply-link:hover {
+    background: #28618c;
+}
+
+.signin-back-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 10px;
+    color: #28618c;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.signin-back-link:hover {
+    text-decoration: underline;
+}
+
+html[data-theme="dark"] .signin-apply-link {
+    background: #347ca8;
+}
+
+html[data-theme="dark"] .signin-back-link {
+    color: #9ed8ff;
 }
