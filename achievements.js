@@ -1,4 +1,3 @@
-
 (function () {
     const categories = [
         { id: "coffee", name: "Coffee Chats", icon: "☕" },
@@ -9,6 +8,12 @@
 
     let userId = null;
     let achievementsDialog = null;
+    let profileComplete = false;
+
+    let visibilitySettings = {
+        visible: false,
+        selected: []
+    };
 
     function getMilestone(index) {
         if (index === 0) return 1;
@@ -141,7 +146,7 @@
     async function loadProfileAchievement() {
         const fill = document.getElementById("profile-progress-fill");
 
-        if (!fill || !userId) return;
+        if (!userId) return;
 
         const count = document.getElementById("profile-progress-count");
         const message = document.getElementById(
@@ -194,8 +199,10 @@
             count.textContent =
                 completed + " of " + fields.length;
         }
-
-        fill.style.width = percentage + "%";
+        
+        if (fill) {
+            fill.style.width = percentage + "%";
+        }
 
         if (progressBar) {
             progressBar.setAttribute(
@@ -205,6 +212,7 @@
         }
 
         const complete = completed === fields.length;
+        profileComplete = complete;
 
         if (message) {
             message.textContent = complete
@@ -514,6 +522,7 @@
         }
 
         renderMilestones();
+        refreshProfileAchievements();
 
         const before = getMilestoneInfo(previousCount);
         const after = getMilestoneInfo(activities.length);
@@ -533,7 +542,273 @@
         refresh: renderMilestones
     };
 
-    async function initializeAchievements() {
+    
+    function getVisibilityKey() {
+        return "ceoxb-achievement-visibility-" + userId;
+    }
+
+    function getEarnedAchievements() {
+        const earned = [];
+
+        if (profileComplete) {
+            earned.push({
+                id: "profile",
+                name: "Getting Started",
+                icon: "✦",
+                description: "Complete your profile",
+                className: "gold"
+            });
+        }
+
+        const tutorialUnlocked =
+            localStorage.getItem("ceoxb-tutorial-achievement") ===
+            "unlocked";
+
+        if (tutorialUnlocked) {
+            earned.push({
+                id: "tutorial",
+                name: "Welcome Aboard",
+                icon: "🎓",
+                description: "Explore or skip the tutorial",
+                className: "bronze"
+            });
+        }
+
+        categories.forEach(function (category) {
+            const count = getActivities(category.id).length;
+            const info = getMilestoneInfo(count);
+
+            info.earned.forEach(function (number) {
+                const tier = getTier(number);
+
+                earned.push({
+                    id: category.id + "-" + number,
+                    name: category.name + " · " +
+                        number.toLocaleString(),
+                    icon: tier.icon,
+                    description: tier.name + " milestone",
+                    className: tier.className
+                });
+            });
+        });
+
+        return earned;
+    }
+
+    function loadVisibilitySettings() {
+        visibilitySettings = {
+            visible: false,
+            selected: []
+        };
+
+        if (!userId) return;
+
+        try {
+            const saved = JSON.parse(
+                localStorage.getItem(getVisibilityKey()) || "null"
+            );
+
+            if (saved && typeof saved === "object") {
+                visibilitySettings.visible = saved.visible === true;
+
+                visibilitySettings.selected =
+                    Array.isArray(saved.selected)
+                        ? saved.selected.filter(function (id) {
+                            return typeof id === "string";
+                        })
+                        : [];
+            }
+        } catch (error) {
+            visibilitySettings.visible = false;
+            visibilitySettings.selected = [];
+        }
+    }
+
+    function saveVisibilitySettings() {
+        const status = document.getElementById(
+            "achievement-privacy-status"
+        );
+
+        try {
+            localStorage.setItem(
+                getVisibilityKey(),
+                JSON.stringify(visibilitySettings)
+            );
+
+            if (status) {
+                status.textContent =
+                    "Achievement preferences saved in this browser.";
+            }
+        } catch (error) {
+            if (status) {
+                status.textContent =
+                    "Unable to save achievement preferences.";
+            }
+        }
+    }
+
+    function createFeaturedBadge(achievement) {
+        const badge = document.createElement("div");
+
+        badge.className =
+            "featured-achievement-badge achievement-tier " +
+            achievement.className;
+
+        const icon = document.createElement("span");
+        icon.className = "featured-achievement-icon";
+        icon.textContent = achievement.icon;
+
+        const name = document.createElement("strong");
+        name.textContent = achievement.name;
+
+        badge.append(icon, name);
+
+        return badge;
+    }
+
+    function renderFeaturedPreview(earned) {
+        const preview = document.getElementById(
+            "featured-achievements-preview"
+        );
+
+        if (!preview) return;
+
+        preview.replaceChildren();
+
+        const featured = visibilitySettings.visible
+            ? earned.filter(function (achievement) {
+                return visibilitySettings.selected.includes(
+                    achievement.id
+                );
+            })
+            : [];
+
+        if (featured.length === 0) {
+            const empty = document.createElement("p");
+            empty.textContent = "No achievements displayed.";
+            preview.appendChild(empty);
+            return;
+        }
+
+        featured.forEach(function (achievement) {
+            preview.appendChild(createFeaturedBadge(achievement));
+        });
+    }
+
+    function refreshProfileAchievements() {
+        const toggle = document.getElementById(
+            "show-profile-achievements"
+        );
+
+        const options = document.getElementById(
+            "achievement-visibility-options"
+        );
+
+        const list = document.getElementById(
+            "achievement-selection-list"
+        );
+
+        if (!toggle || !options || !list) return;
+
+        const earned = getEarnedAchievements();
+
+        toggle.checked = visibilitySettings.visible;
+        options.hidden = !visibilitySettings.visible;
+
+        list.replaceChildren();
+
+        if (earned.length === 0) {
+            const empty = document.createElement("p");
+            empty.textContent = "No achievements earned yet.";
+            list.appendChild(empty);
+        }
+
+        earned.forEach(function (achievement) {
+            const row = document.createElement("label");
+            row.className = "achievement-selection-item";
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+
+            checkbox.checked =
+                visibilitySettings.selected.includes(achievement.id);
+
+            const icon = document.createElement("span");
+            icon.className = "achievement-selection-icon";
+            icon.textContent = achievement.icon;
+
+            const details = document.createElement("span");
+            details.className = "achievement-selection-info";
+
+            const title = document.createElement("strong");
+            title.textContent = achievement.name;
+
+            const description = document.createElement("small");
+            description.textContent = achievement.description;
+
+            details.append(title, description);
+            row.append(checkbox, icon, details);
+            list.appendChild(row);
+
+            checkbox.addEventListener("change", function () {
+                if (checkbox.checked) {
+                    if (!visibilitySettings.selected.includes(
+                        achievement.id
+                    )) {
+                        visibilitySettings.selected.push(achievement.id);
+                    }
+                } else {
+                    visibilitySettings.selected =
+                        visibilitySettings.selected.filter(
+                            function (id) {
+                                return id !== achievement.id;
+                            }
+                        );
+                }
+
+                saveVisibilitySettings();
+                renderFeaturedPreview(earned);
+            });
+        });
+
+        renderFeaturedPreview(earned);
+    }
+
+    function initializeProfileSettings() {
+        const toggle = document.getElementById(
+            "show-profile-achievements"
+        );
+
+        if (!toggle) return;
+
+        if (!userId) {
+            toggle.disabled = true;
+
+            const status = document.getElementById(
+                "achievement-privacy-status"
+            );
+
+            if (status) {
+                status.textContent =
+                    "Sign in to manage your achievements.";
+            }
+
+            return;
+        }
+
+        loadVisibilitySettings();
+
+        toggle.addEventListener("change", function () {
+            visibilitySettings.visible = toggle.checked;
+
+            saveVisibilitySettings();
+            refreshProfileAchievements();
+        });
+
+        refreshProfileAchievements();
+    }
+    
+    async function initializeAchievements(){ 
         createAchievementsViewer();
         updateTutorialAchievement();
 
@@ -557,11 +832,15 @@
 
         updateEarnedCount();
         renderMilestones();
+        initializeProfileSettings();
     }
 
     window.addEventListener(
         "ceoxb-achievement-updated",
-        updateTutorialAchievement
+        function () {
+            updateTutorialAchievement();
+            refreshProfileAchievements();
+        }
     );
 
     if (document.readyState === "loading") {
