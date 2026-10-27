@@ -523,3 +523,343 @@ footer {
         font-size: 23px;
     }
 }
+
+/* CEO XB - Visual polish and achievements */
+
+:root {
+    --accent-bright: #56b9dc;
+    --surface-blue: #f2f8fc;
+    --gold: #e8a83d;
+}
+
+body {
+    background:
+        radial-gradient(
+            circle at 92% 8%,
+            rgba(86, 185, 220, 0.10),
+            transparent 28%
+        ),
+        #f3f6fa;
+}
+
+/* Better navigation */
+
+body > header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: white;
+}
+
+.navbar {
+    min-height: 76px;
+}
+
+.nav-links a {
+    position: relative;
+}
+
+.nav-links a[aria-current="page"] {
+    background: var(--soft-blue);
+    color: var(--navy);
+}
+
+.nav-links a[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    bottom: -6px;
+    left: 12px;
+    right: 12px;
+    background: var(--blue);
+    border-radius: 4px;
+}
+
+/* Better typography */
+
+.dashboard-header h1,
+.section-heading h2 {
+    letter-spacing: -0.8px;
+}
+
+.dashboard-header p {
+    max-width: 650px;
+    line-height: 1.7;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Premium card appearance */
+
+.dashboard-card,
+.stat-card,
+.calendar-dashboard-card,
+.connect-search {
+    transition:
+        box-shadow 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.dashboard-card:hover,
+.stat-card:hover,
+.member-card:hover {
+    box-shadow: 0 12px 30px rgba(8, 44, 80, 0.09);
+    border-color: #c9ddea;
+}
+
+.member-card:hover {
+    transform: translateY(-3px);
+}
+
+/* Stronger member directory */
+
+.member-card {
+    background:
+        linear-gradient(
+            180deg,
+            var(--surface-blue) 0,
+            white 115px
+        );
+}
+
+.member-picture {
+    width: 86px;
+    height: 86px;
+    border: 4px solid white;
+    box-shadow: 0 0 0 1px var(--border);
+}
+
+.member-card h3 {
+    color: var(--navy);
+    margin-bottom: 5px;
+}
+
+/* Learning page */
+
+.learn-intro {
+    border-radius: 18px;
+    background:
+        linear-gradient(
+            115deg,
+            #061f3b,
+            #145779
+        );
+    box-shadow: 0 12px 30px rgba(8, 44, 80, 0.11);
+}
+
+/* Forms */
+
+.profile-form input:not([type="file"]),
+.profile-form textarea,
+.coffee-form input,
+.coffee-form select,
+.coffee-form textarea,
+.discussion-form input,
+.discussion-form select,
+.discussion-form textarea {
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.profile-form input:focus,
+.profile-form textarea:focus,
+.coffee-form input:focus,
+.coffee-form select:focus,
+.discussion-form input:focus,
+.discussion-form textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(40, 97, 140, 0.10);
+}
+
+/* Achievements */
+
+.achievements-layout {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.85fr)
+                           minmax(0, 1.5fr);
+    gap: 20px;
+    align-items: stretch;
+}
+
+.completion-card,
+.badge-collection {
+    padding: 28px;
+}
+
+.achievement-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.achievement-heading h3 {
+    margin: 0;
+}
+
+.achievement-kicker {
+    color: var(--blue);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+#profile-progress-count,
+#earned-badge-count {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue);
+}
+
+.completion-card h3 {
+    font-size: 23px;
+    margin: 0 0 8px;
+    color: var(--navy);
+}
+
+.completion-card > p {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.completion-bar {
+    height: 12px;
+    background: #e3ecf2;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 24px 0 12px;
+}
+
+#profile-progress-fill {
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(
+        90deg,
+        #28618c,
+        #56b9dc
+    );
+    transition: width 0.5s ease;
+}
+
+.achievement-link {
+    display: inline-block;
+    margin-top: 12px;
+    font-weight: 700;
+    color: var(--blue);
+    text-decoration: none;
+}
+
+.badge-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.reward-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 12px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: #f9fbfd;
+    gap: 7px;
+}
+
+.reward-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    font-size: 30px;
+    background: #e7edf3;
+    color: #8293a3;
+    margin-bottom: 10px;
+}
+
+.reward-badge strong {
+    font-size: 14px;
+    color: var(--navy);
+}
+
+.reward-badge small {
+    color: var(--muted);
+    line-height: 1.5;
+    min-height: 32px;
+}
+
+.reward-status {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.reward-badge.earned {
+    background: #fffaf0;
+    border-color: #ebd49f;
+}
+
+.reward-badge.earned .reward-icon {
+    background: #fff0c9;
+    color: #b98121;
+}
+
+.reward-badge.earned .reward-status {
+    color: #9a6b15;
+}
+
+.reward-badge.locked .reward-icon {
+    opacity: 0.65;
+}
+
+/* Responsive */
+
+@media (max-width: 1050px) {
+    .achievements-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .badge-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .reward-badge {
+        flex-direction: row;
+        text-align: left;
+        align-items: center;
+    }
+
+    .reward-badge small {
+        min-height: 0;
+    }
+
+    .reward-icon {
+        margin: 0;
+        flex-shrink: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-card,
+    .stat-card,
+    .member-card,
+    #profile-progress-fill {
+        transition: none;
+    }
+}
