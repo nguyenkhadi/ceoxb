@@ -31,8 +31,15 @@
     <main class="dashboard">
 
         <section class="dashboard-header">
-            <h1 id="dashboard-welcome">Welcome Back!</h1>
-            <p>Here's what's happening in your CEO XB community.</p>
+            <div class="dashboard-welcome-row">
+                <div>
+                    <h1 id="dashboard-welcome">Welcome Back!</h1>
+                    <p>Here's what's happening in your CEO XB community.</p>
+                </div>
+                <button type="button" id="replay-tour" class="tour-replay">
+                    ? Help & Tour
+                </button>
+            </div>
         </section>
 
         <section class="dashboard-banner dashboard-hero">
@@ -160,10 +167,38 @@
                 </div>
             </div>
         </section>
-        
-
     </main>
 
+    <dialog id="welcome-tour" class="welcome-tour"
+        aria-labelledby="tour-title">
+
+        <div class="tour-top">
+            <span class="tour-label">CEO XB GUIDE</span>
+            <button type="button" id="tour-close"
+                aria-label="Close tutorial">×</button>
+        </div>
+
+        <div class="tour-content">
+            <span id="tour-icon" class="tour-icon">✦</span>
+            <h2 id="tour-title">Welcome to CEO XB</h2>
+            <p id="tour-description"></p>
+        </div>
+    
+        <div class="tour-progress">
+            <span id="tour-step-count">1 of 8</span>
+            <div id="tour-progress-dots" class="tour-progress-dots"></div>
+        </div>
+    
+        <div class="tour-actions">
+            <button type="button" id="tour-back">Back</button>
+    
+            <div>
+                <button type="button" id="tour-skip">Skip</button>
+                <button type="button" id="tour-next">Next</button>
+            </div>
+        </div>
+    </dialog>
+    
     <footer>
         <p>CEO XB</p>
     </footer>
@@ -171,5 +206,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
     <script src="supabase.js"></script>
     <script src="script.js"></script>
+    <script src="tutorial.js"></script>
+    
 </body>
 </html>
