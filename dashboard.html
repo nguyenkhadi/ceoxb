@@ -16,7 +16,7 @@
             </a>
 
             <div class="nav-links">
-                <a href="dashboard.html">Dashboard</a>
+                <a href="dashboard.html" aria-current="page">Dashboard</a>
                 <a href="calendar.html">Calendar</a>
                 <a href="learn.html">Learn</a>
                 <a href="connect.html">Connect</a>
@@ -56,33 +56,33 @@
                         Schedule Coffee
                     </a>
                     <a href="discuss.html" class="dashboard-secondary-btn">
-                        Share an Update
+                        Share a Discussion
                     </a>
                 </div>
             </div>
         </section>
         
-        <section class="dashboard-stats">
-            <div class="stat-card">
-                <span class="stat-icon">★</span>
-                <p class="stat-label">Weekly Streak</p>
-                <h3>0 <small>weeks</small></h3>
-                <p class="stat-description">Keep connecting with peers.</p>
-            </div>
+        <section class="dashboard-stats quick-action-grid">
+            <a href="connect.html" class="quick-action-card">
+                <span class="quick-action-icon">◎</span>
+                <h3>Meet Your Cohort</h3>
+                <p>Discover CEOs with shared interests.</p>
+                <span class="quick-action-link">Explore Members →</span>
+            </a>
         
-            <div class="stat-card">
-                <span class="stat-icon">◎</span>
-                <p class="stat-label">Connections</p>
-                <h3>0 <small>members</small></h3>
-                <p class="stat-description">Grow your CEO network.</p>
-            </div>
+            <a href="discuss.html" class="quick-action-card">
+                <span class="quick-action-icon">✎</span>
+                <h3>Join the Conversation</h3>
+                <p>Ask questions and share experiences.</p>
+                <span class="quick-action-link">View Discussions →</span>
+            </a>
         
-            <div class="stat-card">
-                <span class="stat-icon">◆</span>
-                <p class="stat-label">Achievements</p>
-                <h3>0 <small>earned</small></h3>
-                <p class="stat-description">Celebrate your progress.</p>
-            </div>
+            <a href="profile.html" class="quick-action-card">
+                <span class="quick-action-icon">✦</span>
+                <h3>Unlock Achievements</h3>
+                <p>Complete your profile to earn a badge.</p>
+                <span class="quick-action-link">My Profile →</span>
+            </a>
         </section>
 
         <section class="dashboard-section">
@@ -90,15 +90,13 @@
                 <h2>My Calendar</h2>
                 <a href="calendar.html">View Calendar</a>
             </div>
-        
+
             <div class="calendar-dashboard-card">
                 <div class="calendar-top">
-                    <div>
-                        <h3 id="calendar-month">October 2026</h3>
-                        <p>Stay on top of upcoming community activities.</p>
-                    </div>
+                    <h3 id="calendar-month"></h3>
+                    <p>Upcoming community activities.</p>
                 </div>
-        
+
                 <div class="calendar-weekdays">
                     <span>Sun</span>
                     <span>Mon</span>
@@ -108,60 +106,82 @@
                     <span>Fri</span>
                     <span>Sat</span>
                 </div>
-        
+
                 <div class="calendar-days" id="calendar-days"></div>
-        
+
                 <div class="calendar-upcoming">
                     <h3>Upcoming Events</h3>
+                    <p>No upcoming events scheduled.</p>
                     <a href="coffee.html" class="card-link">
-                        Schedule a Coffee Chat
+                        Schedule Coffee
                     </a>
                 </div>
             </div>
         </section>
 
-        <section class="dashboard-section">
+        <section class="dashboard-section achievements-section">
             <div class="section-heading">
-                <h2>Your Progress</h2>
-                <a href="profile.html">My Profile</a>
+                <h2>Your Achievements</h2>
+                <a href="profile.html">Edit Profile</a>
             </div>
-        
-            <div class="dashboard-card progress-card">
-                <div class="progress-heading">
-                    <div>
-                        <h3>Monthly Engagement</h3>
-                        <p>Build meaningful connections each month.</p>
+
+            <div class="achievements-layout">
+                <div class="dashboard-card completion-card">
+                    <div class="achievement-heading">
+                        <span class="achievement-kicker">
+                            GETTING STARTED
+                        </span>
+                        <span id="profile-progress-count">0 of 7</span>
                     </div>
-        
-                    <span id="progress-count">0 of 4</span>
+
+                    <h3>Complete your profile</h3>
+                    <p>Help your peers get to know you.</p>
+
+                    <div class="completion-bar"
+                         id="profile-progress-bar"
+                         role="progressbar"
+                         aria-label="Profile completion"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         aria-valuenow="0">
+                        <div id="profile-progress-fill"></div>
+                    </div>
+
+                    <p id="profile-progress-message" role="status">
+                        Checking your progress...
+                    </p>
+
+                    <a href="profile.html" class="achievement-link">
+                        Update Profile
+                    </a>
                 </div>
-        
-                <div class="progress-track">
-                    <div class="progress-fill" id="progress-fill"></div>
-                </div>
-        
-                <div class="achievement-preview">
-                    <div class="achievement">
-                        <span>☕</span>
-                        <div>
-                            <strong>First Coffee Chat</strong>
-                            <p>Connect with another member.</p>
-                        </div>
+
+                <div class="dashboard-card badge-collection">
+                    <div class="achievement-heading">
+                        <h3>Achievement Badges</h3>
+                        <span id="earned-badge-count">0 / 3 earned</span>
                     </div>
-        
-                    <div class="achievement">
-                        <span>★</span>
-                        <div>
-                            <strong>Community Contributor</strong>
-                            <p>Share your first discussion.</p>
+
+                    <div class="badge-grid">
+                        <div class="reward-badge locked" id="badge-profile">
+                            <span class="reward-icon">✦</span>
+                            <strong>Getting Started</strong>
+                            <small>Complete your profile</small>
+                            <span class="reward-status">Locked</span>
                         </div>
-                    </div>
-        
-                    <div class="achievement">
-                        <span>◆</span>
-                        <div>
-                            <strong>Learning Explorer</strong>
-                            <p>Complete your first learning activity.</p>
+
+                        <div class="reward-badge locked" id="badge-coffee">
+                            <span class="reward-icon">☕</span>
+                            <strong>First Connection</strong>
+                            <small>Complete a coffee chat</small>
+                            <span class="reward-status">Not tracked yet</span>
+                        </div>
+
+                        <div class="reward-badge locked" id="badge-learning">
+                            <span class="reward-icon">▤</span>
+                            <strong>Active Learner</strong>
+                            <small>Complete a learning module</small>
+                            <span class="reward-status">Not tracked yet</span>
                         </div>
                     </div>
                 </div>
@@ -207,6 +227,7 @@
     <script src="supabase.js"></script>
     <script src="script.js"></script>
     <script src="tutorial.js"></script>
+    <script src="achievements.js"></script>
     
 </body>
 </html>
