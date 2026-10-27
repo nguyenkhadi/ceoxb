@@ -274,42 +274,6 @@ if (coffeeForm) {
     });
 }
 
-// Discussion form
-const discussionForm = document.getElementById("discussion-form");
-
-if (discussionForm) {
-    discussionForm.addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        const title = document.getElementById("discussion-title").value;
-        const topic = document.getElementById("discussion-topic").value;
-        const message = document.getElementById("discussion-message").value;
-
-        const post = document.createElement("article");
-        post.className = "dashboard-card";
-
-        const heading = document.createElement("h3");
-        heading.textContent = title;
-
-        const topicText = document.createElement("p");
-        topicText.textContent = topic;
-
-        const messageText = document.createElement("p");
-        messageText.textContent = message;
-
-        post.append(heading, topicText, messageText);
-
-        document.getElementById("discussion-list").prepend(post);
-        document.getElementById("no-discussions").hidden = true;
-
-        document.getElementById("discussion-result").textContent =
-            "Discussion added to this page temporarily. It is not shared.";
-
-        discussionForm.reset();
-    });
-}
-
-
 // Profile functionality
 const profileForm = document.getElementById("profile-form");
 
