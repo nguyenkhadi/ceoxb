@@ -201,6 +201,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function closeTour() {
+        localStorage.setItem("ceoxb-tutorial-achievement", "unlocked");
+
+        window.dispatchEvent(new Event("ceoxb-achievement-updated"));
         tourOpen = false;
 
         overlay.hidden = true;
