@@ -1,0 +1,355 @@
+/* CEO XB shared design */
+
+:root {
+    --navy: #082c50;
+    --dark-navy: #061f3b;
+    --blue: #28618c;
+    --soft-blue: #eaf3f9;
+    --background: #f3f6fa;
+    --white: #ffffff;
+    --text: #293542;
+    --muted: #606e7d;
+    --border: #e0e7ef;
+    --radius: 14px;
+    --shadow: 0 5px 22px rgba(8, 44, 80, 0.06);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+/* Navigation */
+
+.navbar {
+    padding: 15px 5%;
+    gap: 24px;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 12px rgba(8, 44, 80, 0.03);
+}
+
+.logo {
+    flex-shrink: 0;
+}
+
+.logo img {
+    width: 125px;
+}
+
+.nav-links {
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.nav-links a {
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
+    color: var(--navy);
+    background: var(--soft-blue);
+}
+
+.nav-links a[aria-current="page"] {
+    font-weight: 700;
+}
+
+.nav-links .signup-btn {
+    border-radius: 9px;
+    padding: 11px 18px;
+}
+
+/* Main layout */
+
+.dashboard {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 42px 5%;
+    background: transparent;
+}
+
+.dashboard-header {
+    margin-bottom: 28px;
+}
+
+.dashboard-header h1 {
+    font-size: clamp(28px, 3vw, 38px);
+    letter-spacing: -0.8px;
+    margin: 0 0 8px;
+}
+
+.dashboard-header p {
+    margin: 0;
+    font-size: 15px;
+}
+
+.dashboard-section {
+    margin-bottom: 32px;
+}
+
+.section-heading h2 {
+    font-size: 23px;
+    margin: 0;
+}
+
+.section-heading a {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Consistent cards */
+
+.dashboard-card,
+.stat-card,
+.calendar-dashboard-card,
+.connect-search,
+.signin-box,
+.application-container {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--white);
+    box-shadow: var(--shadow);
+}
+
+.dashboard-card,
+.stat-card {
+    padding: 26px;
+}
+
+.dashboard-card h2 {
+    margin-top: 0;
+}
+
+.dashboard-card p,
+.stat-card p {
+    color: var(--muted);
+}
+
+/* Buttons */
+
+.card-link,
+.signin-button,
+.application-next {
+    background: var(--navy);
+    color: white;
+    border-radius: 9px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.card-link:hover,
+.signin-button:hover,
+.application-next:hover {
+    background: var(--blue);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+/* Dashboard */
+
+.dashboard-banner {
+    background: linear-gradient(
+        125deg,
+        var(--dark-navy),
+        var(--navy),
+        #145478
+    );
+    border-radius: 18px;
+    padding: 44px;
+    margin-bottom: 26px;
+}
+
+.dashboard-hero h2 {
+    font-size: clamp(26px, 3vw, 36px);
+}
+
+.dashboard-stats {
+    gap: 18px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    border-radius: 14px;
+}
+
+.stat-card h3 {
+    margin: 8px 0;
+}
+
+.achievement {
+    background: #f7f9fc;
+    border: 1px solid var(--border);
+}
+
+/* Calendar */
+
+.calendar-dashboard-card {
+    padding: 26px;
+}
+
+.calendar-day {
+    border-radius: 8px;
+}
+
+.calendar-day.today {
+    background: var(--navy);
+    color: white;
+}
+
+/* Connect */
+
+.connect-search {
+    padding: 24px;
+}
+
+.dashboard-grid {
+    gap: 20px;
+}
+
+.member-card {
+    text-align: left;
+}
+
+.member-picture {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--soft-blue);
+}
+
+/* Coffee Chats */
+
+.coffee-layout {
+    grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
+    gap: 24px;
+}
+
+/* Discussions */
+
+.discussion-list {
+    gap: 16px;
+}
+
+/* Profile */
+
+.profile-layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    align-items: start;
+}
+
+.profile-preview-card {
+    padding: 30px;
+}
+
+.picture-drop-zone {
+    padding: 20px;
+    background: #f8fbfd;
+    border-color: #b8cfdf;
+}
+
+.picture-upload-icon {
+    font-size: 28px;
+    margin: 0 0 5px;
+}
+
+.picture-drop-zone p {
+    margin: 4px 0;
+}
+
+.picture-drop-zone input {
+    margin-top: 10px;
+}
+
+/* Forms */
+
+.signin-box,
+.application-container {
+    box-shadow: var(--shadow);
+}
+
+.signin-box h1,
+.application-head h1 {
+    color: var(--navy);
+}
+
+.signin-button {
+    border-radius: 9px;
+}
+
+.profile-form input:not([type="file"]),
+.profile-form textarea,
+.coffee-form input,
+.coffee-form select,
+.coffee-form textarea,
+.discussion-form input,
+.discussion-form select,
+.discussion-form textarea {
+    border: 1px solid #ccd8e4;
+    border-radius: 8px;
+}
+
+/* Footer */
+
+footer {
+    background: var(--dark-navy);
+}
+
+/* Mobile */
+
+@media (max-width: 900px) {
+    .navbar {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .nav-links {
+        justify-content: center;
+    }
+
+    .dashboard {
+        padding: 30px 5%;
+    }
+
+    .profile-layout,
+    .coffee-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-banner {
+        padding: 28px;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-card,
+    .stat-card,
+    .calendar-dashboard-card {
+        padding: 18px;
+    }
+
+    .nav-links a {
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 29px;
+    }
+}
