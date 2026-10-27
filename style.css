@@ -537,12 +537,6 @@ footer {
     text-align: center;
 }
 
-.profile-hint {
-    font-size: 13px;
-    color: #606873;
-    margin-top: 5px;
-}
-
 #edit-picture {
     padding: 12px;
     background-color: #f3f6fa;
@@ -785,13 +779,6 @@ footer {
 
 .application-complete p {
     line-height: 1.7;
-}
-
-.application-help,
-.prototype-note {
-    font-size: 13px;
-    color: #606873;
-    line-height: 1.6;
 }
 
 @media (max-width: 700px) {
