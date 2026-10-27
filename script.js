@@ -12,11 +12,19 @@ const signinForm = document.getElementById("signin-form");
 if (signinForm) {
     signinForm.addEventListener("submit", function(event) {
         event.preventDefault();
-        sessionStorage.setItem("signedIn", "yes");
-        window.location.href = "dashboard.html";
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const message = document.getElementById("signin-message");
+
+        if (email === "demo@ceoxb.com" && password === "Test1234!") {
+            sessionStorage.setItem("signedIn", "yes");
+            window.location.href = "dashboard.html";
+        } else {
+            message.textContent = "Incorrect email or password.";
+        }
     });
 }
-
 const signupForm = document.getElementById("signup-form");
 
 if (signupForm) {
