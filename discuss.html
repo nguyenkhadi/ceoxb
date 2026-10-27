@@ -54,19 +54,52 @@
             </div>
         </section>
 
-        <section class="dashboard-section">
+        <section class="dashboard-section discussion-feed">
             <div class="section-heading">
-                <h2>Recent Discussions</h2>
+                <div>
+                    <h2>Community Feed</h2>
+                    <p>Explore conversations happening in your community.</p>
+                </div>
+                <span id="discussion-count">0 discussions</span>
             </div>
+        
+            <div class="discussion-toolbar">
+                <div class="discussion-search-box">
+                    <label for="discussion-search">Search Discussions</label>
+                    <input
+                        type="search"
+                        id="discussion-search"
+                        placeholder="Search topics or keywords..."
+                    >
+                </div>
+        
+                <div class="discussion-filter-box">
+                    <label for="discussion-filter">Filter by Topic</label>
+                    <select id="discussion-filter">
+                        <option value="All">All Topics</option>
+                        <option value="Business Strategy">Business Strategy</option>
+                        <option value="Leadership">Leadership</option>
+                        <option value="Funding">Funding</option>
+                        <option value="Networking">Networking</option>
+                    </select>
+                </div>
+            </div>
+        
             <div id="discussion-list" class="discussion-list"></div>
-            <p id="no-discussions" class="learn-note">
-                No discussions yet. Start a conversation!
-            </p>
+        
+            <div id="no-discussions" class="discussion-empty">
+                <div class="discussion-empty-icon">✎</div>
+                <h3>No discussions found</h3>
+                <p>Start a conversation or try another search.</p>
+            </div>
         </section>
+        
     </main>
     <footer><p>CEO XB</p></footer>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
     <script src="supabase.js"></script>
     <script src="script.js"></script>
+    <script src="discuss.js"></script>
+    
 </body>
 </html>
