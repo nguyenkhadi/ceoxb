@@ -1459,7 +1459,9 @@ html[data-theme="dark"] .picture-upload-icon {
     color: #eaf3fa;
 }
 
+.picture-drop-zone input[type="file"],
 html[data-theme="dark"] .picture-drop-zone input[type="file"] {
+    color-scheme: light;
     width: 100%;
     background: #152638;
     color: #eaf3fa;
@@ -1468,6 +1470,7 @@ html[data-theme="dark"] .picture-drop-zone input[type="file"] {
     padding: 10px;
 }
 
+.picture-drop-zone input[type="file"]::file-selector-button,
 html[data-theme="dark"] .picture-drop-zone input[type="file"]::file-selector-button {
     background: #347ca8;
     color: #ffffff;
