@@ -1,5 +1,4 @@
 /* CEO XB shared design */
-
 :root {
     --navy: #082c50;
     --dark-navy: #061f3b;
@@ -351,5 +350,176 @@ footer {
 
     .dashboard-header h1 {
         font-size: 29px;
+    }
+}
+
+/* Welcome tutorial */
+
+.dashboard-welcome-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.tour-replay {
+    background: white;
+    color: var(--navy);
+    border: 1px solid var(--border);
+    padding: 11px 17px;
+    border-radius: 9px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.tour-replay:hover {
+    background: var(--soft-blue);
+}
+
+.welcome-tour {
+    width: min(440px, calc(100% - 32px));
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 28px;
+    border: none;
+    border-radius: 18px;
+    background: white;
+    color: var(--text);
+    box-shadow: 0 20px 65px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-tour::backdrop {
+    background: rgba(5, 24, 45, 0.65);
+}
+
+.tour-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tour-label {
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: var(--blue);
+}
+
+#tour-close {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.tour-content {
+    padding: 25px 0;
+}
+
+.tour-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    background: var(--soft-blue);
+    color: var(--navy);
+    border-radius: 14px;
+    font-size: 27px;
+    margin-bottom: 20px;
+}
+
+.tour-content h2 {
+    color: var(--navy);
+    font-size: 26px;
+    margin: 0 0 12px;
+}
+
+.tour-content p {
+    color: var(--muted);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.tour-progress {
+    margin-bottom: 24px;
+}
+
+#tour-step-count {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.tour-progress-dots {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.tour-dot {
+    flex: 1;
+    height: 5px;
+    background: #e2e8ef;
+    border-radius: 10px;
+}
+
+.tour-dot.active {
+    background: var(--blue);
+}
+
+.tour-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.tour-actions > div {
+    display: flex;
+    gap: 8px;
+}
+
+.tour-actions button {
+    padding: 11px 16px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: white;
+    color: var(--navy);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#tour-next {
+    background: var(--navy);
+    color: white;
+    border-color: var(--navy);
+}
+
+#tour-next:hover {
+    background: var(--blue);
+}
+
+.tour-actions button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .dashboard-welcome-row {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .welcome-tour {
+        padding: 20px;
+    }
+
+    .tour-content h2 {
+        font-size: 23px;
     }
 }
