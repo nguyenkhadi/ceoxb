@@ -140,42 +140,27 @@
                 </button>
             </div>
         </dialog>
-
         <section class="profile-achievement-settings dashboard-card">
-        <div class="section-heading">
-            <div>
-                <h2>Featured Achievements</h2>
-                <p>Choose which achievements to showcase to other members.</p>
-            </div>
-        </div>
-
-        <div class="achievement-privacy-row">
-            <div>
-                <strong>Display achievements on my profile</strong>
-                <p>Off by default. Your achievement progress stays private.</p>
-            </div>
-
+        <div class="achievement-section-header">
+            <h2>Featured Achievements</h2>
+    
             <label class="achievement-switch">
                 <input type="checkbox" id="show-profile-achievements">
                 <span class="achievement-switch-slider"></span>
                 <span class="sr-only">Display achievements</span>
             </label>
         </div>
-
+    
         <div id="achievement-visibility-options" hidden>
-            <h3>Select achievements to feature</h3>
-            <p>Only earned achievements can be selected.</p>
-
             <div id="achievement-selection-list"
                  class="achievement-selection-list"></div>
-
-            <h3>Profile Preview</h3>
+    
             <div id="featured-achievements-preview"
-                 class="featured-achievements-preview"></div>
+                 class="featured-achievements-preview"
+                 hidden></div>
         </div>
-
-        <p id="achievement-privacy-status"
-           role="status"></p>
+    
+        <p id="achievement-privacy-status" role="status"></p>
     </section>
 </main>
     
