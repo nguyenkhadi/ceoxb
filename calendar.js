@@ -203,12 +203,9 @@ if (fullCalendar) {
                 displayedMonth = 11;
                 displayedYear--;
             }
-
-            selectedDate.textContent = "Select a date";
-            selectedInfo.textContent =
-                "Choose a day to view its events.";
-
+            selectedDay = 1;
             renderCalendar();
+            showSelectedDate(displayedYear, displayedMonth, 1);
         });
 
     document.getElementById("calendar-next")
@@ -219,16 +216,15 @@ if (fullCalendar) {
                 displayedMonth = 0;
                 displayedYear++;
             }
-
-            selectedDate.textContent = "Select a date";
-            selectedInfo.textContent =
-                "Choose a day to view its events.";
-
+            selectedDay = 1;
             renderCalendar();
+            showSelectedDate(displayedYear, displayedMonth, 1);
         });
 
     document.getElementById("calendar-today")
         .addEventListener("click", function() {
+            const currentDate = new Date();
+            
             displayedYear = today.getFullYear();
             displayedMonth = today.getMonth();
 
@@ -237,7 +233,7 @@ if (fullCalendar) {
             showSelectedDate(
                 displayedYear,
                 displayedMonth,
-                today.getDate()
+                currentDate.getDate()
             );
         });
 
