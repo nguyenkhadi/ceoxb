@@ -2912,44 +2912,21 @@ html[data-theme="dark"] #full-calendar-days button.calendar-day.today {
     border-color: #347ca8;
 }
 
-.member-profile-details summary {
-    list-style: none;
+.member-card .member-view-profile {
+    display: block;
+    margin: 12px auto;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--blue);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
     cursor: pointer;
 }
 
-.member-profile-details summary::-webkit-details-marker {
-    display: none;
-}
-
-.member-view-profile {
-    display: inline-block;
-    margin: 12px 0;
-    color: var(--blue);
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.member-profile-details[open] .member-view-profile {
-    margin-bottom: 0;
-}
-
-.member-profile-details[open] .member-view-profile::after {
-    content: " ▲";
-}
-
-.member-profile-details:not([open]) .member-view-profile::after {
-    content: " ▼";
-}
-
-.member-expanded-info {
-    padding: 16px 8px;
-    margin: 12px 0;
-    border-top: 1px solid var(--border);
-    text-align: center;
-}
-
-.member-expanded-info h4 {
-    margin: 20px 0 12px;
+.member-card .member-view-profile:hover {
+    text-decoration: underline;
 }
 
 .member-achievements {
@@ -2968,20 +2945,134 @@ html[data-theme="dark"] #full-calendar-days button.calendar-day.today {
     font-size: 13px;
 }
 
-.member-linkedin-link {
-    display: inline-block;
-    margin-top: 20px;
-    color: var(--blue);
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.member-linkedin-link:hover {
-    text-decoration: underline;
-}
-
 .profile-featured-section {
     margin-top: 24px;
     padding-top: 18px;
     border-top: 1px solid var(--border);
+}
+
+.member-profile-dialog {
+    width: min(520px, calc(100% - 32px));
+    max-height: 85vh;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--white);
+    color: var(--text);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+}
+
+.member-profile-dialog::backdrop {
+    background: rgba(3, 13, 27, 0.78);
+}
+
+.member-dialog-content {
+    position: relative;
+    padding: 34px;
+    text-align: center;
+}
+
+.member-dialog-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.member-modal-picture {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--border);
+}
+
+.member-dialog-content h2 {
+    margin: 12px 0 4px;
+    color: var(--text);
+}
+
+.member-modal-role {
+    margin: 0 0 26px;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.member-modal-info {
+    padding: 18px 0;
+    text-align: left;
+    border-top: 1px solid var(--border);
+}
+
+.member-modal-info h3 {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: 16px;
+}
+
+.member-modal-info p {
+    margin: 0;
+    color: var(--text) !important;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.member-modal-achievements {
+    padding: 18px 0;
+    border-top: 1px solid var(--border);
+    text-align: left;
+}
+
+.member-modal-achievements h3 {
+    margin: 0 0 12px;
+    color: var(--muted) !important;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.member-modal-achievements .member-achievements {
+    justify-content: flex-start;
+}
+
+.member-modal-achievements .member-achievement-badge {
+    padding: 5px 9px;
+    font-size: 11px;
+    border-radius: 7px;
+}
+
+.member-modal-achievements p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.member-linkedin-button {
+    display: inline-block;
+    margin: 16px 8px 0;
+    padding: 11px 22px;
+    border-radius: 9px;
+    background: #347ca8;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.member-linkedin-button:hover {
+    background: #28618c;
+    color: white;
+}
+
+.member-dialog-content .member-coffee-button {
+    display: inline-block;
+    margin: 16px 8px 0;
+}
+
+@media (max-width: 600px) {
+    .member-dialog-content {
+        padding: 26px 20px;
+    }
 }
