@@ -32,6 +32,7 @@
             <p>Add details about yourself and your business.</p>
         </section>
             <div class="profile-layout">
+                <div class="profile-left-column">
                 <section class="dashboard-card profile-preview-card">
                 <h2>Profile Preview</h2>
             
@@ -57,12 +58,30 @@
                 </div>
 
                 <div class="profile-featured-section">
-                    <h3>Featured Achievements</h4>
+                    <h4>Featured Achievements</h4>
                     <div id="featured-achievements-preview"
                          class="featured-achievements-preview"></div>
                 </div>
             </section>
-
+            <section class="profile-achievement-settings dashboard-card">
+                <div class="achievement-section-header">
+                    <h2>Featured Achievements</h2>
+            
+                    <label class="achievement-switch">
+                        <input type="checkbox" id="show-profile-achievements">
+                        <span class="achievement-switch-slider"></span>
+                        <span class="sr-only">Display achievements</span>
+                    </label>
+                </div>
+            
+                <div id="achievement-visibility-options" hidden>
+                    <div id="achievement-selection-list"
+                         class="achievement-selection-list"></div>
+                </div>
+            
+                <p id="achievement-privacy-status" role="status"></p>
+            </section>
+        </div>
             <section class="dashboard-card">
                 <h2>Edit Profile</h2>
                 <form id="profile-form" class="profile-form">
@@ -138,24 +157,6 @@
                 </button>
             </div>
         </dialog>
-        <section class="profile-achievement-settings dashboard-card">
-        <div class="achievement-section-header">
-            <h2>Featured Achievements</h2>
-    
-            <label class="achievement-switch">
-                <input type="checkbox" id="show-profile-achievements">
-                <span class="achievement-switch-slider"></span>
-                <span class="sr-only">Display achievements</span>
-            </label>
-        </div>
-    
-        <div id="achievement-visibility-options" hidden>
-            <div id="achievement-selection-list"
-                 class="achievement-selection-list"></div>
-        </div>
-    
-        <p id="achievement-privacy-status" role="status"></p>
-    </section>
 </main>
     
     <footer><p>CEO XB</p></footer>
