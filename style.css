@@ -772,34 +772,6 @@ footer {
 }
 
 
-.dashboard-primary-btn,
-.dashboard-secondary-btn {
-    display: inline-block;
-    padding: 13px 22px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.dashboard-primary-btn {
-    background-color: white;
-    color: #082c50;
-}
-
-.dashboard-secondary-btn {
-    background-color: #18486f;
-    color: white;
-    border: 1px solid #6485a1;
-}
-
-.dashboard-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-bottom: 45px;
-}
-
-
 .calendar-dashboard-card {
     background: white;
     padding: 28px;
