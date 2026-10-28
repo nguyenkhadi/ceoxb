@@ -184,11 +184,6 @@ textarea:focus-visible {
     margin-bottom: 0;
 }
 
-.dashboard-stats {
-    gap: 18px;
-    margin-bottom: 32px;
-}
-
 .stat-card h3 {
     margin: 8px 0;
 }
@@ -976,9 +971,7 @@ body > header {
 #cohort-update-saved-text {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: auto 1fr;
-    column-gap: 24px;
-    row-gap: 8px;
+    gap: 24px;
     padding: 20px;
     margin: 16px 0;
     background: var(--background);
@@ -1002,8 +995,6 @@ body > header {
 @media (max-width: 700px) {
     #cohort-update-saved-text {
         grid-template-columns: 1fr;
-        grid-template-rows: none;
-        grid-auto-flow: row;
     }
 }
 
@@ -1126,7 +1117,6 @@ html[data-theme="dark"] .theme-toggle {
     color: white;
 }
 
-html[data-theme="dark"] .quick-action-icon,
 html[data-theme="dark"] .discussion-category,
 html[data-theme="dark"] .discussion-topic-badge {
     background: #25435c;
@@ -2929,10 +2919,6 @@ html[data-theme="dark"] #edit-about {
     color: var(--text);
 }
 
-.dashboard-event-card .recommendation-button {
-    margin-top: 18px;
-}
-
 @media (max-width: 600px) {
     .dashboard-hero {
         padding: 24px;
@@ -2944,4 +2930,61 @@ html[data-theme="dark"] #edit-about {
         align-items: flex-start;
         padding: 20px;
     }
+}
+
+.dashboard-event-content {
+    flex: 1;
+    min-width: 0;
+}
+
+#dashboard-upcoming-events {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.dashboard-upcoming-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px;
+    border: 1px solid rgba(145, 170, 195, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.dashboard-upcoming-item h4 {
+    margin: 0 0 12px;
+    font-size: 16px;
+}
+
+.dashboard-upcoming-item p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.dashboard-upcoming-status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: rgba(65, 142, 186, 0.15);
+    color: #8cc9eb;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+@media (max-width: 700px) {
+    #dashboard-upcoming-events {
+        grid-template-columns: 1fr;
+    }
+}
+
+#dashboard-upcoming-events > :only-child {
+    grid-column: 1 / -1;
+}
+
+.section-action-button {
+    white-space: nowrap;
+    flex-shrink: 0;
 }
