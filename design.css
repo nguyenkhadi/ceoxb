@@ -2733,3 +2733,95 @@ html[data-theme="dark"] .coffee-danger-button {
         width: 100%;
     }
 }
+
+.calendar-event-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.calendar-event-form h3 {
+    margin: 0 0 8px;
+    font-size: 17px;
+    color: var(--text);
+}
+
+.calendar-event-form label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.calendar-event-form input,
+.calendar-event-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--white);
+    color: var(--text);
+    font: inherit;
+}
+
+.calendar-event-form button {
+    margin-top: 8px;
+}
+
+.calendar-event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.calendar-event-item {
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: var(--white);
+}
+
+.calendar-event-item strong {
+    color: var(--text);
+}
+
+.calendar-event-item p {
+    margin: 7px 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.calendar-event-item button {
+    padding: 7px 10px;
+    margin-top: 8px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+}
+
+.calendar-day.has-events {
+    position: relative;
+}
+
+.calendar-day.has-events::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--blue);
+}
+
+#calendar-event-status {
+    font-size: 13px;
+    color: var(--muted);
+}
+
