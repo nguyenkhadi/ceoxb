@@ -321,4 +321,3 @@ if (fullCalendar) {
             eventStatus.textContent = "Unable to load personal events.";
         });
 }
-}
