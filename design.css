@@ -2452,3 +2452,30 @@ html[data-theme="dark"] .coffee-danger-button {
 .coffee-request-actions {
     margin-top: 18px;
 }
+
+/* Connect to Coffee Chats */
+
+.member-coffee-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+    padding: 11px 17px;
+    background: var(--navy);
+    color: #fff !important;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.member-coffee-button:hover {
+    background: var(--blue);
+    color: #fff;
+}
+
+.member-coffee-button:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+}
