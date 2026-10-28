@@ -74,7 +74,6 @@ if (signupForm) {
     });
 }
 
-// Member page access
 const pageName = window.location.pathname.split("/").pop();
 
 if (pageName === "dashboard.html" || pageName === "learn.html" ||
@@ -100,7 +99,6 @@ if (signout) {
     });
 }
 
-// Dashboard greeting
 const dashboardWelcome = document.getElementById("dashboard-welcome");
 
 if (dashboardWelcome) {
@@ -125,7 +123,6 @@ if (dashboardWelcome) {
     })();
 }
 
-// Member directory
 const memberSearch = document.getElementById("member-search");
 
 if (memberSearch) {
@@ -139,10 +136,8 @@ if (memberSearch) {
         const company = (profile.company || "").trim();
         const location = (profile.location || "").trim();
         const interests = (profile.interests || "").trim();
-        const picture = profile.avatar_url;
-
-        // Only list members who have finished their profile
-        if (!name || !picture) {
+        
+        if (!name || !profile.avatar_url) {
             return;
         }
 
@@ -151,43 +146,147 @@ if (memberSearch) {
 
         card.dataset.search =
             [name, role, company, location, interests]
-                .join(" ")
-                .toLowerCase();
+                .join(" ").toLowerCase();
 
-        const image = document.createElement("img");
-        image.src = picture;
-        image.alt = name + "'s profile picture";
-        image.className = "member-picture";
-        card.appendChild(image);
+        const picture = document.createElement("img");
+        picture.src = profile.avatar_url;
+        picture.alt = name + "'s profile picture";
+        picture.className = "member-picture";
+        
+        const details = document.createElement("details");
+        details.className = "member-profile-details";
 
+        const summary = document.createElement("summary");
+        
         const heading = document.createElement("h3");
         heading.textContent = name;
-        card.appendChild(heading);
 
-        if (role || company) {
-            const roleText = document.createElement("p");
-            roleText.className = "member-role";
-            roleText.textContent =
-                [role, company].filter(Boolean).join(" at ");
-            card.appendChild(roleText);
-        }
+        const roleText = document.createElement("p");
+        roleText.className = "member-role";
+        roleText.textContent =
+        [role, company].filter(Boolean).join(" at ");
+
+        const viewText = document.createElement("span");
+        viewText.className = "member-view-profile";
+        viewText.textContent = "View Profile";
+
+        summary.append(picture, heading, roleText, viewText);
+        details.appendChild(summary);
+    
+        const expanded = document.createElement("div");
+        expanded.className = "member-expanded-info";
         
         if (location) {
             const locationText = document.createElement("p");
             locationText.textContent = location;
-            card.appendChild(locationText);
+            expanded.appendChild(locationText);
         }
 
         if (interests) {
             const interestText = document.createElement("p");
             interestText.textContent = "Interests: " + interests;
-            card.appendChild(interestText);
+            expanded.appendChild(interestText);
+        }
+
+        
+    const achievementsTitle = document.createElement("h4");
+    achievementsTitle.textContent = "Featured Achievements";
+    expanded.appendChild(achievementsTitle);
+
+    const badges = document.createElement("div");
+    badges.className = "member-achievements";
+
+    let settings = null;
+
+    try {
+        settings = JSON.parse(
+            localStorage.getItem(
+                "ceoxb-achievement-visibility-" + profile.id
+            ) || "null"
+        );
+    } catch (error) {
+        settings = null;
+    }
+
+    if (settings && settings.visible &&
+        Array.isArray(settings.selected)) {
+
+        const categories = {
+            coffee: "Coffee Chats",
+            discussion: "Discussions",
+            connection: "Connections",
+            learning: "Learning"
+        };
+
+        settings.selected.forEach(function(id) {
+            let label = "";
+            let icon = "★";
+
+            if (id === "profile") {
+                label = "Getting Started";
+                icon = "✦";
+            } else if (id === "tutorial") {
+                label = "Welcome Aboard";
+                icon = "🎓";
+            } else {
+                const match = id.match(
+                    /^(coffee|discussion|connection|learning)-(\d+)$/
+                );
+
+                if (match) {
+                    label = categories[match[1]] +
+                        " · " + Number(match[2]).toLocaleString();
+                }
+            }
+
+            if (label) {
+                const badge = document.createElement("span");
+                badge.className = "member-achievement-badge";
+                badge.textContent = icon + " " + label;
+                badges.appendChild(badge);
+            }
+        });
+    }
+
+    if (!badges.children.length) {
+        const empty = document.createElement("p");
+        empty.textContent = "No featured achievements available.";
+        badges.appendChild(empty);
+    }
+
+        expanded.appendChild(badges);
+    
+        const linkedinUrl = localStorage.getItem(
+            "ceoxb-linkedin-" + profile.id
+        );
+    
+        if (linkedinUrl) {
+            try {
+                const url = new URL(linkedinUrl);
+    
+                if (url.protocol === "https:" &&
+                    ["linkedin.com", "www.linkedin.com"]
+                        .includes(url.hostname.toLowerCase()) &&
+                    url.pathname.startsWith("/in/")) {
+    
+                    const link = document.createElement("a");
+                    link.href = url.href;
+                    link.target = "_blank";
+                    link.rel = "noopener noreferrer";
+                    link.className = "member-linkedin-link";
+                    link.textContent = "View LinkedIn Profile ↗";
+                    expanded.appendChild(link);
+                }
+            } catch (error) {
+            }
         }
         const coffeeButton = document.createElement("a");
         coffeeButton.href = "coffee.html?member=" + encodeURIComponent(profile.id);
         coffeeButton.className = "member-coffee-button";
         coffeeButton.textContent = "☕ Schedule Coffee Chat";
-        
+
+        details.appendChild(expanded);
+        card.appendChild(details);
         card.appendChild(coffeeButton);
         memberList.appendChild(card);
     }
@@ -237,7 +336,6 @@ if (memberSearch) {
     memberSearch.addEventListener("input", filterMembers);
 }
 
-// Profile functionality
 const profileForm = document.getElementById("profile-form");
 
 if (profileForm) {
@@ -350,8 +448,6 @@ if (profileForm) {
                 document.getElementById("edit-" + field).value.trim();
         });
 
-        // Upload the new picture to the "avatars" bucket,
-        // in a folder named after the user's id
         if (file) {
             const path = user.id + "/avatar.jpg";
 
@@ -368,9 +464,7 @@ if (profileForm) {
             const { data } = _supabase.storage
                 .from("avatars")
                 .getPublicUrl(path);
-
-            // The ?v= part makes browsers load the new picture
-            // instead of a cached copy of the old one
+            
             profile.avatar_url = data.publicUrl + "?v=" + Date.now();
         }
 
@@ -395,7 +489,6 @@ if (profileForm) {
     });
 }
 
-// Dashboard calendar
 const dashboardCalendar = document.getElementById("calendar-days");
 
 if (dashboardCalendar) {
