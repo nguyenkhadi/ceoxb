@@ -365,7 +365,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         
             member.appendChild(option);
         });
+        const selectedMember = new URLSearchParams(
+            window.location.search
+        ).get("member");
         
+        if (selectedMember && otherMembers.some(function(profile) {
+            return profile.id === selectedMember;
+        })) {
+            member.value = selectedMember;
+        }
         memberStatus.textContent = otherMembers.length
             ? otherMembers.length + " members available"
             : "No other members found.";
