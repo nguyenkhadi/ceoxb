@@ -12,6 +12,13 @@ if (fullCalendar) {
     const eventForm = document.getElementById("calendar-event-form");
     const eventList = document.getElementById("calendar-event-list");
     const eventStatus = document.getElementById("calendar-event-status");
+
+    const coffeeForm = document.getElementById("calendar-coffee-form");
+    const coffeeMember = document.getElementById("calendar-coffee-member");
+    const coffeeTime = document.getElementById("calendar-coffee-time");
+    const coffeeMessage = document.getElementById("calendar-coffee-message");
+    const coffeeSubmit = document.getElementById("calendar-coffee-submit");
+    const coffeeStatus = document.getElementById("calendar-coffee-status");
     
     let events = [];
     let eventStorageKey = "";
@@ -225,8 +232,9 @@ if (fullCalendar) {
         .addEventListener("click", function() {
             const currentDate = new Date();
             
-            displayedYear = today.getFullYear();
-            displayedMonth = today.getMonth();
+            displayedYear = currentDate.getFullYear();
+            displayedMonth = currentDate.getMonth();
+            selectedDay = currentDate.getDate();
 
             renderCalendar();
 
@@ -291,7 +299,7 @@ if (fullCalendar) {
             today.getDate()
         );
         
-        getCurrentUser().then(function(user) {
+        getCurrentUser().then(async function(user) {
             if (!user) return;
         
             eventStorageKey = "ceoxb-personal-events-" + user.id;
@@ -316,7 +324,105 @@ if (fullCalendar) {
         
             renderCalendar();
             renderSelectedEvents();
+            const coffeeStorageKey = "ceoxb-coffee-drafts-" + user.id;
+
+            const { data: members, error: memberError } = await _supabase
+                .from("profiles")
+                .select("id, name, company")
+                .order("name");
+
+            if (memberError) {
+                coffeeStatus.textContent = "Unable to load members.";
+                return;
+            }
+
+            const otherMembers = (members || []).filter(function(profile) {
+                return profile.id !== user.id;
+            });
+
+            coffeeMember.replaceChildren();
+
+            const placeholder = document.createElement("option");
+            placeholder.value = "";
+            placeholder.textContent = "Select a member";
+            coffeeMember.appendChild(placeholder);
+
+            otherMembers.forEach(function(profile) {
+                const option = document.createElement("option");
+                option.value = profile.id;
+                option.textContent = [
+                    profile.name || "Unnamed member",
+                    profile.company
+                ].filter(Boolean).join(" · ");
+
+                coffeeMember.appendChild(option);
+            });
+
+            coffeeMember.disabled = otherMembers.length === 0;
+            coffeeSubmit.disabled = otherMembers.length === 0;
+
+            if (!otherMembers.length) {
+                coffeeStatus.textContent = "No other members available.";
+            }
+
+            coffeeForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                if (!coffeeForm.reportValidity()) return;
+
+                const meetingDate = dateKey(
+                    displayedYear, displayedMonth, selectedDay
+                );
+
+                const meeting = new Date(
+                    meetingDate + "T" + coffeeTime.value
+                );
+
+                if (
+                    Number.isNaN(meeting.getTime()) ||
+                    meeting <= new Date()
+                ) {
+                    coffeeStatus.textContent =
+                        "Choose a date and time in the future.";
+                    return;
+                }
+
+                const request = {
+                    id: window.crypto?.randomUUID?.() ||
+                        Date.now().toString() + "-" + Math.random(),
+                    memberId: coffeeMember.value,
+                    memberName: coffeeMember.selectedOptions[0].textContent,
+                    date: meetingDate,
+                    time: coffeeTime.value,
+                    startsAt: meeting.toISOString(),
+                    senderTimezone:
+                        Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    message: coffeeMessage.value.trim(),
+                    status: "sent"
+                };
+
+                try {
+                    const stored = JSON.parse(
+                        localStorage.getItem(coffeeStorageKey) || "[]"
+                    );
+
+                    const requests = Array.isArray(stored) ? stored : [];
+                    requests.push(request);
+
+                    localStorage.setItem(
+                        coffeeStorageKey,
+                        JSON.stringify(requests)
+                    );
+
+                    coffeeForm.reset();
+                    coffeeStatus.textContent =
+                        "Request saved locally. The member has not been notified.";
+                } catch (error) {
+                    coffeeStatus.textContent =
+                        "Unable to save Coffee Chat request.";
+                }
+            });
         }).catch(function() {
             eventStatus.textContent = "Unable to load personal events.";
-        });
+            coffeeStatus.textContent = "Unable to load Coffee Chats.";
 }
