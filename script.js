@@ -48,9 +48,6 @@ if (signupForm) {
         }
 
         message.textContent = "Creating your account...";
-
-        // name and invite_code are saved on the user; a database
-        // trigger copies the name into their profile
         const { data, error } = await _supabase.auth.signUp({
             email: email,
             password: password,
@@ -87,7 +84,6 @@ if (pageName === "dashboard.html" || pageName === "learn.html" ||
     });
 }
 
-// Sign out
 const signout = document.getElementById("signout");
 
 if (signout) {
@@ -143,7 +139,6 @@ if (memberSearch) {
 
         const card = document.createElement("div");
         card.className = "dashboard-card member-card";
-
         card.dataset.search =
             [name, role, company, location, interests]
                 .join(" ").toLowerCase();
@@ -153,11 +148,6 @@ if (memberSearch) {
         picture.alt = name + "'s profile picture";
         picture.className = "member-picture";
         
-        const details = document.createElement("details");
-        details.className = "member-profile-details";
-
-        const summary = document.createElement("summary");
-        
         const heading = document.createElement("h3");
         heading.textContent = name;
 
@@ -166,32 +156,76 @@ if (memberSearch) {
         roleText.textContent =
         [role, company].filter(Boolean).join(" at ");
 
-        const viewText = document.createElement("span");
-        viewText.className = "member-view-profile";
-        viewText.textContent = "View Profile";
-
-        summary.append(picture, heading, roleText, viewText);
-        details.appendChild(summary);
+        const viewButton = document.createElement("button");
+        viewButton.type = "button";
+        viewButton.className = "member-view-profile";
+        viewButton.textContent = "View Profile";
     
-        const expanded = document.createElement("div");
-        expanded.className = "member-expanded-info";
+        card.append(picture, heading, roleText, viewButton);
+        memberList.appendChild(card);
+
+        const dialog = document.createElement("dialog");
+        dialog.className = "member-profile-dialog";
+        dialog.setAttribute("aria-label", name + "'s profile");
         
+        const content = document.createElement("div");
+        content.className = "member-dialog-content";
+    
+        const close = document.createElement("button");
+        close.type = "button";
+        close.className = "member-dialog-close";
+        close.textContent = "×";
+        close.setAttribute("aria-label", "Close profile");
+        close.addEventListener("click", function() {
+            dialog.close();
+        });
+        
+        const modalPicture = picture.cloneNode(true);
+        modalPicture.className = "member-modal-picture";
+        
+        const modalName = document.createElement("h2");
+        modalName.textContent = name;
+        
+        const modalRole = document.createElement("p");
+        modalRole.className = "member-modal-role";
+        modalRole.textContent = roleText.textContent;
+        
+        content.append(close, modalPicture, modalName, modalRole);
+    
         if (location) {
-            const locationText = document.createElement("p");
-            locationText.textContent = location;
-            expanded.appendChild(locationText);
+            const section = document.createElement("div");
+            section.className = "member-modal-info";
+    
+            const title = document.createElement("h3");
+            title.textContent = "Location";
+    
+            const value = document.createElement("p");
+            value.textContent = "📍 " + location;
+    
+            section.append(title, value);
+            content.appendChild(section);
         }
 
         if (interests) {
-            const interestText = document.createElement("p");
-            interestText.textContent = "Interests: " + interests;
-            expanded.appendChild(interestText);
+            const section = document.createElement("div");
+            section.className = "member-modal-info";
+    
+            const title = document.createElement("h3");
+            title.textContent = "Interests";
+    
+            const value = document.createElement("p");
+            value.textContent = interests;
+    
+            section.append(title, value);
+            content.appendChild(section);
         }
 
+    const achievements = document.createElement("div");
+    achievements.className = "member-modal-achievements";
         
-    const achievementsTitle = document.createElement("h4");
+    const achievementsTitle = document.createElement("h3");
     achievementsTitle.textContent = "Featured Achievements";
-    expanded.appendChild(achievementsTitle);
+    achievements.appendChild(achievementsTitle);
 
     const badges = document.createElement("div");
     badges.className = "member-achievements";
@@ -254,7 +288,8 @@ if (memberSearch) {
         badges.appendChild(empty);
     }
 
-        expanded.appendChild(badges);
+        achievements.appendChild(badges);
+        content.appendChild(achievements);
     
         const linkedinUrl = localStorage.getItem(
             "ceoxb-linkedin-" + profile.id
@@ -273,22 +308,34 @@ if (memberSearch) {
                     link.href = url.href;
                     link.target = "_blank";
                     link.rel = "noopener noreferrer";
-                    link.className = "member-linkedin-link";
-                    link.textContent = "View LinkedIn Profile ↗";
-                    expanded.appendChild(link);
+                    link.className = "member-linkedin-button";
+                    link.textContent = "LinkedIn Profile";
+                    content.appendChild(link);
                 }
             } catch (error) {
             }
         }
-        const coffeeButton = document.createElement("a");
-        coffeeButton.href = "coffee.html?member=" + encodeURIComponent(profile.id);
-        coffeeButton.className = "member-coffee-button";
-        coffeeButton.textContent = "☕ Schedule Coffee Chat";
 
-        details.appendChild(expanded);
-        card.appendChild(details);
-        card.appendChild(coffeeButton);
-        memberList.appendChild(card);
+    const coffeeButton = document.createElement("a");
+    coffeeButton.href =
+        "coffee.html?member=" + encodeURIComponent(profile.id);
+    coffeeButton.className = "member-coffee-button";
+    coffeeButton.textContent = "☕ Schedule Coffee Chat";
+    
+    content.appendChild(coffeeButton);
+    
+    dialog.appendChild(content);
+    document.body.appendChild(dialog);
+    
+    viewButton.addEventListener("click", function() {
+        dialog.showModal();
+    });
+    
+    dialog.addEventListener("click", function(event) {
+        if (event.target === dialog) {
+            dialog.close();
+        }
+    });
     }
 
     async function loadMembers() {
