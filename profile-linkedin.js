@@ -2,20 +2,9 @@
 const linkedinInput = document.getElementById("edit-linkedin");
 
 if (linkedinInput) {
-    const linkedinLink = document.getElementById("profile-linkedin-link");
     const linkedinStatus = document.getElementById("linkedin-save-status");
 
     let linkedinStorageKey = "";
-
-    function showLinkedin(url) {
-        if (url) {
-            linkedinLink.href = url;
-            linkedinLink.hidden = false;
-        } else {
-            linkedinLink.removeAttribute("href");
-            linkedinLink.hidden = true;
-        }
-    }
 
     function validLinkedinUrl(value) {
         try {
@@ -48,7 +37,6 @@ if (linkedinInput) {
 
         try {
             localStorage.setItem(linkedinStorageKey, url);
-            showLinkedin(url);
             linkedinStatus.textContent = "LinkedIn link saved in this browser.";
         } catch (error) {
             linkedinStatus.textContent =
@@ -69,9 +57,7 @@ if (linkedinInput) {
 
         if (savedUrl && validLinkedinUrl(savedUrl)) {
             linkedinInput.value = savedUrl;
-            showLinkedin(savedUrl);
         }
     }
-
     loadLinkedin();
 }
