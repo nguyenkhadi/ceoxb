@@ -2911,3 +2911,77 @@ html[data-theme="dark"] #full-calendar-days button.calendar-day.today {
     color: #ffffff;
     border-color: #347ca8;
 }
+
+.member-profile-details summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+.member-profile-details summary::-webkit-details-marker {
+    display: none;
+}
+
+.member-view-profile {
+    display: inline-block;
+    margin: 12px 0;
+    color: var(--blue);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.member-profile-details[open] .member-view-profile {
+    margin-bottom: 0;
+}
+
+.member-profile-details[open] .member-view-profile::after {
+    content: " ▲";
+}
+
+.member-profile-details:not([open]) .member-view-profile::after {
+    content: " ▼";
+}
+
+.member-expanded-info {
+    padding: 16px 8px;
+    margin: 12px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+.member-expanded-info h4 {
+    margin: 20px 0 12px;
+}
+
+.member-achievements {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+.member-achievement-badge {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--soft-blue);
+    color: var(--text);
+    font-size: 13px;
+}
+
+.member-linkedin-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--blue);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.member-linkedin-link:hover {
+    text-decoration: underline;
+}
+
+.profile-featured-section {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+}
