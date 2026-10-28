@@ -48,13 +48,27 @@
 
                     <label for="coffee-time">Time</label>
                     <input type="time" id="coffee-time" required>
+                    <p id="coffee-sender-timezone" class="coffee-hint"></p>
+                    
+
+        <label for="coffee-recipient-timezone">
+            Recipient's Timezone
+        </label>
+        <select id="coffee-recipient-timezone" required>
+            <option value="">Select recipient's timezone</option>
+        </select>
+        
+        <div id="coffee-time-preview" class="coffee-time-preview"
+             aria-live="polite">
+            Choose a date, time, and timezone to preview both meeting times.
+        </div>
 
                     <label for="coffee-message">Message (optional)</label>
                     <textarea id="coffee-message" rows="4"
                               placeholder="What would you like to talk about?"></textarea>
 
                     <button type="submit" id="coffee-submit" class="signin-button" disabled>
-                        Send Coffee Draft
+                        Send Coffee Chat
                     </button>
                     <p id="coffee-result" role="status" class="learn-note"></p>
                 </form>
@@ -77,7 +91,7 @@
 
             <div class="coffee-status-tabs">
                 <button type="button" class="active" data-coffee-filter="all">All</button>
-                <button type="button" data-coffee-filter="draft">Sent</button>
+                <button type="button" data-coffee-filter="sent">Sent</button>
                 <button type="button" data-coffee-filter="cancelled">Cancelled</button>
             </div>
 
