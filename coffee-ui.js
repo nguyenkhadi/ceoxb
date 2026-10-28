@@ -27,6 +27,23 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     date.min = todayString();
+    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
+    
+    const timezoneLabel = document.getElementById("coffee-timezone-label");
+    
+    if (timezoneLabel) {
+        timezoneLabel.textContent =
+            "Your timezone: " + userTimezone.replaceAll("_", " ") +
+            " (automatically detected)";
+    }
+    
+    function formatLocalMeeting(instant) {
+        return new Intl.DateTimeFormat("en-US", {
+            dateStyle: "full",
+            timeStyle: "short",
+            timeZone: userTimezone
+        }).format(instant);
+    }
 
     function saveRequests() {
         try {
@@ -132,8 +149,11 @@ document.addEventListener("DOMContentLoaded", async function () {
                 createElement("h3", request.memberName),
                 createElement(
                     "p",
-                    "📅 " + formatDate(request.date) +
-                    " at " + formatTime(request.time)
+                    "📅 " +  (
+                        request.startsAt
+                            ? formatLocalMeeting(new Date(request.startsAt))
+                            : formatDate(request.date) +
+                                " at " + formatTime(request.time)
                 )
             );
 
@@ -172,12 +192,28 @@ document.addEventListener("DOMContentLoaded", async function () {
                         function () {
                             editingId = request.id;
                             member.value = request.memberId;
-                            date.value = request.date;
-                            time.value = request.time;
+                            if (request.startsAt) {
+                                const instant = new Date(request.startsAt);
+                            
+                                date.value = [
+                                    instant.getFullYear(),
+                                    String(instant.getMonth() + 1).padStart(2, "0"),
+                                    String(instant.getDate()).padStart(2, "0")
+                                ].join("-");
+                            
+                                time.value = [
+                                    String(instant.getHours()).padStart(2, "0"),
+                                    String(instant.getMinutes()).padStart(2, "0")
+                                ].join(":");
+                            } else {
+                                date.value = request.date;
+                                time.value = request.time;
+                            }
+                            
                             message.value = request.message;
 
                             submit.textContent = "Save Changes";
-                            result.textContent = "Editing your draft.";
+                            result.textContent = "Editing your Coffee Chat request.";
 
                             form.scrollIntoView({
                                 behavior: "smooth",
@@ -189,10 +225,11 @@ document.addEventListener("DOMContentLoaded", async function () {
                         "Cancel Request",
                         "coffee-danger-button",
                         function () {
+                            const previousStatus = request.status;
                             request.status = "cancelled";
 
                             if (!saveRequests()) {
-                                request.status = "draft";
+                                request.status = previousStatus;
                                 return;
                             }
 
@@ -215,7 +252,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     function resetForm() {
         form.reset();
         editingId = null;
-        submit.textContent = "Save Coffee Chat Draft";
+        submit.textContent = "Save Coffee Chat";
     }
 
     form.addEventListener("submit", function (event) {
@@ -253,6 +290,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             memberName: chosenMember.textContent,
             date: date.value,
             time: time.value,
+            startsAt: appointment.toISOString(),
+            senderTimezone: userTimezone,
             message: message.value.trim(),
             status: "sent"
         };
@@ -280,7 +319,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         resetForm();
         result.textContent =
-            "Draft saved. No request has been sent to another CEO.";
+            "Draft saved. Stored Locally.";
 
         renderRequests();
     });
