@@ -976,7 +976,9 @@ body > header {
 #cohort-update-saved-text {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
+    grid-template-rows: auto 1fr;
+    column-gap: 24px;
+    row-gap: 8px;
     padding: 20px;
     margin: 16px 0;
     background: var(--background);
@@ -1000,6 +1002,8 @@ body > header {
 @media (max-width: 700px) {
     #cohort-update-saved-text {
         grid-template-columns: 1fr;
+        grid-template-rows: none;
+        grid-auto-flow: row;
     }
 }
 
