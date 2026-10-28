@@ -743,10 +743,7 @@
             const title = document.createElement("strong");
             title.textContent = achievement.name;
 
-            const description = document.createElement("small");
-            description.textContent = achievement.description;
-
-            details.append(title, description);
+            details.append(title);
             row.append(checkbox, icon, details);
             list.appendChild(row);
 
