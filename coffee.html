@@ -50,18 +50,16 @@
                     <input type="time" id="coffee-time" required>
                     <p id="coffee-sender-timezone" class="coffee-hint"></p>
                     
-
-        <label for="coffee-recipient-timezone">
-            Recipient's Timezone
-        </label>
-        <select id="coffee-recipient-timezone" required>
-            <option value="">Select recipient's timezone</option>
-        </select>
-        
-        <div id="coffee-time-preview" class="coffee-time-preview"
-             aria-live="polite">
-            Choose a date, time, and timezone to preview both meeting times.
-        </div>
+                    <div id="coffee-time-preview" class="coffee-time-preview"
+                         aria-live="polite">
+                        <h3>Meeting Time Preview</h3>
+                        <p id="coffee-your-time">
+                            Choose a date and time.
+                        </p>
+                        <p id="coffee-their-time">
+                            Choose a member to see their meeting time.
+                        </p>
+                    </div>
 
                     <label for="coffee-message">Message (optional)</label>
                     <textarea id="coffee-message" rows="4"
