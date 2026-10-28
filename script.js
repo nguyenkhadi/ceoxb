@@ -550,38 +550,91 @@ if (profileForm) {
     });
 }
 
-const dashboardCalendar = document.getElementById("calendar-days");
+const dashboardUpcoming = document.getElementById("dashboard-upcoming-events");
 
-if (dashboardCalendar) {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth();
+if (dashboardUpcoming) {
+    loadDashboardEvents();
+}
 
-    const monthLabel = document.getElementById("calendar-month");
+async function loadDashboardEvents() {
+    try {
+        const user = await getCurrentUser();
 
-    monthLabel.textContent = today.toLocaleDateString("en-US", {
-        month: "long",
-        year: "numeric"
-    });
-
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-    for (let i = 0; i < firstDay; i++) {
-        const empty = document.createElement("div");
-        empty.className = "calendar-day empty";
-        dashboardCalendar.appendChild(empty);
-    }
-
-    for (let day = 1; day <= daysInMonth; day++) {
-        const cell = document.createElement("div");
-        cell.className = "calendar-day";
-        cell.textContent = day;
-
-        if (day === today.getDate()) {
-            cell.classList.add("today");
+        if (!user) {
+            dashboardUpcoming.textContent = "Sign in to see your activities.";
+            return;
         }
 
-        dashboardCalendar.appendChild(cell);
+        const storageKey = "ceoxb-coffee-drafts-" + user.id;
+        const requests = JSON.parse(
+            localStorage.getItem(storageKey) || "[]"
+        );
+
+        const now = new Date();
+
+        const upcoming = (Array.isArray(requests) ? requests : [])
+            .filter(function(request) {
+                if (!request.date || !request.time) return false;
+
+                if (request.status !== "sent" &&
+                    request.status !== "draft") return false;
+
+                const eventDate = new Date(
+                    request.date + "T" + request.time
+                );
+
+                return !isNaN(eventDate.getTime()) && eventDate > now;
+            })
+            .sort(function(a, b) {
+                return new Date(a.date + "T" + a.time) -
+                    new Date(b.date + "T" + b.time);
+            })
+            .slice(0, 3);
+
+        dashboardUpcoming.replaceChildren();
+
+        if (upcoming.length === 0) {
+            const message = document.createElement("p");
+            message.textContent = "No upcoming coffee chat proposals.";
+            dashboardUpcoming.appendChild(message);
+            return;
+        }
+
+        upcoming.forEach(function(request) {
+            const eventDate = new Date(
+                request.date + "T" + request.time
+            );
+
+            const item = document.createElement("div");
+            item.className = "dashboard-upcoming-item";
+
+            const details = document.createElement("div");
+
+            const title = document.createElement("h4");
+            title.textContent = "Coffee Chat with " +
+                (request.memberName || "a member");
+
+            const date = document.createElement("p");
+            date.textContent = eventDate.toLocaleString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+                hour: "numeric",
+                minute: "2-digit"
+            });
+
+            const status = document.createElement("span");
+            status.className = "dashboard-upcoming-status";
+            status.textContent = "Proposed · Not Confirmed";
+
+            details.append(title, date);
+            item.append(details, status);
+            dashboardUpcoming.appendChild(item);
+        });
+
+    } catch (error) {
+        console.error("Unable to load dashboard events:", error);
+        dashboardUpcoming.textContent = "Unable to load upcoming activities.";
     }
 }
+
