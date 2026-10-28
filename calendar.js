@@ -319,5 +319,4 @@ if (fullCalendar) {
         }).catch(function() {
             eventStatus.textContent = "Unable to load personal events.";
         });
-    }
 }
