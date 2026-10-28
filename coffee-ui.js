@@ -10,6 +10,66 @@ document.addEventListener("DOMContentLoaded", async function () {
     const list = document.getElementById("coffee-requests-list");
     const tabs = document.querySelectorAll("[data-coffee-filter]");
 
+    const yourTime = document.getElementById("coffee-your-time");
+    const theirTime = document.getElementById("coffee-their-time");
+    
+    function updateMeetingPreview() {
+        if (!yourTime || !theirTime) return;
+    
+        if (!date.value || !time.value) {
+            yourTime.textContent = "Choose a date and time.";
+            theirTime.textContent = "Choose a member to see their time.";
+            return;
+        }
+    
+        const meeting = new Date(date.value + "T" + time.value);
+    
+        if (Number.isNaN(meeting.getTime())) {
+            yourTime.textContent = "Invalid meeting time.";
+            theirTime.textContent = "";
+            return;
+        }
+    
+        const formatMeeting = function(timezone) {
+            return new Intl.DateTimeFormat("en-US", {
+                dateStyle: "full",
+                timeStyle: "short",
+                timeZone: timezone
+            }).format(meeting);
+        };
+    
+        yourTime.textContent =
+            "Your time: " + formatMeeting(
+                Intl.DateTimeFormat().resolvedOptions().timeZone
+            );
+    
+        if (!member.value) {
+            theirTime.textContent = "Choose a member.";
+            return;
+        }
+    
+        const recipientTimezone =
+            member.selectedOptions[0].dataset.timezone;
+    
+        if (!recipientTimezone) {
+            theirTime.textContent =
+                "Recipient's timezone is unavailable.";
+            return;
+        }
+    
+        try {
+            theirTime.textContent =
+                "Recipient's time: " + formatMeeting(recipientTimezone);
+        } catch (error) {
+            theirTime.textContent =
+                "Recipient's timezone is unavailable.";
+        }
+    }
+    
+    member.addEventListener("change", updateMeetingPreview);
+    date.addEventListener("change", updateMeetingPreview);
+    time.addEventListener("input", updateMeetingPreview);
+
     if (!form || !list) return;
 
     let storageKey = "";
@@ -29,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     date.min = todayString();
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
     
-    const timezoneLabel = document.getElementById("coffee-timezone-label");
+    const timezoneLabel = document.getElementById("coffee-sender-timezone");
     
     if (timezoneLabel) {
         timezoneLabel.textContent =
@@ -155,7 +215,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                             : formatDate(request.date) +
                                 " at " + formatTime(request.time)
                 )
-            );
+            ));
 
             const status = createElement(
                 "span",
@@ -214,6 +274,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                             submit.textContent = "Save Changes";
                             result.textContent = "Editing your Coffee Chat request.";
+                            updateMeetingPreview();
 
                             form.scrollIntoView({
                                 behavior: "smooth",
@@ -253,6 +314,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         form.reset();
         editingId = null;
         submit.textContent = "Save Coffee Chat";
+        updateMeetingPreview();
     }
 
     form.addEventListener("submit", function (event) {
@@ -393,10 +455,26 @@ document.addEventListener("DOMContentLoaded", async function () {
             return profile.id !== user.id;
         });
         
+        const memberTimezones = {};
+
+        const { data: timezoneProfiles, error: timezoneError } =
+            await _supabase
+                .from("profiles")
+                .select("id, timezone");
+        
+        if (!timezoneError) {
+            (timezoneProfiles || []).forEach(function(profile) {
+                if (profile.timezone) {
+                    memberTimezones[profile.id] = profile.timezone;
+                }
+            });
+        }
         otherMembers.forEach(function(profile) {
             const option = document.createElement("option");
         
             option.value = profile.id;
+            option.dataset.timezone = memberTimezones[profile.id] || "";
+            
             option.textContent = [
                 profile.name || "Unnamed member",
                 profile.company
@@ -419,6 +497,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         
         submit.disabled = otherMembers.length === 0;
         result.textContent = "";
+        updateMeetingPreview();
     } catch (error) {
         result.textContent =
             "Unable to load your drafts in this browser.";
