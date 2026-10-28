@@ -34,7 +34,6 @@
             <div class="dashboard-welcome-row">
                 <div>
                     <h1 id="dashboard-welcome">Welcome Back!</h1>
-                    <p>Here's what's happening in your CEO XB community.</p>
                 </div>
                 <button type="button" id="replay-tour" class="tour-replay">
                     Tutorial
@@ -120,7 +119,7 @@
                 </form>
         
                 <div id="cohort-update-summary" hidden>
-                    <h3>Your update is saved</h3>
+                    <h3>Your update is saved.</h3>
                     <div id="cohort-update-saved-text"></div>
                     <button type="button" id="cohort-update-edit"
                             class="cohort-edit-btn">
@@ -140,12 +139,18 @@
         
             <div class="dashboard-card dashboard-event-card">
                 <div class="dashboard-event-icon">▦</div>
-                <div>
-                    <h3>Your Cohort Events</h3>
-                    <p>Stay connected through upcoming community activities.</p>
-                    <a href="calendar.html" class="recommendation-button">
-                        View Calendar
-                    </a>
+                
+                <div class="dashboard-event-content">
+                    <h3>Your Upcoming Activities</h3>
+        
+                    <div id="dashboard-upcoming-events">
+                        <p>Loading your activities...</p>
+                    </div>
+                    <div class="recommendation-actions">
+                        <a href="calendar.html" class="recommendation-button">
+                            View Calendar
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -190,7 +195,7 @@
                 <div class="dashboard-card badge-collection">
                     <div class="achievement-heading">
                         <h3>Achievement Badges</h3>
-                        <span id="earned-badge-count">0 / 3 earned</span>
+                        <span id="earned-badge-count">0 / 4 earned</span>
                     </div>
 
                     <div class="badge-grid">
