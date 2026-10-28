@@ -2810,3 +2810,23 @@ html[data-theme="dark"] .coffee-danger-button {
     font: inherit;
     font-weight: 600;
 }
+
+.coffee-time-preview {
+    margin-top: 20px;
+    padding: 18px;
+    background: var(--soft-blue);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.coffee-time-preview h3 {
+    margin: 0 0 12px;
+    font-size: 16px;
+    color: var(--text);
+}
+
+.coffee-time-preview p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: var(--text);
+}
