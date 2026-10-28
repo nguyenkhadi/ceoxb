@@ -104,11 +104,36 @@
                 
                     <p id="calendar-event-status" role="status"></p>
                 </form>
-                <div class="calendar-detail-actions">
-                    <a href="coffee.html" class="card-link">
-                        Schedule Coffee
-                    </a>
-                </div>
+                
+                <section class="calendar-coffee-section">
+                    <h3>Request Coffee Chat</h3>
+                    <p>Choose a CEO and suggest a meeting time.</p>
+                
+                    <form id="calendar-coffee-form" class="calendar-event-form">
+                        <label for="calendar-coffee-member">Member</label>
+                        <select id="calendar-coffee-member" required disabled>
+                            <option value="">Loading members...</option>
+                        </select>
+                
+                        <label for="calendar-coffee-time">Time</label>
+                        <input type="time" id="calendar-coffee-time" required>
+                
+                        <label for="calendar-coffee-message">
+                            Message (optional)
+                        </label>
+                        <textarea id="calendar-coffee-message"
+                                  rows="3" maxlength="500"
+                                  placeholder="What would you like to discuss?"></textarea>
+                
+                        <button type="submit" id="calendar-coffee-submit"
+                                class="signin-button" disabled>
+                            Save Coffee Chat Request
+                        </button>
+                
+                        <p id="calendar-coffee-status" role="status"></p>
+                    </form>
+                </section>
+
             </aside>
         </div>
     </main>
