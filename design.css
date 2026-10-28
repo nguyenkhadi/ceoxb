@@ -2830,3 +2830,67 @@ html[data-theme="dark"] .coffee-danger-button {
     font-size: 14px;
     color: var(--text);
 }
+
+.profile-achievement-settings {
+    padding: 24px;
+}
+
+.achievement-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 16px;
+}
+
+.achievement-section-header h2 {
+    margin: 0;
+}
+
+.achievement-selection-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.achievement-selection-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    min-width: 0;
+}
+
+.achievement-selection-item input {
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.achievement-selection-icon {
+    flex-shrink: 0;
+    font-size: 18px;
+}
+
+.achievement-selection-info {
+    min-width: 0;
+}
+
+.achievement-selection-info strong {
+    display: block;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+#achievement-privacy-status:empty {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .achievement-selection-list {
+        grid-template-columns: 1fr;
+    }
+}
