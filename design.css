@@ -2353,7 +2353,8 @@ html[data-theme="dark"] .achievement-celebration-card p {
     font-weight: 700;
 }
 
-.coffee-request-status.draft {
+.coffee-request-status.draft,
+.coffee-request-status.sent {
     background: var(--soft-blue);
     color: var(--blue);
 }
@@ -2443,17 +2444,6 @@ html[data-theme="dark"] .coffee-danger-button {
         padding: 18px;
     }
 }
-
-.coffee-request-status.sent {
-    background: var(--soft-blue);
-    color: var(--blue);
-}
-
-.coffee-request-actions {
-    margin-top: 18px;
-}
-
-/* Connect to Coffee Chats */
 
 .member-coffee-button {
     display: inline-flex;
