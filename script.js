@@ -183,14 +183,19 @@ if (memberSearch) {
             interestText.textContent = "Interests: " + interests;
             card.appendChild(interestText);
         }
-
+        const coffeeButton = document.createElement("a");
+        coffeeButton.href = "coffee.html?member=" + encodeURIComponent(profile.id);
+        coffeeButton.className = "member-coffee-button";
+        coffeeButton.textContent = "☕ Schedule Coffee Chat";
+        
+        card.appendChild(coffeeButton);
         memberList.appendChild(card);
     }
 
     async function loadMembers() {
         const { data, error } = await _supabase
             .from("profiles")
-            .select("name, role, company, location, interests, avatar_url")
+            .select("id, name, role, company, location, interests, avatar_url")
             .order("name");
 
         if (error) {
