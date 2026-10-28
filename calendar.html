@@ -80,6 +80,30 @@
                     Choose a day to view its events.
                 </p>
 
+                <div id="calendar-event-list" class="calendar-event-list"></div>
+
+                <form id="calendar-event-form" class="calendar-event-form">
+                    <h3>Add Personal Event</h3>
+                
+                    <label for="event-title">Event Name</label>
+                    <input type="text" id="event-title"
+                           placeholder="Enter event name"
+                           maxlength="100" required>
+                
+                    <label for="event-time">Time</label>
+                    <input type="time" id="event-time" required>
+                
+                    <label for="event-description">Description (optional)</label>
+                    <textarea id="event-description" rows="3"
+                              maxlength="500"
+                              placeholder="Event details..."></textarea>
+                
+                    <button type="submit" class="signin-button">
+                        Add Event
+                    </button>
+                
+                    <p id="calendar-event-status" role="status"></p>
+                </form>
                 <div class="calendar-detail-actions">
                     <a href="coffee.html" class="card-link">
                         Schedule Coffee
