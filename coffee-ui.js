@@ -141,7 +141,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                 "span",
                 request.status === "cancelled"
                     ? "Cancelled"
-                    : "Draft · Not sent",
+                    : request.status === "draft"
+                        ? "Old Draft"
+                        : "Sent",
                 "coffee-request-status " + request.status
             );
 
@@ -158,14 +160,14 @@ document.addEventListener("DOMContentLoaded", async function () {
                 );
             }
 
-            if (request.status === "draft") {
+            if (request.status === "sent" || request.status === "draft") {
                 const actions = createElement(
                     "div", undefined, "coffee-request-actions"
                 );
 
                 actions.append(
                     makeButton(
-                        "Edit",
+                        "Edit Request",
                         "coffee-secondary-button",
                         function () {
                             editingId = request.id;
@@ -184,7 +186,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         }
                     ),
                     makeButton(
-                        "Cancel Draft",
+                        "Cancel Request",
                         "coffee-danger-button",
                         function () {
                             request.status = "cancelled";
@@ -252,7 +254,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             date: date.value,
             time: time.value,
             message: message.value.trim(),
-            status: "draft"
+            status: "sent"
         };
 
         const previous = requests.slice();
@@ -323,7 +325,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                     typeof item.memberName === "string" &&
                     typeof item.date === "string" &&
                     typeof item.time === "string" &&
-                    (item.status === "draft" ||
+                    (item.status === "sent" ||
+                     item.status === "draft" ||
                      item.status === "cancelled");
             })
             : [];
