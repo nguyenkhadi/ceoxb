@@ -1,4 +1,3 @@
-
 const cohortForm = document.getElementById("cohort-update-form");
 
 if (cohortForm) {
@@ -35,13 +34,16 @@ if (cohortForm) {
         ];
 
         sections.forEach(function(section) {
+            const item = document.createElement("div");
+            
             const heading = document.createElement("h4");
             heading.textContent = section[0];
 
             const paragraph = document.createElement("p");
             paragraph.textContent = section[1];
-
-            savedText.append(heading, paragraph);
+            
+            item.append(heading, paragraph);
+            savedText.appendChild(item);
         });
 
         cohortForm.hidden = true;
