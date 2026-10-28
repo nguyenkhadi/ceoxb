@@ -131,6 +131,7 @@ if (memberSearch) {
         const role = (profile.role || "").trim();
         const company = (profile.company || "").trim();
         const location = (profile.location || "").trim();
+        const about = (profile.about || "").trim();
         const interests = (profile.interests || "").trim();
         
         if (!name || !profile.avatar_url) {
@@ -202,6 +203,19 @@ if (memberSearch) {
             const value = document.createElement("p");
             value.textContent = "📍 " + location;
     
+            section.append(title, value);
+            content.appendChild(section);
+        }
+        if (about) {
+            const section = document.createElement("div");
+            section.className = "member-modal-info";
+        
+            const title = document.createElement("h3");
+            title.textContent = "About Me";
+        
+            const value = document.createElement("p");
+            value.textContent = about;
+        
             section.append(title, value);
             content.appendChild(section);
         }
@@ -341,7 +355,7 @@ if (memberSearch) {
     async function loadMembers() {
         const { data, error } = await _supabase
             .from("profiles")
-            .select("id, name, role, company, location, interests, avatar_url")
+            .select("id, name, role, company, location, about, interests, avatar_url")
             .order("name");
 
         if (error) {
