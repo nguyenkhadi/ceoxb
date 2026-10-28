@@ -3076,3 +3076,14 @@ html[data-theme="dark"] #full-calendar-days button.calendar-day.today {
         padding: 26px 20px;
     }
 }
+
+.profile-left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+}
+
+html[data-theme="dark"] #edit-about {
+    border: 1px solid #e0e7ef;
+}
