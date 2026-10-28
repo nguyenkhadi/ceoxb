@@ -296,14 +296,10 @@ if (memberSearch) {
         });
     }
 
-    if (!badges.children.length) {
-        const empty = document.createElement("p");
-        empty.textContent = "No featured achievements available.";
-        badges.appendChild(empty);
-    }
-
+    if (badges.children.length > 0) {
         achievements.appendChild(badges);
         content.appendChild(achievements);
+    }
     
         const linkedinUrl = localStorage.getItem(
             "ceoxb-linkedin-" + profile.id
