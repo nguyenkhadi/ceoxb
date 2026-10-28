@@ -2898,14 +2898,15 @@ html[data-theme="dark"] .coffee-danger-button {
     }
 }
 
-html[data-theme="dark"] .calendar-day:not(.empty):hover {
-    background: #24445e;
-    color: #ffffff;
-    border-color: #41637d;
+html[data-theme="dark"] #full-calendar-days button.calendar-day:hover,
+html[data-theme="dark"] #full-calendar-days button.calendar-day:focus-visible {
+    background: #24445e !important;
+    color: #ffffff !important;
+    border-color: #41637d !important;
 }
 
-html[data-theme="dark"] .calendar-day.today:hover,
-html[data-theme="dark"] .calendar-day.selected:hover {
+html[data-theme="dark"] #full-calendar-days button.calendar-day.selected,
+html[data-theme="dark"] #full-calendar-days button.calendar-day.today {
     background: #285c82;
     color: #ffffff;
     border-color: #347ca8;
