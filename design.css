@@ -10,9 +10,7 @@
     --border: #e0e7ef;
     --radius: 14px;
     --shadow: 0 5px 22px rgba(8, 44, 80, 0.06);
-    --accent-bright: #56b9dc;
     --surface-blue: #f2f8fc;
-    --gold: #e8a83d;
 }
 
 body {
@@ -212,7 +210,13 @@ textarea:focus-visible {
 }
 
 .member-card {
-    text-align: left;
+    text-align: center;
+}
+
+.member-card .card-link {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .member-picture {
@@ -2730,7 +2734,6 @@ html[data-theme="dark"] .coffee-danger-button {
 }
 
 .calendar-event-form input,
-.calendar-event-form select,
 .calendar-event-form textarea {
     width: 100%;
     padding: 12px;
@@ -2893,4 +2896,17 @@ html[data-theme="dark"] .coffee-danger-button {
     .achievement-selection-list {
         grid-template-columns: 1fr;
     }
+}
+
+html[data-theme="dark"] .calendar-day:not(.empty):hover {
+    background: #24445e;
+    color: #ffffff;
+    border-color: #41637d;
+}
+
+html[data-theme="dark"] .calendar-day.today:hover,
+html[data-theme="dark"] .calendar-day.selected:hover {
+    background: #285c82;
+    color: #ffffff;
+    border-color: #347ca8;
 }
