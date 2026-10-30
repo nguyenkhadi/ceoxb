@@ -49,10 +49,10 @@ body {
 }
 
 .signup-btn {
-  background-color: #082c50;
+  background-color: #0C4C6F;
   color: white !important;
   padding: 12px 22px;
-  border-radius: 25px;
+  border-radius: 400%;
 }
 
 .hero {
