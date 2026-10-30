@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CEO XB - Coffee Chats</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="design.css">
 </head>
 <body>
     <header>
@@ -14,10 +15,12 @@
             </a>
             <div class="nav-links">
                 <a href="dashboard.html">Dashboard</a>
+                <a href="calendar.html">Calendar</a>
                 <a href="learn.html">Learn</a>
                 <a href="connect.html">Connect</a>
                 <a href="coffee.html" aria-current="page">Coffee Chats</a>
-                <a href="#">Discuss</a>
+                <a href="discuss.html">Discuss</a>
+                <a href="profile.html">Profile</a>
                 <a href="#" id="signout">Sign Out</a>
             </div>
         </nav>
@@ -36,24 +39,35 @@
                 <form id="coffee-form" class="coffee-form">
                     <label for="coffee-member">Member</label>
                     <select id="coffee-member" required>
-                        <option value="">Select a member</option>
-                        <option>Julie Chen</option>
-                        <option>Sid Mayer</option>
-                        <option>Joachim Becker</option>
-                        <option>Alex Rivera</option>
+                        <option value="">Select a member.</option>
                     </select>
+                    <p id="coffee-member-status" class="coffee-hint" role="status"></p>
 
                     <label for="coffee-date">Date</label>
                     <input type="date" id="coffee-date" required>
 
                     <label for="coffee-time">Time</label>
                     <input type="time" id="coffee-time" required>
+                    <p id="coffee-sender-timezone" class="coffee-hint"></p>
+                    
+                    <div id="coffee-time-preview" class="coffee-time-preview"
+                         aria-live="polite">
+                        <h3>Meeting Time Preview</h3>
+                        <p id="coffee-your-time">
+                            Choose a date and time.
+                        </p>
+                        <p id="coffee-their-time">
+                            Choose a member to see their meeting time.
+                        </p>
+                    </div>
 
                     <label for="coffee-message">Message (optional)</label>
                     <textarea id="coffee-message" rows="4"
                               placeholder="What would you like to talk about?"></textarea>
 
-                    <button type="submit" class="signin-button">Request Coffee Chat</button>
+                    <button type="submit" id="coffee-submit" class="signin-button" disabled>
+                        Send Coffee Chat
+                    </button>
                     <p id="coffee-result" role="status" class="learn-note"></p>
                 </form>
             </section>
@@ -63,12 +77,31 @@
                 <p>Connect with other members of your CEO XB community.</p>
                 <p>Share business experiences, discuss challenges, and learn from peers.</p>
                 <a class="card-link" href="connect.html">Browse Members</a>
-                <p class="learn-note">This is a design demo. Requests are not sent or saved.</p>
             </section>
         </div>
+                <section class="dashboard-section coffee-requests-section">
+            <div class="section-heading">
+                <div>
+                    <h2>My Coffee Chats</h2>
+                    <p>Manage your proposed conversations.</p>
+                </div>
+            </div>
+
+            <div class="coffee-status-tabs">
+                <button type="button" class="active" data-coffee-filter="all">All</button>
+                <button type="button" data-coffee-filter="sent">Sent</button>
+                <button type="button" data-coffee-filter="cancelled">Cancelled</button>
+            </div>
+
+            <div id="coffee-requests-list" class="coffee-requests-list"></div>
+        </section>
     </main>
 
     <footer><p>CEO XB</p></footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+    <script src="supabase.js"></script>
     <script src="script.js"></script>
+    <script src="coffee-ui.js"></script>
+    <script src="theme.js"></script>
 </body>
 </html>

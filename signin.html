@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CEO XB - Sign In</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="design.css">
 </head>
 <body>
     <header>
@@ -23,11 +24,11 @@
 
     <main class="signin-page">
         <section class="signin-box">
-            <h1>Welcome back</h1>
+            <h1>Welcome Back</h1>
             <p>Sign in to your CEO XB account.</p>
 
             <form id="signin-form">
-                <label for="email">Email address</label>
+                <label for="email">Email Address</label>
                 <input type="email" id="email" name="email"
                        placeholder="you@example.com" required>
 
@@ -39,14 +40,29 @@
                 <p id="signin-message" class="signin-message" role="status"></p>
             </form>
 
-            <p class="signin-note">CEO XB is an invite-only community.</p>
-            <a href="index.html">Back to Home</a>
+            <div class="signin-footer-actions">
+                <p class="signin-note">
+                    CEO XB is a curated, invite-only community.
+                </p>
+                <p class="signin-apply-text">
+                    Don't have an account?
+                </p>   
+                <a href="request-access.html" class="signin-apply-link">
+                        Apply to Join <span aria-hidden="true">→</span>
+                    </a>
+                <a href="index.html" class="signin-back-link">
+                    <span aria-hidden="true">←</span> Back to Home
+                </a>
+            </div>
         </section>
     </main>
 
     <footer>
         <p>CEO XB</p>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+    <script src="supabase.js"></script>
     <script src="script.js"></script>
+    <script src="theme.js"></script>
 </body>
 </html>

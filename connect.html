@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CEO XB - Connect</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="design.css">
 </head>
 <body>
     <header>
@@ -14,10 +15,12 @@
             </a>
             <div class="nav-links">
                 <a href="dashboard.html">Dashboard</a>
+                <a href="calendar.html">Calendar</a>
                 <a href="learn.html">Learn</a>
                 <a href="connect.html" aria-current="page">Connect</a>
                 <a href="coffee.html">Coffee Chats</a>
-                <a href="#">Discuss</a>
+                <a href="discuss.html">Discuss</a>
+                <a href="profile.html">Profile</a>
                 <a href="#" id="signout">Sign Out</a>
             </div>
         </nav>
@@ -38,55 +41,21 @@
         <section class="dashboard-section">
             <div class="section-heading">
                 <h2>Member Directory</h2>
-                <span id="member-count">4 members</span>
+                <span id="member-count">0 members</span>
             </div>
-            <div class="dashboard-grid" id="member-list">
-                <article class="dashboard-card member-card" data-search="julie chen nova health san francisco">
-                    <div class="member-avatar">JC</div>
-                    <h3>Julie Chen</h3>
-                    <p class="member-role">CEO at Nova Health</p>
-                    <p>San Francisco, CA</p>
-                    <p>Interested in healthcare innovation and partnerships.</p>
-                    <span class="member-tag">Healthcare</span>
-                    <a href="coffee.html" class="card-link">Request Coffee Chat</a>
-                </article>
-
-                <article class="dashboard-card member-card" data-search="sid mayer peak biomedical vienna">
-                    <div class="member-avatar">SM</div>
-                    <h3>Sid Mayer</h3>
-                    <p class="member-role">CEO at Peak Biomedical</p>
-                    <p>Vienna, Austria</p>
-                    <p>Working on growth and U.S. market entry.</p>
-                    <span class="member-tag">Biotech</span>
-                    <a href="coffee.html" class="card-link">Request Coffee Chat</a>
-                </article>
-
-                <article class="dashboard-card member-card" data-search="joachim becker xeras bonus berlin">
-                    <div class="member-avatar">JB</div>
-                    <h3>Joachim Becker</h3>
-                    <p class="member-role">CEO at Xeras Bonus</p>
-                    <p>Berlin, Germany</p>
-                    <p>Interested in fundraising and business strategy.</p>
-                    <span class="member-tag">Life Sciences</span>
-                    <a href="coffee.html" class="card-link">Request Coffee Chat</a>
-                </article>
-
-                <article class="dashboard-card member-card" data-search="alex rivera medbridge boston">
-                    <div class="member-avatar">AR</div>
-                    <h3>Alex Rivera</h3>
-                    <p class="member-role">Founder at MedBridge</p>
-                    <p>Boston, MA</p>
-                    <p>Building connections with other founders.</p>
-                    <span class="member-tag">MedTech</span>
-                    <a href="coffee.html" class="card-link">Request Coffee Chat</a>
-                </article>
-            </div>
-            <p id="no-members" class="learn-note" hidden>No members found.</p>
-            <p class="learn-note">Sample profiles for UI/UX testing only.</p>
+        
+            <div class="dashboard-grid" id="member-list"></div>
+            <p id="no-search-results" class="learn-note" hidden>
+                No matching members found.
+            </p>
         </section>
     </main>
 
     <footer><p>CEO XB</p></footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+    <script src="supabase.js"></script>
     <script src="script.js"></script>
+    <script src="theme.js"></script>
+    
 </body>
 </html>

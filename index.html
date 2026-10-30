@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CEO XB - Home</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="design.css" />
   </head>
   <body>
-    <!-- Navigation -->
     <header>
       <nav class="navbar">
         <a href="index.html" class="logo">
@@ -16,32 +16,35 @@
         <div class="nav-links">
           <a href="index.html">Home</a>
           <a href="#about">About</a>
-          <a href="signin.html">Sign In</a>
-          <a href="request-access.html" class="signup-btn">Request Access</a>
+          <a href="signin.html">Log In</a>
+          <a href="request-access.html" class="signup-btn">Let’s Get Started</a>
         </div>
       </nav>
     </header>
 
     <main>
       <!-- Home -->
-      <div class="main-content">
-        <div class="hero">
-          <div class="hero-content">
-            <h1>Grow alongside with other CEOs.</h1>
-            <p>
-              CEO XB provides a private cohort of founders scaling into U.S.
-              markets for real accountability, and the connections to achieve
-              the goal.
-            </p>
-            <img src="imgs/about_info.png" alt="" class="about_info_img" />
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Grow alongside other CEOs.</h1>
+          <p>
+            CEO XB brings together a private cohort of CEOs scaling into the
+            U.S. market, providing peer accountability, practical support, and
+            the connections to accelerate their growth.
+          </p>
+          <img src="imgs/about_info.png" alt="" class="about_info_img" />
+          <div class="entry-actions">
             <a href="request-access.html" class="main-btn">Get Started</a>
+            <a href="signin.html" class="entry-secondary">Log In</a>
+            <a href="request-access.html?invited=1" class="entry-secondary"
+              >Have an invitation?</a
+            >
           </div>
         </div>
-
         <div class="img-column">
           <img src="imgs/onboarding_img.png" alt="" />
         </div>
-      </div>
+      </section>
 
       <!-- About -->
       <!-- <section id="about" class="about">
@@ -54,9 +57,12 @@
       </section> -->
     </main>
 
-    <!-- <footer>
-      <p>CEO XB</p>
-    </footer> -->
+    <footer>
+        <p>CEO XB</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+    <script src="supabase.js"></script>
     <script src="script.js"></script>
+    <script src="theme.js"></script>
   </body>
 </html>
